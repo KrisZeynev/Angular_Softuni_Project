@@ -4,10 +4,12 @@ import { HomePage } from './pages/home-page/home-page';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { AboutPage } from './pages/about-page/about-page';
+import { RegisterPage } from './pages/register-page/register-page';
+import { LoginPage } from './pages/login-page/login-page';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomePage, Header, Footer, AboutPage],
+  imports: [RouterOutlet, HomePage, Header, Footer, AboutPage, RegisterPage, LoginPage],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
