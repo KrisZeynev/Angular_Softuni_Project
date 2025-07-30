@@ -18,3 +18,21 @@ html {
   background-color: #dadddc;
   color: #14203b;
 }
+
+/* additional update to move the footer to the bottom of the page start */
+
+html, body {
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* additional update to move the footer to the bottom of the page end */
