@@ -4,10 +4,14 @@
   border-radius: 10px;
   padding: 1rem;
   width: 330px;
-  margin: 1rem auto;
-  font-family: Arial, sans-serif;
+  margin: 1rem auto; /* check later for home page */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.book-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(20, 32, 59, 0.4);
+}
 
 .book-card-header {
   text-align: center;
@@ -19,8 +23,6 @@
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 0.5rem;
-  /* object-fit: contain; */
-  /* border: 1px solid red; */
 }
 
 .book-card-header h3 {
@@ -35,7 +37,6 @@
   margin: 0;
 }
 
-
 .book-card-actions hr {
   border: none;
   border-top: 1px solid #d1d5db;
@@ -43,12 +44,10 @@
   width: 75%;
 }
 
-
 .details-btn {
   display: flex;
   justify-content: center;
 }
-
 
 .btn {
   display: inline-block;
@@ -67,26 +66,10 @@
   transform: scale(1.05);
 }
 
-.btn-blue {
-  background: #3b82f6;
-}
-
-.btn-blue:hover {
-  background: #2563eb;
-}
-
-.btn-red {
-  background: #ef4444;
-}
-
-.btn-red:hover {
-  background: #dc2626;
-}
-
 .btn-indigo {
-  background: #6366f1;
+  background: #5f6c7f;
 }
 
 .btn-indigo:hover {
-  background: #4f46e5;
+  background: #394657;
 }
