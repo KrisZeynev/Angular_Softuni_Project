@@ -6,10 +6,11 @@ import { Footer } from './components/footer/footer';
 import { AboutPage } from './pages/about-page/about-page';
 import { RegisterPage } from './pages/register-page/register-page';
 import { LoginPage } from './pages/login-page/login-page';
+import { BookDetailsCard } from './components/book-details-card/book-details-card';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomePage, Header, Footer, AboutPage, RegisterPage, LoginPage],
+  imports: [RouterOutlet, HomePage, Header, Footer, AboutPage, RegisterPage, LoginPage, BookDetailsCard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
