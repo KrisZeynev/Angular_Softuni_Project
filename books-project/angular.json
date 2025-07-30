@@ -5,7 +5,9 @@
   "projects": {
     "books-project": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "standalone": true
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

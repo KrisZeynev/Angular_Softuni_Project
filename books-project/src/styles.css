@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 * {
 padding: 0;
 margin: 0;
@@ -17,6 +19,18 @@ html {
 :root {
   background-color: #dadddc;
   color: #14203b;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #dadddc;
+  color: #14203b;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 
 /* additional update to move the footer to the bottom of the page start */
