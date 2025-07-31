@@ -13,8 +13,24 @@
         /* border: 1px solid blue; */
         display: flex;
         flex-wrap: wrap;
-        justify-content:center;
+        justify-content: center;
         gap: 5em;
         width: 1250px;
+    }
+
+    .home-no-books-found {
+        border: 1px solid red;
+        text-align: center;
+        font-size: 1.1rem;
+        color: #555;
+        font-style: italic;
+        /* margin-top: 2em; */
+        padding: 1em;
+        background-color: #f9f9f9;
+        border: 1px dashed #ccc;
+        border-radius: 8px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
