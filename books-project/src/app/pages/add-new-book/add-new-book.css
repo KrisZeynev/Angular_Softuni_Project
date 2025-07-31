@@ -2,7 +2,8 @@
     max-width: 42rem;
     margin: 10rem auto;
     /* margin: 2.5rem auto; */
-    margin: 4rem auto;
+    margin: 11rem auto;
+    /* min-height: 85vh; */
     padding: 1.5rem;
     background-color: #fdfdfd;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
