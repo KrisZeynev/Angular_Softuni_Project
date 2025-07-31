@@ -1,0 +1,62 @@
+<div class="form-container">
+    <h1 class="form-title">Create New Book</h1>
+
+    <form class="book-form">
+        <div class="form-grid">
+            <label>
+                <span class="label-text">Title</span>
+                <input type="text" name="title" placeholder="Title*" />
+                <p class="error-msg">Title is required</p>
+            </label>
+
+            <label>
+                <span class="label-text">Description</span>
+                <input type="text" name="description" placeholder="Description*" />
+                <p class="error-msg">Description is required</p>
+            </label>
+
+            <label>
+                <span class="label-text">Author</span>
+                <input type="text" name="author" placeholder="Author*" />
+                <p class="error-msg">Author is required</p>
+            </label>
+
+            <label>
+                <span class="label-text">Genre</span>
+                <input type="text" name="genre" placeholder="Genre*" />
+                <p class="error-msg">Genre is required</p>
+            </label>
+
+            <label>
+                <span class="label-text">Publication Year</span>
+                <input type="text" name="publicationYear" placeholder="Publication year*" />
+                <p class="error-msg">Year is required</p>
+            </label>
+
+            <label>
+                <span class="label-text">Number of Pages</span>
+                <input type="text" name="pages" placeholder="Number of pages*" />
+                <p class="error-msg">Pages are required</p>
+            </label>
+        </div>
+
+        <div class="form-grid">
+            <label>
+                <span class="label-text">ISBN</span>
+                <input type="text" name="isbn" placeholder="ISBN*" />
+                <p class="error-msg">ISBN is required</p>
+            </label>
+
+            <label>
+                <span class="label-text">Image</span>
+                <input type="text" name="image" placeholder="http://..." />
+                <p class="error-msg">Image URL is required</p>
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-add">Add</button>
+            <button type="button" class="btn btn-cancel">Cancel</button>
+        </div>
+    </form>
+</div>
