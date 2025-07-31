@@ -14,6 +14,11 @@ export const routes: Routes = [
       import('./pages/catalog-page/catalog-page').then((c) => c.CatalogPage),
   },
   {
+    path: ':id/details',
+    loadComponent: () =>
+      import('./pages/book-details-page/book-details-page').then(c => c.BookDetailsPage)
+  },
+  {
     path: 'add-new-book',
     loadComponent: () =>
       import('./pages/add-new-book/add-new-book').then((c) => c.AddNewBook),
