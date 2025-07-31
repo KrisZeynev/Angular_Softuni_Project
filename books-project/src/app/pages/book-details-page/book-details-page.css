@@ -1,0 +1,156 @@
+.book-details-container {
+  padding: 2rem;
+  max-width: 768px;
+  margin: 0 auto;
+  color: #1f2937; /* similar to text-nav */
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.book-card {
+  background-color: #f3f4f6; /* bg-cardDetails */
+  box-shadow: 0 4px 8px rgba(20, 32, 59, 0.5);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.book-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.book-image img {
+  width: 250px;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.book-info h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.book-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-blue {
+  background-color: #3b82f6;
+}
+
+.btn-blue:hover {
+  background-color: #2563eb;
+}
+
+.btn-red {
+  background-color: #ef4444;
+}
+
+.btn-red:hover {
+  background-color: #dc2626;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid #14203b;
+}
+
+.divider span {
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  color: #14203b;
+}
+
+.book-description {
+  text-align: center;
+  line-height: 1.6;
+}
+
+.comment-section {
+  margin-top: 2rem;
+  border-top: 4px solid #14203b;
+  padding-top: 1rem;
+}
+
+.success-banner {
+  background-color: #d1fae5;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  color: #065f46;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 0.375rem;
+  resize: vertical;
+}
+
+.comments-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.comment {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(20, 32, 59, 0.2);
+}
+
+.no-comments {
+  grid-column: span 2;
+  background-color: #f3f4f6;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: #1f2937;
+}

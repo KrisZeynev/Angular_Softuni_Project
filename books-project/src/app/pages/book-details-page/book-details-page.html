@@ -1,1 +1,53 @@
-<p>book-details-page works!</p>
+<section class="book-details-container">
+  <h1 class="section-title">Book Details</h1>
+
+  <div class="book-card">
+    <div class="book-main">
+      <div class="book-image">
+        <img src="IMAGE_URL_HERE" alt="Book Cover" />
+      </div>
+
+      <div class="book-info">
+        <h2>Book Title</h2>
+        <span>Author: Author Name</span>
+        <span>Genre: Genre Name</span>
+        <span>Pages: 300</span>
+        <span>Year: 2023</span>
+        <span>ISBN: 1234567890</span>
+
+        <div class="book-actions">
+          <!-- if user is owner -->
+          <a href="#" class="btn btn-blue">Edit</a>
+          <button class="btn btn-red">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><span>Description</span></div>
+    <p class="book-description">This is a short description of the book...</p>
+
+    <div class="comment-section">
+      <!-- banner for succesfully created message -->
+      <!-- <div class="success-banner">Comment submitted successfully!</div> -->
+
+      <!-- comment form -->
+      <div class="comment-form">
+        <textarea placeholder="Write your comment..."></textarea>
+        <button class="btn btn-blue">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span>Comments</span></div>
+
+  <div class="comments-grid">
+    <!-- if some comments -->
+    <div class="comment">This is a comment.</div>
+    <div class="comment">Another comment.</div>
+
+    <!-- if no comments -->
+    <!--
+    <div class="no-comments">No comments have been added yet!</div>
+    -->
+  </div>
+</section>
