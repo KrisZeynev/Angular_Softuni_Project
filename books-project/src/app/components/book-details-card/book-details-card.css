@@ -11,6 +11,7 @@
 .book-card:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 12px rgba(20, 32, 59, 0.4);
+  cursor: pointer;
 }
 
 .book-card-header {

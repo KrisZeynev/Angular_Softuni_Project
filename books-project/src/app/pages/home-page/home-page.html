@@ -1,1 +1,13 @@
-<p>home-page works!</p>
+<h1 class="home-title">Welcome to my Angular Books project!</h1>
+
+<div class="home-content-container">
+    @if (books.length >= 1) {
+        <div class="home-content">
+            @for (book of books; track book.id) {
+                <app-book-details-card [book]="book" />
+            }
+        </div>
+    } @else {
+    <p>no books found</p>
+    }
+</div>
