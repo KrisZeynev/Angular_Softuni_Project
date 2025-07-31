@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'add-new-book',
     loadComponent: () =>
-      import('./pages/add-new-book/add-new-book').then(c => c.AddNewBook)
+      import('./pages/add-new-book/add-new-book').then((c) => c.AddNewBook),
   },
   {
     path: 'preferences',
@@ -28,17 +28,17 @@ export const routes: Routes = [
   {
     path: 'about-us',
     loadComponent: () =>
-      import('./pages/about-page/about-page').then((m) => m.AboutPage),
+      import('./pages/about-page/about-page').then((c) => c.AboutPage),
   },
   {
     path: 'login',
     loadComponent: () =>
-      import('./pages/login-page/login-page').then((m) => m.LoginPage),
+      import('./pages/login-page/login-page').then((c) => c.LoginPage),
   },
   {
     path: 'register',
     loadComponent: () =>
-      import('./pages/register-page/register-page').then((m) => m.RegisterPage),
+      import('./pages/register-page/register-page').then((c) => c.RegisterPage),
   },
   {
     path: 'logout',
