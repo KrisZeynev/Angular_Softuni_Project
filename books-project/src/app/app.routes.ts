@@ -13,10 +13,37 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/catalog-page/catalog-page').then((c) => c.CatalogPage),
   },
-//   {
-//     path: 'preferences',
-//     loadComponent: () =>
-//       import('./pages/'),
-//   },
+  {
+    path: 'add-new-book',
+    loadComponent: () =>
+      import('./pages/add-new-book/add-new-book').then(c => c.AddNewBook)
+  },
+  {
+    path: 'preferences',
+    loadComponent: () =>
+      import('./pages/preferences-page/preferences-page').then(
+        (c) => c.PreferencesPage
+      ),
+  },
+  {
+    path: 'about-us',
+    loadComponent: () =>
+      import('./pages/about-page/about-page').then((m) => m.AboutPage),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login-page/login-page').then((m) => m.LoginPage),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/register-page/register-page').then((m) => m.RegisterPage),
+  },
+  {
+    path: 'logout',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
   { path: '**', component: NotFound },
 ];
