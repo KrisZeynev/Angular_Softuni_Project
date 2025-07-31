@@ -21,7 +21,6 @@
 .book-card-header img {
   width: 100%;
   height: 280px;
-  /* object-fit: cover; */
   object-fit: contain;
   border-radius: 6px;
   margin-bottom: 0.5rem;
@@ -49,6 +48,16 @@
 .details-btn {
   display: flex;
   justify-content: center;
+  gap: 1rem; 
+  flex-wrap: wrap; 
+}
+
+.btn-favorite {
+  background: #d97706;
+}
+
+.btn-favorite:hover {
+  background: #b45309;
 }
 
 .btn {

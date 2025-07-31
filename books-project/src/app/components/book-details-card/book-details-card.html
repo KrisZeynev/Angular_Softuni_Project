@@ -1,17 +1,19 @@
 <div class="book-card">
-    <div class="book-card-header">
-        <img src={{book.image}}
-            alt="Book title" />
-        <h3>{{ book.title }}</h3>
-        <p>by {{ book.author }}</p>
-    </div>
+  <div class="book-card-header">
+    <img [src]="book.image" alt="Book title" />
+    <h3>{{ book.title }}</h3>
+    <p>by {{ book.author }}</p>
+  </div>
 
-    <div class="book-card-actions">
-        <hr />
-        <div class="details-btn">
-            <a href="/catalog/1/details" class="btn btn-indigo">
-                ℹ️ Details
-            </a>
-        </div>
+  <div class="book-card-actions">
+    <hr />
+    <div class="details-btn">
+      <a href="/catalog/{{ book.id }}/details" class="btn btn-indigo">
+        ℹ️ Details
+      </a>
+      <button class="btn btn-favorite" (click)="addToFavorites()">
+        ❤️ Add to Favorites
+      </button>
     </div>
+  </div>
 </div>
