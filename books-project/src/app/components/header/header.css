@@ -43,6 +43,24 @@ nav ul li a:hover {
   margin-top: 0;
 }
 
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #576470;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 9999px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .auth a {
   text-decoration: none;
   color: white;
