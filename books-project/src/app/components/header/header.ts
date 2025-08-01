@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
-  isLoggedIn: boolean = true
+  isLoggedIn: boolean = true;
   
   logout(): void {
     console.log("you've logged out")
