@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './components/not-found/not-found';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,11 +21,13 @@ export const routes: Routes = [
   },
   {
     path: 'add-new-book',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/add-new-book/add-new-book').then((c) => c.AddNewBook),
   },
   {
     path: 'preferences',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/preferences-page/preferences-page').then(
         (c) => c.PreferencesPage
@@ -47,6 +50,7 @@ export const routes: Routes = [
   },
   {
     path: 'logout',
+    // canActivate: [authGuard],
     redirectTo: '/home',
     pathMatch: 'full',
   },
