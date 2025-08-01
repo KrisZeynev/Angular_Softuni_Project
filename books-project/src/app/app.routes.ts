@@ -49,6 +49,11 @@ export const routes: Routes = [
       import('./pages/register-page/register-page').then((c) => c.RegisterPage),
   },
   {
+    path: 'profile',
+    loadComponent: () =>
+      import('./pages/profile-page/profile-page').then((c) => c.ProfilePage),
+  },
+  {
     path: 'logout',
     // canActivate: [authGuard],
     redirectTo: '/home',

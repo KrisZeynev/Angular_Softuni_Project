@@ -5,28 +5,28 @@
 
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/catalog">Catalog</a></li>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/catalog">Catalog</a></li>
       @if (isLoggedIn) {
-        <li><a href="/add-new-book">Add new book</a></li>
-        <li><a href="/preferences">Preferences</a></li>
+        <li><a routerLink="/add-new-book">Add new book</a></li>
+        <li><a routerLink="/preferences">Preferences</a></li>
       }
-      <li><a href="/about-us">About Us</a></li>
+      <li><a routerLink="/about-us">About Us</a></li>
     </ul>
   </nav>
 
   @if (isLoggedIn) {
     <div class="auth">
       <div class="profile-container">
-        <img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" />
-        <span>Profile</span>
+        <a routerLink="/profile"><img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" /></a>
+        <span><a routerLink="/profile">Profile</a></span>
       </div>
-      <a href="/logout" (click)="logout()">Logout</a>
+      <a routerLink="/logout" (click)="logout()">Logout</a>
     </div>
   } @else {
     <div class="auth">
-      <a href="/login">Login</a>
-      <a href="/register">Register</a>
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
     </div>
   }
 </header>
