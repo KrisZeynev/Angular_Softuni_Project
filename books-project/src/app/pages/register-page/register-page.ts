@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router'; 
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-register-page',
@@ -20,12 +22,15 @@ export class RegisterPage {
 
   errorMessage: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private cdr: ChangeDetectorRef 
+  ) {}
 
-  // private authService = inject(AuthService);
+  onSubmit(form: NgForm) {
+    this.errorMessage = ''; 
 
-  onSubmit(form: any) {
-    console.log(`username: ${this.formData.username}`);
     if (form.invalid) {
       this.errorMessage = 'Please fill all required fields correctly.';
       return;
@@ -35,8 +40,6 @@ export class RegisterPage {
       this.errorMessage = 'Passwords do not match!';
       return;
     }
-
-    this.errorMessage = '';
 
     this.authService
       .register(
@@ -48,14 +51,19 @@ export class RegisterPage {
       .subscribe({
         next: (response) => {
           console.log('Registration successful', response);
-          // this.router.navigate(['/login']);
+
+          form.resetForm();
+          
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           console.error('Registration failed', err);
           this.errorMessage =
             err.error?.message || 'Registration failed. Please try again.';
+          this.cdr.detectChanges(); 
+          console.log(this.errorMessage);
+          console.log(this.formData.username);
         },
       });
   }
-  
 }
