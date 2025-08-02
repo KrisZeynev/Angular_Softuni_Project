@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
-  isLoggedIn: boolean = true;
+  // isLoggedIn: boolean = false;
   
   logout(): void {
     console.log("you've logged out")

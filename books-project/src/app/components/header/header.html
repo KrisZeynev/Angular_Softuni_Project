@@ -7,15 +7,15 @@
     <ul>
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/catalog">Catalog</a></li>
-      @if (isLoggedIn) {
+      <!-- @if (isLoggedIn) { -->
         <li><a routerLink="/add-new-book">Add new book</a></li>
         <li><a routerLink="/preferences">Preferences</a></li>
-      }
+      <!-- } -->
       <li><a routerLink="/about-us">About Us</a></li>
     </ul>
   </nav>
 
-  @if (isLoggedIn) {
+  <!-- @if (isLoggedIn) { -->
     <div class="auth">
       <div class="profile-container">
         <a routerLink="/profile"><img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" /></a>
@@ -23,10 +23,10 @@
       </div>
       <a routerLink="/logout" (click)="logout()">Logout</a>
     </div>
-  } @else {
+  <!-- } @else { -->
     <div class="auth">
       <a routerLink="/login">Login</a>
       <a routerLink="/register">Register</a>
     </div>
-  }
+  <!-- } -->
 </header>
