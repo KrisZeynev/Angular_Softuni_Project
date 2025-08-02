@@ -8,11 +8,8 @@ export const authGuard: CanActivateFn = (route, state) => {
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    const isLoggedInV = true;
-
     if (authService.isLoggedIn()) {
-        console.log(`here: ${new Date().getHours()}`)
-    // if (isLoggedInV) {
+        console.log(`Access granted at: ${new Date().toLocaleTimeString()}`);
         return true;
     } else {
         return router.createUrlTree(['/login'])
