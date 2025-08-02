@@ -1,43 +1,41 @@
 #register-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 85vh;
-    /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 82vh;
+  /* border: 1px solid red; */
 }
 
-
-#register {
+#register-page form {
   background-color: #ffffff;
   padding: 2rem;
   width: 380px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-#register > div {
+#register-page>form>div {
   text-align: center;
   margin-bottom: 1rem;
 }
 
-#register h1 {
+#register-page h1 {
   font-size: 1.6rem;
   font-weight: bold;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
 
-
-#register label {
+#register-page label {
   display: block;
   font-weight: 600;
   color: #374151;
   margin-bottom: 0.3rem;
 }
 
-#register input[type="email"],
-#register input[type="password"] {
+#register-page input[type="text"],
+#register-page input[type="email"],
+#register-page input[type="password"] {
   width: 100%;
   padding: 0.6rem;
   margin-bottom: 1rem;
@@ -48,16 +46,16 @@
   box-sizing: border-box;
 }
 
-#register input[type="email"]:focus,
-#register input[type="password"]:focus {
+#register-page input[type="text"]:focus,
+#register-page input[type="email"]:focus,
+#register-page input[type="password"]:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
-
-#register button[type="submit"] {
+#register-page button[type="submit"] {
   width: 100%;
-  background-color: #3b82f6; 
+  background-color: #3b82f6;
   color: white;
   font-weight: bold;
   padding: 0.7rem;
@@ -68,26 +66,24 @@
   transition: background 0.2s ease;
 }
 
-#register button[type="submit"]:hover {
-  background-color: #2563eb; 
+#register-page button[type="submit"]:hover {
+  background-color: #2563eb;
 }
 
-
-#register p {
+#register-page p {
   text-align: center;
   margin-top: 1rem;
   color: #4b5563;
 }
 
-#register p a {
+#register-page p a {
   color: #3b82f6;
   text-decoration: none;
 }
 
-#register p a:hover {
+#register-page p a:hover {
   text-decoration: underline;
 }
-
 
 #register-error {
   margin-top: 1rem;
@@ -98,4 +94,8 @@
   color: #b91c1c;
   font-size: 0.9rem;
   text-align: center;
+}
+
+.error-msg {
+  color: red;
 }

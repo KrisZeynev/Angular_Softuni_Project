@@ -16,7 +16,7 @@ export class AuthService {
 
     constructor(private httpClient: HttpClient) {
         const savedUser = localStorage.getItem('currentUser');
-        if(savedUser) {
+        if (savedUser) {
             const user = JSON.parse(savedUser);
             this._currentUser.set(user);
             this._isLoggedIn.set(true);
@@ -37,15 +37,14 @@ export class AuthService {
     }
 
     register(
-        username: string, 
-        email: string, 
-        phone: string, 
-        password: string, 
-        rePassword: string): Observable<User> {
+        username: string,
+        email: string,
+        password: string,
+        rePassword: string
+    ): Observable<User> {
         return this.httpClient.post<ApiUser>(`${this.apiUrl}/register`, {
             username,
             email,
-            tel: phone,
             password,
             rePassword
         }, {
@@ -79,16 +78,15 @@ export class AuthService {
     update(user: User): Observable<User> {
         return this.httpClient.put<ApiUser>(`${this.apiUrl}/users/${user.id}`, {
             _id: user.id,
-            // username: user.username,
             email: user.email,
-            // tel: user.phone       
+            username: user.username,
         }, {
             withCredentials: true
         }).pipe(
             map(apiUser => this.mapApiUserToUser(apiUser)),
             tap(user => {
                 this._currentUser.set(user);
-                localStorage.setItem('currentUser', JSON.stringify(user))
+                localStorage.setItem('currentUser', JSON.stringify(user));
             })
         );
     }
@@ -98,11 +96,10 @@ export class AuthService {
     }
 
     private mapApiUserToUser(apiUser: ApiUser): User {
-        return <User> {
+        return <User>{
             id: apiUser._id,
             username: apiUser.username,
             email: apiUser.email,
-            // phone: apiUser.tel
         };
     }
 }
