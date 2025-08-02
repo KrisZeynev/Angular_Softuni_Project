@@ -1,70 +1,40 @@
 <section id="register-page">
   <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
     <div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-           viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-           aria-hidden="true" width="64" height="64">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        aria-hidden="true" width="64" height="64">
         <path stroke-linecap="round" stroke-linejoin="round"
-              d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
       </svg>
       <h1>Register</h1>
     </div>
 
     <label for="username">Username:</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      [(ngModel)]="formData.username"
-      required
-      minlength="5"
-      #username="ngModel"
-    />
+    <input type="text" id="username" name="username" [(ngModel)]="formData.username" required minlength="5"
+      #username="ngModel" />
     <div *ngIf="username.invalid && username.touched" class="error-msg">
       <small *ngIf="username.errors?.['required']">Username is required.</small>
       <small *ngIf="username.errors?.['minlength']">Username must be at least 5 characters.</small>
     </div>
 
     <label for="email">Email:</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      [(ngModel)]="formData.email"
-      required
-      email
-      #email="ngModel"
-    />
+    <input type="email" id="email" name="email" [(ngModel)]="formData.email" required email #email="ngModel" />
     <div *ngIf="email.invalid && email.touched" class="error-msg">
       <small *ngIf="email.errors?.['required']">Email is required.</small>
       <small *ngIf="email.errors?.['email']">Email must be valid.</small>
     </div>
 
     <label for="register-password">Password:</label>
-    <input
-      type="password"
-      id="register-password"
-      name="password"
-      [(ngModel)]="formData.password"
-      required
-      minlength="6"
-      #password="ngModel"
-    />
+    <input type="password" id="register-password" name="password" [(ngModel)]="formData.password" required minlength="6"
+      #password="ngModel" />
     <div *ngIf="password.invalid && password.touched" class="error-msg">
       <small *ngIf="password.errors?.['required']">Password is required.</small>
       <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters.</small>
     </div>
 
     <label for="confirmPassword">Confirm Password:</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      name="confirmPassword"
-      [(ngModel)]="formData.confirmPassword"
-      required
-      minlength="6"
-      #confirmPassword="ngModel"
-    />
+    <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="formData.confirmPassword" required
+      minlength="6" #confirmPassword="ngModel" />
     <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="error-msg">
       <small *ngIf="confirmPassword.errors?.['required']">Please confirm your password.</small>
       <small *ngIf="confirmPassword.errors?.['minlength']">Confirmation must be at least 6 characters.</small>
