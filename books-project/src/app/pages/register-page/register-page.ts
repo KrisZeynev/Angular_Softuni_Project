@@ -53,7 +53,7 @@ export class RegisterPage {
           console.log('Registration successful', response);
 
           form.resetForm();
-          
+
           this.router.navigate(['/home']);
         },
         error: (err) => {
@@ -61,8 +61,6 @@ export class RegisterPage {
           this.errorMessage =
             err.error?.message || 'Registration failed. Please try again.';
           this.cdr.detectChanges(); 
-          console.log(this.errorMessage);
-          console.log(this.formData.username);
         },
       });
   }

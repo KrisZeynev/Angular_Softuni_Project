@@ -2,7 +2,6 @@ import { Injectable, signal } from "@angular/core";
 import { ApiUser, User } from "../../models";
 import { HttpClient } from "@angular/common/http";
 import { map, Observable, tap } from "rxjs";
-import { RegisterPage } from "../../pages/register-page/register-page";
 
 @Injectable({
     providedIn: 'root'
