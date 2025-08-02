@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from "../../core/services/auth.service"
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,14 @@ import { RouterModule } from '@angular/router';
 })
 export class Header {
   // isLoggedIn: boolean = false;
+  // const authService = inject(AuthService);
+  private authService = inject(AuthService);
+  readonly isLoggedIn = this.authService.isLoggedIn;
+  readonly currentUser = this.authService.currentUser;
+
+  get loggedIn(): boolean {
+    return this.isLoggedIn();
+  }
   
   logout(): void {
     console.log("you've logged out")
