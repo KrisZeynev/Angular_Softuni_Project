@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { AuthService } from "../../core/services/auth.service"
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +9,7 @@ import { AuthService } from "../../core/services/auth.service"
   styleUrl: './header.css',
 })
 export class Header {
-  // isLoggedIn: boolean = false;
-  // const authService = inject(AuthService);
+  private router = inject(Router);
   private authService = inject(AuthService);
   readonly isLoggedIn = this.authService.isLoggedIn;
   readonly currentUser = this.authService.currentUser;
@@ -18,16 +17,16 @@ export class Header {
   get loggedIn(): boolean {
     return this.isLoggedIn();
   }
-  
+
   logout(): void {
-    console.log("you've logged out")
-    // this.authService.logout().subscribe({
-    //   next: () => {
-    //     this.router.navigate(['/home']);
-    //   },
-    //   error: (err) => {
-    //     console.log('Logout failed', err);
-    //   }
-    // });
+    console.log("you've logged out");
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.log('Logout failed', err);
+      },
+    });
   }
 }
