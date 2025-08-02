@@ -6,7 +6,6 @@ import { RegisterPage } from "../../pages/register-page/register-page";
 
 @Injectable({
     providedIn: 'root'
-    // providedIn: RegisterPage
 })
 export class AuthService {
     private apiUrl = 'http://localhost:3000/api';

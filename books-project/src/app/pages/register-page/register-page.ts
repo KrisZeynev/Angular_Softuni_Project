@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
@@ -20,7 +20,9 @@ export class RegisterPage {
 
   errorMessage: string = '';
 
-  // constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
+
+  // private authService = inject(AuthService);
 
   onSubmit(form: any) {
     console.log(`username: ${this.formData.username}`);
@@ -36,23 +38,24 @@ export class RegisterPage {
 
     this.errorMessage = '';
 
-    // this.authService
-    //   .register(
-    //     this.formData.username,
-    //     this.formData.email,
-    //     this.formData.password,
-    //     this.formData.confirmPassword
-    //   )
-    //   .subscribe({
-    //     next: (response) => {
-    //       console.log('Registration successful', response);
-    //       // this.router.navigate(['/login']);
-    //     },
-    //     error: (err) => {
-    //       console.error('Registration failed', err);
-    //       this.errorMessage =
-    //         err.error?.message || 'Registration failed. Please try again.';
-    //     },
-    //   });
+    this.authService
+      .register(
+        this.formData.username,
+        this.formData.email,
+        this.formData.password,
+        this.formData.confirmPassword
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('Registration successful', response);
+          // this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Registration failed', err);
+          this.errorMessage =
+            err.error?.message || 'Registration failed. Please try again.';
+        },
+      });
   }
+  
 }
