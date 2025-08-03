@@ -2,6 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/userService';
+import { Router } from '@angular/router';
+// import { RouterModule } from '@angular/router';
+// import { Router } from '@angular/router'; 
 // import { User } from '../../models';
 
 @Component({
@@ -14,6 +17,7 @@ import { UserService } from '../../core/services/userService';
 export class ProfilePage {
   private authService = inject(AuthService);
   private userService = inject(UserService); 
+  private router = inject(Router)
 
   formData = {
     username: '',
@@ -57,15 +61,23 @@ export class ProfilePage {
 
 
     this.userService.updateUser(currentUser.id, updatedUser).subscribe({
+    // this.userService.updateUser(currentUser.id, updatedUser).subscribe({
       next: (user) => {
         console.log('User updated successfully:', user);
         this.errorMessage = '';
+
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        // this.authService.update(user: User);
+
+        // this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Error updating user:', err);
         this.errorMessage = 'Failed to update user data. Please try again.';
       },
     });
+
+    
 
     console.log('updated data', updatedUser);
   }

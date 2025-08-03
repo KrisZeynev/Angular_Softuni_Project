@@ -23,6 +23,17 @@ export class AuthService {
     }
   }
 
+  public setCurrentUser(user: User | null): void {
+    this._currentUser.set(user);
+    if (user) {
+      this._isLoggedIn.set(true);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    } else {
+      this._isLoggedIn.set(false);
+      localStorage.removeItem('currentUser');
+    }
+  }
+
   login(email: string, password: string): Observable<User> {
     return this.httpClient
       .post<ApiUser>(
@@ -95,20 +106,43 @@ export class AuthService {
     return this._currentUser()?.id || null;
   }
 
-  update(user: User): Observable<User> {
+  // might remove it:
+  // update(user: User): Observable<User> {
+  //   return this.httpClient
+  //     .put<ApiUser>(
+  //       `${this.apiUrl}/users/${user.id}`,
+  //       // `${this.apiUrl}/profile`,
+  //       {
+  //         _id: user.id,
+  //         email: user.email,
+  //         username: user.username,
+  //         profileImg: user.profileImg,
+  //       },
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     )
+  //     .pipe(
+  //       map((apiUser) => this.mapApiUserToUser(apiUser)),
+  //       tap((user) => {
+  //         this._currentUser.set(user);
+  //         localStorage.setItem('currentUser', JSON.stringify(user));
+  //       })
+  //     );
+  // }
+
+  // update
+  update(
+    id: string,
+    username: string,
+    email: string,
+    profileImg: string
+  ): Observable<User> {
     return this.httpClient
       .put<ApiUser>(
-        `${this.apiUrl}/users/${user.id}`,
-        // `${this.apiUrl}/profile`,
-        {
-          _id: user.id,
-          email: user.email,
-          username: user.username,
-          profileImg: user.profileImg,
-        },
-        {
-          withCredentials: true,
-        }
+        `${this.apiUrl}/users/${id}`,
+        { username, email, profileImg },
+        { withCredentials: true }
       )
       .pipe(
         map((apiUser) => this.mapApiUserToUser(apiUser)),
@@ -123,19 +157,19 @@ export class AuthService {
     return 'FAKE_TOKEN=12132';
   }
 
-//   refreshCurrentUser(): Observable<User> {
-//     return this.httpClient
-//       .get<ApiUser>(`${this.apiUrl}/profile`, {
-//         withCredentials: true,
-//       })
-//       .pipe(
-//         map((apiUser) => this.mapApiUserToUser(apiUser)),
-//         tap((user) => {
-//           this._currentUser.set(user);
-//           localStorage.setItem('currentUser', JSON.stringify(user));
-//         })
-//       );
-//   }
+  //   refreshCurrentUser(): Observable<User> {
+  //     return this.httpClient
+  //       .get<ApiUser>(`${this.apiUrl}/profile`, {
+  //         withCredentials: true,
+  //       })
+  //       .pipe(
+  //         map((apiUser) => this.mapApiUserToUser(apiUser)),
+  //         tap((user) => {
+  //           this._currentUser.set(user);
+  //           localStorage.setItem('currentUser', JSON.stringify(user));
+  //         })
+  //       );
+  //   }
 
   private mapApiUserToUser(apiUser: ApiUser): User {
     return <User>{
