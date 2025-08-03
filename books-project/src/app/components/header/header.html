@@ -20,7 +20,7 @@
       <div class="profile-container">
         <a routerLink="/profile"><img [src]="profileImg()" alt="User Avatar" class="profile-img" /></a>
         <!-- <a routerLink="/profile"><img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" /></a> -->
-        <span><a routerLink="/profile">Profile</a></span>
+        <span><a routerLink="/profile">{{ username }}</a></span>
       </div>
       <a routerLink="/logout" (click)="logout()">Logout</a>
     </div>

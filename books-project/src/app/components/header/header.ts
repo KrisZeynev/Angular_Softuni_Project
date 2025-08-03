@@ -20,6 +20,10 @@ export class Header {
   get loggedIn(): boolean {
     return this.isLoggedIn();
   }
+
+  get username(): string {
+  return this.currentUser()?.username || 'Guest';
+}
   
   logout(): void {
     console.log("you've logged out");
