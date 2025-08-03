@@ -1,4 +1,4 @@
-<section id="profile-page">
+<!-- <section id="profile-page">
   <form id="profile-form" autocomplete="off">
     <div class="form-header">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -24,7 +24,48 @@
 
     <button type="submit">Save Changes</button>
 
-    <!-- Optional: message or errors -->
+    <div id="profile-error" role="alert" aria-live="polite" hidden></div>
+  </form>
+</section> -->
+
+<section id="profile-page">
+  <form id="profile-form" autocomplete="off" (ngSubmit)="onSubmit()" #f="ngForm">
+    <div class="form-header">
+      <img [src]="formData.profileImg" alt="Profile Image" width="100" height="100" style="border-radius: 50%;" />
+      <h1>Profile Settings</h1>
+    </div>
+
+    <div class="profile-row">
+      <div class="profile-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="formData.email" required />
+      </div>
+
+      <div class="profile-group">
+        <label for="username">Username:</label>
+        <input type="username" id="username" name="username" [(ngModel)]="formData.username" required />
+      </div>
+    </div>
+
+    <div class="profile-row">
+      <div class="profile-group">
+        <label for="password">New Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="formData.password" minlength="6" />
+      </div>
+      <div class="profile-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="formData.confirmPassword"
+          minlength="6" />
+      </div>
+    </div>
+
+
+
+    <label for="profileImg">Profile Image URL:</label>
+    <input type="url" id="profileImg" name="profileImg" [(ngModel)]="formData.profileImg" />
+
+    <button type="submit">Save Changes</button>
+
     <div id="profile-error" role="alert" aria-live="polite" hidden></div>
   </form>
 </section>
