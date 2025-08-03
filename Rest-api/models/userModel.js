@@ -5,7 +5,7 @@ const saltRounds = Number(process.env.SALTROUNDS) || 5;
 const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
-    tel: {
+    profileImg: {
         type: String,
     },
     email: {
