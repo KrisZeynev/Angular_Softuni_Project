@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
-import { User } from '../../models';
+import { UserService } from '../../core/services/userService';
+// import { User } from '../../models';
 
 @Component({
   selector: 'app-profile-page',
@@ -12,12 +13,11 @@ import { User } from '../../models';
 })
 export class ProfilePage {
   private authService = inject(AuthService);
+  private userService = inject(UserService); 
 
   formData = {
     username: '',
     email: '',
-    password: '',
-    confirmPassword: '',
     profileImg: '',
   };
 
@@ -25,7 +25,7 @@ export class ProfilePage {
 
   ngOnInit(): void {
     const user = this.authService.currentUser();
-    console.log(user);
+    console.log(`user: ${user}`);
     if (user) {
       this.formData.email = user.email || '';
       this.formData.profileImg = user.profileImg || '';
@@ -47,28 +47,26 @@ export class ProfilePage {
       return;
     }
 
-    const updatedUser: User = {
-      id: currentUser.id,
+    console.log(`currId: ${currentUser.id}`)
+
+    const updatedUser = {
       email: this.formData.email,
       username: this.formData.username,
       profileImg: this.formData.profileImg,
     };
 
-    this.authService.update(updatedUser).subscribe({
-    next: (user) => {
-      console.log('User updated successfully:', user);
-      this.errorMessage = '';
-      this.formData.password = '';
-      this.formData.confirmPassword = '';
-    },
-    error: (err) => {
-      console.error('Error updating user:', err);
-      // this.errorMessage = 'Failed to update user data. Please try again.';
-    },
-  });
+
+    this.userService.updateUser(currentUser.id, updatedUser).subscribe({
+      next: (user) => {
+        console.log('User updated successfully:', user);
+        this.errorMessage = '';
+      },
+      error: (err) => {
+        console.error('Error updating user:', err);
+        this.errorMessage = 'Failed to update user data. Please try again.';
+      },
+    });
 
     console.log('updated data', updatedUser);
-
-    // console.log('Submitted formData:', this.formData);
   }
 }
