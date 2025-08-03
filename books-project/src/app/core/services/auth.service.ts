@@ -99,6 +99,7 @@ export class AuthService {
     return this.httpClient
       .put<ApiUser>(
         `${this.apiUrl}/users/${user.id}`,
+        // `${this.apiUrl}/profile`,
         {
           _id: user.id,
           email: user.email,
