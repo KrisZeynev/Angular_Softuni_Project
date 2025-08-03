@@ -40,13 +40,15 @@ export class AuthService {
         username: string,
         email: string,
         password: string,
-        rePassword: string
+        rePassword: string,
+        profileImg: string
     ): Observable<User> {
         return this.httpClient.post<ApiUser>(`${this.apiUrl}/register`, {
             username,
             email,
             password,
-            rePassword
+            rePassword,
+            profileImg
         }, {
             withCredentials: true
         }).pipe(

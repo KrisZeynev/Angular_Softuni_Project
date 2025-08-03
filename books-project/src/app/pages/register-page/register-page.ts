@@ -19,6 +19,7 @@ export class RegisterPage {
     email: '',
     password: '',
     confirmPassword: '',
+    profileImg: ''
   };
 
   errorMessage: string = '';
@@ -47,7 +48,8 @@ export class RegisterPage {
         this.formData.username,
         this.formData.email,
         this.formData.password,
-        this.formData.confirmPassword
+        this.formData.confirmPassword,
+        this.formData.profileImg,
       )
       .subscribe({
         next: (response) => {

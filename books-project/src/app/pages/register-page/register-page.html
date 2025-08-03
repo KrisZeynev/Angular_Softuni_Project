@@ -40,6 +40,9 @@
       <small *ngIf="confirmPassword.errors?.['minlength']">Confirmation must be at least 6 characters.</small>
     </div>
 
+    <label for="profileImg">Profile Image URL:</label>
+    <input type="text" id="profileImg" name="profileImg" [(ngModel)]="formData.profileImg" />
+
     <button type="submit">Register</button>
 
     <p>
