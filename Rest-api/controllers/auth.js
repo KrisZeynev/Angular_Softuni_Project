@@ -43,11 +43,11 @@ const removePassword = (data) => {
 // }
 
 function register(req, res, next) {
-  const { tel, email, username, password, repeatPassword, profileImg } =
+  const { email, username, password, repeatPassword, profileImg } =
     req.body;
 
   return userModel
-    .create({ tel, email, username, password, profileImg })
+    .create({ email, username, password, profileImg })
     .then((createdUser) => {
       createdUser = bsonToJson(createdUser);
       createdUser = removePassword(createdUser);
@@ -106,7 +106,13 @@ function login(req, res, next) {
       } else {
         res.cookie(authCookieName, token, { httpOnly: true });
       }
-      res.status(200).send(user);
+      // res.status(200).send(user);
+      res.status(200).send({
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        profileImg: user.profileImg,
+      });
     })
     .catch(next);
 }
@@ -138,12 +144,12 @@ function getProfileInfo(req, res, next) {
 
 function editProfileInfo(req, res, next) {
   const { _id: userId } = req.user;
-  const { tel, username, email } = req.body;
+  const { username, email } = req.body;
 
   userModel
     .findOneAndUpdate(
       { _id: userId },
-      { tel, username, email },
+      { username, email },
       { runValidators: true, new: true }
     )
     .then((x) => {
