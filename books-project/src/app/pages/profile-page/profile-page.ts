@@ -27,39 +27,55 @@ export class ProfilePage implements OnInit {
 
   errorMessage = '';
 
-  onSubmit(form: NgForm): void {
-    console.log('test submit');
-  }
+  // ngOnInit(): void {
+  //   this.authService.currentUser().subscribe({
+  //     next: (user) => {
+  //       console.log('User:', user.username);
+  //       console.log('Email:', user.email);
+  //       console.log('Picture:', user.profileImg);
+  //       if (user) {
+  //         console.log('ajde');
+  //         this.formData.email = user.email;
+  //         this.formData.profileImg = user.profileImg || '';
+  //         this.formData.username = user.username || '';
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to fetch user:', err);
+  //     },
+  //   });
+  // }
 
   ngOnInit(): void {
-    this.authService.currentUser().subscribe({
-      next: (user) => {
-        console.log('User:', user?.username);
-        if (user) {
-          console.log('ajde');
-          this.formData.email = user.email || '';
-          this.formData.profileImg = user.profileImg || '';
-          this.formData.username = user.username || '';
-        }
-      },
-      error: (err) => {
-        console.error('Failed to fetch user:', err);
-      },
-    });
+  this.authService.loadCurrentUserFromAPI();
+
+  this.authService.currentUser$.subscribe((user) => {
+    if (user) {
+      console.log('Got user in ProfilePage:', user);
+      this.formData.email = user.email;
+      this.formData.profileImg = user.profileImg || '';
+      this.formData.username = user.username || '';
+    }
+  });
+}
+
+  onSubmit(form: NgForm): void {
+    console.log('test submit');
+    console.log(`username: ${form}`);
   }
 
-//   ngOnInit(): void {
-//   this.authService.currentUser$.subscribe(user => {
-//     if (user) {
-//       this.formData.username = user.username;
-//       this.formData.email = user.email;
-//       this.formData.profileImg = user.profileImg;
-//     }
-//   });
+  //   ngOnInit(): void {
+  //   this.authService.currentUser$.subscribe(user => {
+  //     if (user) {
+  //       this.formData.username = user.username;
+  //       this.formData.email = user.email;
+  //       this.formData.profileImg = user.profileImg;
+  //     }
+  //   });
 
-//   // Ensure latest user is loaded from API when needed
-//   this.authService.loadCurrentUserFromAPI();
-// }
+  //   // Ensure latest user is loaded from API when needed
+  //   this.authService.loadCurrentUserFromAPI();
+  // }
 
   // onSubmit(form: NgForm): void {
   //   if (form.invalid) {
