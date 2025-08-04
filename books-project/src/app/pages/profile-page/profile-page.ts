@@ -48,6 +48,19 @@ export class ProfilePage implements OnInit {
     });
   }
 
+//   ngOnInit(): void {
+//   this.authService.currentUser$.subscribe(user => {
+//     if (user) {
+//       this.formData.username = user.username;
+//       this.formData.email = user.email;
+//       this.formData.profileImg = user.profileImg;
+//     }
+//   });
+
+//   // Ensure latest user is loaded from API when needed
+//   this.authService.loadCurrentUserFromAPI();
+// }
+
   // onSubmit(form: NgForm): void {
   //   if (form.invalid) {
   //     this.errorMessage = 'Please fill all required fields correctly.';

@@ -201,6 +201,9 @@ import { User } from '../../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
+  //  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  // public currentUser$ = this.currentUserSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
@@ -270,6 +273,33 @@ export class AuthService {
       headers,
     });
   }
+
+  //
+  //
+
+//   private currentUserSubject = new BehaviorSubject<User | null>(null);
+// public currentUser$ = this.currentUserSubject.asObservable();
+
+// loadCurrentUserFromAPI(): void {
+//   const accessToken = this.getUser('accessToken');
+//   const currId = this.getUser('userId');
+//   const headers = new HttpHeaders({
+//     'X-Authorization': accessToken || '',
+//   });
+
+//   this.http.get<User>(`http://localhost:3030/users/${currId}`, { headers })
+//     .subscribe({
+//       next: (user) => {
+//         this.currentUserSubject.next(user);
+//       },
+//       error: (err) => {
+//         console.error('Failed to load user:', err);
+//       }
+//     });
+// }
+
+
+
 
   logout(): void {
     const accessToken = this.getUser('accessToken');
