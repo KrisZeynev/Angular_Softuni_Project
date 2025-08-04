@@ -3,21 +3,18 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
 import { Router } from '@angular/router';
-// import { RouterModule } from '@angular/router';
-// import { Router } from '@angular/router';
-// import { User } from '../../models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
 export class ProfilePage implements OnInit {
   private authService = inject(AuthService);
   private userService = inject(UserService);
-  private router = inject(Router);
 
   formData = {
     username: '',
@@ -25,95 +22,36 @@ export class ProfilePage implements OnInit {
     profileImg: '',
   };
 
-  errorMessage = '';
-
-  // ngOnInit(): void {
-  //   this.authService.currentUser().subscribe({
-  //     next: (user) => {
-  //       console.log('User:', user.username);
-  //       console.log('Email:', user.email);
-  //       console.log('Picture:', user.profileImg);
-  //       if (user) {
-  //         console.log('ajde');
-  //         this.formData.email = user.email;
-  //         this.formData.profileImg = user.profileImg || '';
-  //         this.formData.username = user.username || '';
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to fetch user:', err);
-  //     },
-  //   });
-  // }
+  errorMessage: string = '';
 
   ngOnInit(): void {
-  this.authService.loadCurrentUserFromAPI();
+    this.authService.loadCurrentUserFromAPI();
 
-  this.authService.currentUser$.subscribe((user) => {
-    if (user) {
-      console.log('Got user in ProfilePage:', user);
-      this.formData.email = user.email;
-      this.formData.profileImg = user.profileImg || '';
-      this.formData.username = user.username || '';
-    }
-  });
-}
-
-  onSubmit(form: NgForm): void {
-    console.log('test submit');
-    console.log(`username: ${form}`);
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        console.log('Got user in ProfilePage:', user);
+        this.formData.email = user.email;
+        this.formData.profileImg = user.profileImg || '';
+        this.formData.username = user.username || '';
+      }
+    });
   }
 
-  //   ngOnInit(): void {
-  //   this.authService.currentUser$.subscribe(user => {
-  //     if (user) {
-  //       this.formData.username = user.username;
-  //       this.formData.email = user.email;
-  //       this.formData.profileImg = user.profileImg;
-  //     }
-  //   });
+  onSubmit(form: NgForm): void {
+    this.errorMessage = '';
+    if (form.invalid) {
+      this.errorMessage = 'Please fill all required fields correctly.';
+      return;
+    }
 
-  //   // Ensure latest user is loaded from API when needed
-  //   this.authService.loadCurrentUserFromAPI();
-  // }
+    const userId = this.authService.getUser('userId');
+    console.log(`userId on profile page: ${userId}`);
+    
 
-  // onSubmit(form: NgForm): void {
-  //   if (form.invalid) {
-  //     this.errorMessage = 'Please fill all required fields correctly.';
-  //     return;
-  //   }
-
-  //   const currentUser = this.authService.currentUser();
-  //   console.log('current', currentUser);
-
-  //   if (!currentUser || !currentUser.id) {
-  //     this.errorMessage = 'User not logged in or missing user ID.';
-  //     return;
-  //   }
-
-  //   console.log(`currId: ${currentUser.id}`);
-
-  //   const updatedUser = {
-  //     email: this.formData.email,
-  //     username: this.formData.username,
-  //     profileImg: this.formData.profileImg,
-  //   };
-
-  //   this.userService.updateUser(currentUser.id, updatedUser).subscribe({
-  //     // this.userService.updateUser(currentUser.id, updatedUser).subscribe({
-  //     next: (user) => {
-  //       console.log('User updated successfully:', user);
-  //       this.errorMessage = '';
-
-  //       localStorage.setItem('currentUser', JSON.stringify(user));
-
-  //       // this.router.navigate(['/home']);
-  //     },
-  //     error: (err) => {
-  //       console.error('Error updating user:', err);
-  //       this.errorMessage = 'Failed to update user data. Please try again.';
-  //     },
-  //   });
-  //   console.log('updated data', updatedUser);
-  // }
+    const updatedUser = {
+      email: this.formData.email,
+      username: this.formData.username,
+      profileImg: this.formData.profileImg,
+    };
+  }
 }

@@ -66,6 +66,8 @@
 
     <button type="submit">Save Changes</button>
 
-    <div id="profile-error" role="alert" aria-live="polite" hidden> {{errorMessage}}</div>
+    <div id="profile-error" role="alert" aria-live="polite" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
   </form>
 </section>
