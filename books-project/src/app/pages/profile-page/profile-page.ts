@@ -18,6 +18,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProfilePage implements OnInit {
   private authService = inject(AuthService);
   private userService = inject(UserService);
+
   formData = {
     username: localStorage.getItem('username') || '',
     email: localStorage.getItem('email') || '',
@@ -78,20 +79,25 @@ export class ProfilePage implements OnInit {
       profileImg: this.formData.profileImg,
     };
 
-    const token = this.authService.getUser('accessToken') || ''; // примерно така взимаш токена
+    const token = this.authService.getUser('accessToken') || '';
+    console.log(`tokena: ${token}`);
+    
     const headers = new HttpHeaders({
       'X-Authorization': token,
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
     });
 
     this.http
-      .patch(`http://localhost:3030/users/${userId}`, {"username": this.formData.username}, {
+      // .patch(`http://localhost:3030/users/me`, {updatedUserData}, {
+      .patch(`http://localhost:3030/users/${userId}`, {updatedUserData}, {
         headers,
       })
       .subscribe({
         next: (response) => {
           console.log('User updated successfully', response);
           localStorage.setItem('email', this.formData.email)
+          localStorage.setItem('username', this.formData.username)
+          localStorage.setItem('profileImg', this.formData.profileImg)
           this.router.navigate(['/home']);
         },
         error: (error) => {
