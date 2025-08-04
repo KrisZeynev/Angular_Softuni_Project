@@ -49,7 +49,7 @@ export class RegisterPage {
 
     // this.http
 
-     const currUserData = {
+    const currUserData = {
       username: this.formData.username,
       email: this.formData.email,
       password: this.formData.password,
@@ -57,15 +57,17 @@ export class RegisterPage {
     };
     console.log(currUserData);
 
-    this.http.post('http://localhost:3030/users/register', currUserData).subscribe({
-      next: (response) => {
-        console.log('succesfully registered', response);
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        console.log('Not registered', error);
-      },
-    });
+    this.http
+      .post('http://localhost:3030/users/register', currUserData)
+      .subscribe({
+        next: (response) => {
+          console.log('succesfully registered', response);
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.log('Not registered', error);
+        },
+      });
 
     // this.authService
     //   .register(

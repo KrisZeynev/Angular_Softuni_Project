@@ -1,6 +1,7 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { Subscription } from 'rxjs';
 
 //
 import { UserService, User } from '../../core/services/user.service';
@@ -11,79 +12,44 @@ import { UserService, User } from '../../core/services/user.service';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {
+export class Header implements OnInit, OnDestroy {
   // private router = inject(Router);
   // private authService = inject(AuthService);
   // private userService = inject(UserService);
   // readonly isLoggedIn = this.authService.isLoggedIn;
   // readonly currentUser = this.authService.currentUser;
 
-  loggedIn = true
-  profileImg = ''
-  username = 'testKris'
+  loggedIn = false;
+  private subscription!: Subscription;
 
-  // profileImg = computed(
-  //   () =>
-  //     this.authService.currentUser()?.profileImg || 'https://i.pravatar.cc/40'
-  // );
-  // // profileImg = computed
+  // loggedIn = true;
+  profileImg = '';
+  username = 'testKris';
 
-  // get loggedIn(): boolean {
-  //   return this.isLoggedIn();
-  // }
+  constructor(public authService: AuthService, private router: Router) {}
 
-  // get username(): string {
-  //   return this.currentUser()?.username || 'Guest';
-  // }
+  getUserName() {
+    return this.authService.getUser('username');
+  }
 
-  // get currUsername(): string {
-  //   const userObj = localStorage.getItem('currentUser');
-  //   if (userObj) {
-  //     const parsedObj = JSON.parse(userObj);
-  //     return parsedObj.username || 'Guest';
-  //   }
-  //   return 'Guest';
-  // }
+  getUserProfilePic() {
+    return this.authService.getUser('profileImg');
+  }
 
-  // logout(): void {
-  //   console.log("you've logged out");
-  //   this.authService.logout().subscribe({
-  //     next: () => {
-  //       this.router.navigate(['/login']);
-  //     },
-  //     error: (err) => {
-  //       console.log('Logout failed', err);
-  //     },
-  //   });
-  // }
+  ngOnInit(): void {
+    this.subscription = this.authService.loggedIn$.subscribe((status) => {
+      console.log('Logged in status changed:', status);
+      this.loggedIn = status;
+    });
+    this.loggedIn = true
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
 }
-
-// import { Component, inject } from '@angular/core';
-// import { Router, RouterModule } from '@angular/router';
-// import { Store } from '@ngrx/store';
-// import { Observable } from 'rxjs';
-// import { AsyncPipe } from '@angular/common';
-
-// import { User } from '../../models/user.model';
-// import { logoutUser } from '../../state/user/user.actions';
-// import { selectIsLoggedIn, selectCurrentUser } from '../../state/user/user.selectors';
-
-// @Component({
-//   selector: 'app-header',
-//   standalone: true,
-//   imports: [RouterModule, AsyncPipe],
-//   templateUrl: './header.html',
-//   styleUrl: './header.css',
-// })
-// export class Header {
-//   private router = inject(Router);
-//   private store = inject(Store);
-
-//   isLoggedIn$: Observable<boolean> = this.store.select(selectIsLoggedIn);
-//   currentUser$: Observable<User | null> = this.store.select(selectCurrentUser);
-
-//   logout(): void {
-//     this.store.dispatch(logoutUser());
-//     this.router.navigate(['/login']);
-//   }
-// }

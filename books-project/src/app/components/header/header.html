@@ -18,12 +18,11 @@
   @if (loggedIn) {
     <div class="auth">
       <div class="profile-container">
-        <!-- <a routerLink="/profile"><img [src]="profileImg()" alt="User Avatar" class="profile-img" /></a> -->
-        <a routerLink="/profile"><img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" /></a>
-        <span><a routerLink="/profile">{{ username }}</a></span>
+        <a routerLink="/profile"><img [src]="getUserProfilePic()" alt="User Avatar" class="profile-img" /></a>
+        <!-- <a routerLink="/profile"><img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" /></a> -->
+        <span><a routerLink="/profile">{{ getUserName() }}</a></span>
       </div>
-      <!-- <a routerLink="/logout" (click)="logout()">Logout</a> -->
-      <a routerLink="/logout" >Logout</a>
+      <a routerLink="/logout" (click)="logout()">Logout</a>
     </div>
   } @else {
     <div class="auth">

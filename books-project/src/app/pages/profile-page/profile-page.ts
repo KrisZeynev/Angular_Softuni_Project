@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private router = inject(Router);
@@ -28,18 +28,25 @@ export class ProfilePage {
   errorMessage = '';
 
   onSubmit(form: NgForm): void {
-    console.log('test submit')
+    console.log('test submit');
   }
 
-  // ngOnInit(): void {
-  //   const user = this.authService.currentUser();
-  //   console.log(`user: ${user}`);
-  //   if (user) {
-  //     this.formData.email = user.email || '';
-  //     this.formData.profileImg = user.profileImg || '';
-  //     this.formData.username = user.username || '';
-  //   }
-  // }
+  ngOnInit(): void {
+    this.authService.currentUser().subscribe({
+      next: (user) => {
+        console.log('User:', user?.username);
+        if (user) {
+          console.log('ajde');
+          this.formData.email = user.email || '';
+          this.formData.profileImg = user.profileImg || '';
+          this.formData.username = user.username || '';
+        }
+      },
+      error: (err) => {
+        console.error('Failed to fetch user:', err);
+      },
+    });
+  }
 
   // onSubmit(form: NgForm): void {
   //   if (form.invalid) {

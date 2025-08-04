@@ -106,7 +106,6 @@
 //           this._isLoggedIn.set(false);
 //           localStorage.removeItem('currentUser');
 
-          
 //         // Update NGRX Store
 //         this.store.dispatch(logoutUser());
 //         })
@@ -195,7 +194,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -211,6 +211,7 @@ export class AuthService {
     localStorage.setItem('username', user.username);
     localStorage.setItem('accessToken', user.accessToken);
     localStorage.setItem('userId', user._id);
+    localStorage.setItem('profileImg', user.profileImg);
     this.loggedIn.next(true);
   }
 
@@ -227,11 +228,54 @@ export class AuthService {
     return !!localStorage.getItem('accessToken');
   }
 
+  // currentUser() {
+  //   const accessToken = this.getUser('accessToken');
+  //   const currId = this.getUser('userId');
+  //   const headers = new HttpHeaders({
+  //     'X-Authorization': accessToken || '',
+  //   });
+
+  //   this.http
+  //     .get(`http://localhost:3030/users/${currId}`, {
+  //       headers,
+  //       observe: 'response',
+  //     })
+  //     .subscribe({
+  //       next: (response) => {
+  //         console.log(response.status)
+  //       },
+  //       error: (error) => {
+  //         console.error('Logout failed:', error);
+  //       },
+  //     });
+
+  // }
+
+  currentUser(): Observable<User> {
+    const accessToken = this.getUser('accessToken');
+    const currId = this.getUser('userId');
+
+    if (!accessToken || !currId) {
+      return new Observable<User>((observer) => {
+        observer.error('No access token or user ID found.');
+        observer.complete();
+      });
+    }
+
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.get<User>(`http://localhost:3030/users/me`, {
+      headers,
+    });
+  }
+
   logout(): void {
     const accessToken = this.getUser('accessToken');
     this.clearUser();
     this.loggedIn.next(false);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
 
     const headers = new HttpHeaders({
       'X-Authorization': accessToken || '',
@@ -244,7 +288,7 @@ export class AuthService {
       })
       .subscribe({
         next: (response) => {
-          console.log(response.status)
+          console.log(response.status);
         },
         error: (error) => {
           console.error('Logout failed:', error);

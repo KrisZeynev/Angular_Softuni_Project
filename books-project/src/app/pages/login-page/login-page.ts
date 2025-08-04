@@ -44,7 +44,7 @@ export class LoginPage {
     this.http.post('http://localhost:3030/users/login', currUserData).subscribe({
       next: (response: any) => {
         console.log('logged in', response);
-        // this.auth.saveUser(response);
+        this.authService.saveUser(response);
         this.router.navigate(['/home']);
       },
       error: (error) => {
