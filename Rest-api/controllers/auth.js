@@ -43,8 +43,7 @@ const removePassword = (data) => {
 // }
 
 function register(req, res, next) {
-  const { email, username, password, repeatPassword, profileImg } =
-    req.body;
+  const { email, username, password, repeatPassword, profileImg } = req.body;
 
   return userModel
     .create({ email, username, password, profileImg })
@@ -144,14 +143,22 @@ function getProfileInfo(req, res, next) {
 
 function editProfileInfo(req, res, next) {
   const { _id: userId } = req.user;
-  const { username, email } = req.body;
+
+  const { username, email, profileImg } = req.body;
 
   userModel
     .findOneAndUpdate(
       { _id: userId },
-      { username, email },
+      { username, email, profileImg },
       { runValidators: true, new: true }
-    )
+    ) // const { username, email } = req.body;
+
+    // userModel
+    //   .findOneAndUpdate(
+    //     { _id: userId },
+    //     { username, email },
+    //     { runValidators: true, new: true }
+    //   )
     .then((x) => {
       res.status(200).json(x);
     })

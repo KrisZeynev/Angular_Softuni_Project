@@ -10,6 +10,7 @@ import { BookDetailsCard } from './components/book-details-card/book-details-car
 import { CatalogPage } from './pages/catalog-page/catalog-page';
 import { AddNewBook } from './pages/add-new-book/add-new-book';
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HomePage, CatalogPage, Header, Footer, AboutPage, RegisterPage, LoginPage, BookDetailsCard, AddNewBook],
