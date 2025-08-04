@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -28,7 +28,7 @@ export class RegisterPage {
   errorMessage: string = '';
 
   constructor(
-    // private authService: AuthService,
+    private authService: AuthService,
     private router: Router,
     // private cdr: ChangeDetectorRef,
     private http: HttpClient
@@ -62,6 +62,7 @@ export class RegisterPage {
       .subscribe({
         next: (response) => {
           console.log('succesfully registered', response);
+          this.authService.saveUser(response);
           this.router.navigate(['/home']);
         },
         error: (error) => {
