@@ -1,9 +1,10 @@
+export type Genre = 'Action' | 'Fantasy' | 'Romance' | 'Thriller' | 'Biography';
+
 export interface Book {
-  id: string;
   title: string;
   description: string;
   author: string;
-  genre: string;
+  genre: Genre[];
   publicationYear: number;
   pages: number;
   isbn: string;

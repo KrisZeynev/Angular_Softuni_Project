@@ -3,9 +3,9 @@
 <div class="home-content-container">
     @if (books.length >= 1) {
         <div class="home-content">
-            @for (book of books; track book.id) {
+            <!-- @for (book of books; track book._id) {
                 <app-book-details-card [book]="book" />
-            }
+            } -->
         </div>
     } @else {
     <p class="home-no-books-found">No books have been added yet. Stay tuned!</p>

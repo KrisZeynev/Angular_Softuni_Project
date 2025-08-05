@@ -14,7 +14,7 @@ export class HomePage {
   constructor() {
     this.books = [
       {
-        id: '1',
+        // id: '1',
         title: 'The Great Gatsby',
         author: 'F. Scott Fitzgerald',
         genre: 'Classic',
@@ -27,7 +27,7 @@ export class HomePage {
           'https://images-na.ssl-images-amazon.com/images/I/81af+MCATTL.jpg',
       },
       {
-        id: '2',
+        // id: '2',
         title: '1984',
         author: 'George Orwell',
         genre: 'Dystopian',
@@ -40,7 +40,7 @@ export class HomePage {
           'https://m.media-amazon.com/images/I/612ADI+BVlL._UF1000,1000_QL80_.jpg',
       },
       {
-        id: '3',
+        // id: '3',
         title: 'To Kill a Mockingbird',
         author: 'Harper Lee',
         genre: 'Fiction',
@@ -52,7 +52,7 @@ export class HomePage {
           'https://m.media-amazon.com/images/I/81aY1lxk+9L.jpg',
       },
       {
-        id: '4',
+        // id: '4',
         title: 'The Hobbit',
         author: 'J.R.R. Tolkien',
         genre: 'Fantasy',
@@ -65,7 +65,7 @@ export class HomePage {
           'https://images-na.ssl-images-amazon.com/images/I/91b0C2YNSrL.jpg',
       },
       {
-        id: '5',
+        // id: '5',
         title: 'Pride and Prejudice',
         author: 'Jane Austen',
         genre: 'Romance',
