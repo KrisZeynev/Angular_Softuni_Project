@@ -1,48 +1,76 @@
 import { Component } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
 import { BookService } from '../../core/services/book.service';
-import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+} from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-new-book',
-  imports: [FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-new-book.html',
   styleUrl: './add-new-book.css',
 })
 export class AddNewBook {
-  constructor(private bookService: BookService) {}
+  bookForm: FormGroup;
+  genresList: Genre[] = [
+    'Action',
+    'Fantasy',
+    'Romance',
+    'Thriller',
+    'Biography',
+  ];
 
-  book: Book = {
-    title: '',
-    description: '',
-    author: '',
-    genre: [],
-    publicationYear: 0,
-    pages: 0,
-    isbn: '',
-    image: '',
-  };
+  currentYear = new Date().getFullYear();
 
-  genresList: Genre[] = ['Action', 'Fantasy', 'Romance', 'Thriller', 'Biography'];
+  constructor(private fb: FormBuilder, private bookService: BookService) {
+    this.bookForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
+      author: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
+      publicationYear: [null, [Validators.required, Validators.min(0), Validators.max(this.currentYear)]],
+      pages: [null, [Validators.required, Validators.min(1)]],
+      isbn: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
+      image: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
+      genre: ['', Validators.required],
+    });
+  }
 
   onGenreChange(event: Event) {
-  const input = event.target as HTMLInputElement;
-  if (input.checked) {
-    if (!this.book.genre.includes(input.value as Genre)) {
-      this.book.genre.push(input.value as Genre);
+    const input = event.target as HTMLInputElement;
+    const genreArray = this.bookForm.get('genre') as FormArray;
+
+    if (input.checked) {
+      genreArray.push(this.fb.control(input.value as Genre));
+    } else {
+      const index = genreArray.controls.findIndex(
+        (ctrl) => ctrl.value === input.value
+      );
+      genreArray.removeAt(index);
     }
-  } else {
-    this.book.genre = this.book.genre.filter(g => g !== input.value);
   }
-}
 
   onSubmit() {
-    const accessToken = localStorage.getItem('accessToken') || '';
+    if (this.bookForm.invalid) {
+      this.bookForm.markAllAsTouched();
+      return;
+    }
 
-    this.bookService.createBook(this.book, accessToken).subscribe({
+    const accessToken = localStorage.getItem('accessToken') || '';
+    const book: Book = this.bookForm.value;
+
+    this.bookService.createBook(book, accessToken).subscribe({
       next: (response) => {
         console.log('Book created successfully', response);
+        this.bookForm.reset();
+
+        (this.bookForm.get('genre') as FormArray).clear();
       },
       error: (err) => {
         console.error('Error creating book', err);

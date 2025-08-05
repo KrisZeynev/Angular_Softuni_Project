@@ -99,3 +99,23 @@ input:focus {
     background-color: #b91c1c;
     transform: scale(1.05);
 }
+
+
+select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20fill%3D%27%23667%27%20height%3D%2712%27%20viewBox%3D%270%200%2024%2024%27%20width%3D%2712%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M7%2010l5%205%205-5z%27/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+}
+
+select:focus {
+    border-color: #3b82f6;
+}
