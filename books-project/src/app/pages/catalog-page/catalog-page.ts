@@ -28,6 +28,7 @@ export class CatalogPage implements OnInit {
   }
 
   onSearch(): void {
+    console.log('search')
     if (this.searchForm.invalid) {
       return;
     }
