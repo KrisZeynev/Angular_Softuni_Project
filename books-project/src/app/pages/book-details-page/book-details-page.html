@@ -4,16 +4,16 @@
   <div class="book-card">
     <div class="book-main">
       <div class="book-image">
-        <img [src]="currentBook.image" alt="Book Cover" />
+        <img [src]="currentBook?.image" alt="Book Cover" />
       </div>
 
       <div class="book-info">
-        <h2>{{currentBook.title}}</h2>
-        <span>Author: {{currentBook.author}}</span>
-        <span>Genre: {{currentBook.genre}}</span>
-        <span>Pages: {{currentBook.pages}}</span>
-        <span>Year: {{currentBook.publicationYear}}</span>
-        <span>ISBN: {{currentBook.isbn}}</span>
+        <h2>{{currentBook?.title}}</h2>
+        <span>Author: {{currentBook?.author}}</span>
+        <span>Genre: {{currentBook?.genre}}</span>
+        <span>Pages: {{currentBook?.pages}}</span>
+        <span>Year: {{currentBook?.publicationYear}}</span>
+        <span>ISBN: {{currentBook?.isbn}}</span>
 
         <div class="book-actions">
           <!-- if user is owner -->
@@ -24,7 +24,7 @@
     </div>
 
     <div class="divider"><span>Description</span></div>
-    <p class="book-description">{{currentBook.description}}</p>
+    <p class="book-description">{{currentBook?.description}}</p>
 
     <div class="comment-section">
       <!-- banner for succesfully created message -->
