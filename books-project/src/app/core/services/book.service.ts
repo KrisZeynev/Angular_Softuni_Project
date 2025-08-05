@@ -33,3 +33,22 @@ export class GetAllBooksService {
     return this.http.get(this.apiUrl);
   }
 }
+
+@Injectable({
+  providedIn: 'root',
+})
+export class getAllBooksByCriteria {
+  private apiUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  getAllBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.apiUrl);
+  }
+
+  searchBooks(field: string, term: string): Observable<Book[]> {
+    const whereQuery = encodeURIComponent(`${field} LIKE "${term}"`);
+    const url = `${this.apiUrl}?where=${whereQuery}`;
+    return this.http.get<Book[]>(url);
+  }
+}

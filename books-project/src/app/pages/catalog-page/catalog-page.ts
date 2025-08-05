@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './catalog-page.css'
 })
 export class CatalogPage {
-
+ 
 }
