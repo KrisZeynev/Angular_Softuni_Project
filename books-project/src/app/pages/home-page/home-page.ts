@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BookDetailsCard } from '../../components/book-details-card/book-details-card';
 import { Book, Genre } from '../../models/book.model';
-import { GetAllBooksService } from '../../core/services/book.service';
+import { GetLatest5BooksService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,10 +13,10 @@ import { CommonModule } from '@angular/common';
 export class HomePage implements OnInit {
   books: Book[] = [];
 
-  constructor(private getAllBooksService: GetAllBooksService, private cdr: ChangeDetectorRef) {}
+  constructor(private getAllBooksService: GetLatest5BooksService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getAllBooksService.getAllBooks().subscribe({
+    this.getAllBooksService.getLastFiveBooks().subscribe({
       next: (data) => {
         this.books = data;
         console.log(`all available books: ${JSON.stringify(this.books)}`);

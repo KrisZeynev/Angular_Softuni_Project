@@ -24,13 +24,18 @@ export class CreateBookService {
 @Injectable({
   providedIn: 'root',
 })
-export class GetAllBooksService {
+export class GetLatest5BooksService {
   private apiUrl = 'http://localhost:3030/data/books';
 
   constructor(private http: HttpClient) {}
 
-  getAllBooks(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  // getAllBooks(): Observable<any> {
+  //   return this.http.get(this.apiUrl);
+  // }
+
+  getLastFiveBooks(): Observable<any> {
+    const url = `${this.apiUrl}?sortBy=_createdOn%20desc&pageSize=5`;
+    return this.http.get(url);
   }
 }
 
