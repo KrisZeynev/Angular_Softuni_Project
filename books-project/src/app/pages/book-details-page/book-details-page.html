@@ -15,10 +15,14 @@
         <span>Year: {{currentBook?.publicationYear}}</span>
         <span>ISBN: {{currentBook?.isbn}}</span>
 
-        <div class="book-actions">
-          <!-- if user is owner -->
-          <a href="#" class="btn btn-blue">Edit</a>
-          <button class="btn btn-red">Delete</button>
+        <div class="book-info-actions">
+          <ng-container *ngIf="isOwner; else notOwner">
+            <a href="#" class="btn btn-blue">✏️ Edit</a>
+            <button class="btn btn-delete">🗑️ Delete</button>
+          </ng-container>
+          <ng-template #notOwner>
+            <button class="btn btn-red">❤️ Add to Favorites</button>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -26,16 +30,18 @@
     <div class="divider"><span>Description</span></div>
     <p class="book-description">{{currentBook?.description}}</p>
 
-    <div class="comment-section">
-      <!-- banner for succesfully created message -->
-      <!-- <div class="success-banner">Comment submitted successfully!</div> -->
+    <ng-container *ngIf="!isOwner">
+      <div class="comment-section">
+        <!-- banner for succesfully created message -->
+        <!-- <div class="success-banner">Comment submitted successfully!</div> -->
 
-      <!-- comment form -->
-      <div class="comment-form">
-        <textarea placeholder="Write your comment..."></textarea>
-        <button class="btn btn-blue">Submit</button>
+        <!-- comment form -->
+        <div class="comment-form">
+          <textarea placeholder="Write your comment..."></textarea>
+          <button class="btn btn-blue">Submit</button>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 
   <div class="divider"><span>Comments</span></div>
