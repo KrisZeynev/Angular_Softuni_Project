@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
-import { BookService } from '../../core/services/book.service';
+import { CreateBookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -29,7 +29,7 @@ export class AddNewBook {
 
   currentYear = new Date().getFullYear();
 
-  constructor(private fb: FormBuilder, private bookService: BookService) {
+  constructor(private fb: FormBuilder, private bookService: CreateBookService) {
     this.bookForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
       description: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],

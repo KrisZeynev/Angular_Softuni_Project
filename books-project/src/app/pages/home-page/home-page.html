@@ -1,13 +1,28 @@
-<h1 class="home-title">Welcome to my Angular Books project!</h1>
+<!-- <h1 class="home-title">Welcome to my Angular Books project!</h1>
 
 <div class="home-content-container">
     @if (books.length >= 1) {
         <div class="home-content">
-            <!-- @for (book of books; track book._id) {
+            @for (book of books; track book) {
                 <app-book-details-card [book]="book" />
-            } -->
+            }
         </div>
     } @else {
     <p class="home-no-books-found">No books have been added yet. Stay tuned!</p>
     }
+</div> -->
+
+<h1 class="home-title">Welcome to my Angular Books project!</h1>
+<p>Books count: {{ books?.length }}</p>
+
+<div class="home-content-container">
+  <div *ngIf="books.length >= 1; else noBooks">
+    <div class="home-content">
+      <app-book-details-card *ngFor="let book of books" [book]="book"></app-book-details-card>
+    </div>
+  </div>
+  
+  <ng-template #noBooks>
+    <p class="home-no-books-found">No books have been added yet. Stay tuned!</p>
+  </ng-template>
 </div>

@@ -6,7 +6,7 @@ import { Book } from '../../models/book.model';
 @Injectable({
   providedIn: 'root',
 })
-export class BookService {
+export class CreateBookService {
   private apiUrl = 'http://localhost:3030/data/books';
 
   constructor(private http: HttpClient) {}
@@ -18,5 +18,18 @@ export class BookService {
     });
 
     return this.http.post(this.apiUrl, book, { headers });
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetAllBooksService {
+  private apiUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  getAllBooks(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 }

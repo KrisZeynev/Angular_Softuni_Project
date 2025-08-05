@@ -6,6 +6,7 @@ import { Book } from '../../models/book.model';
   imports: [],
   templateUrl: './book-details-card.html',
   styleUrl: './book-details-card.css',
+  standalone: true,
 })
 export class BookDetailsCard {
   @Input() book!: Book;
