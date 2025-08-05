@@ -1,14 +1,10 @@
 .form-container {
     max-width: 42rem;
-    margin: 10rem auto;
-    /* margin: 2.5rem auto; */
     margin: 11rem auto;
-    /* min-height: 85vh; */
     padding: 1.5rem;
     background-color: #fdfdfd;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
-    /* border: 1px solid red; */
 }
 
 .form-title {
@@ -43,7 +39,7 @@
     font-weight: 500;
 }
 
-input[type="text"] {
+input {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #cbd5e1;
@@ -52,7 +48,7 @@ input[type="text"] {
     transition: border-color 0.3s;
 }
 
-input[type="text"]:focus {
+input:focus {
     border-color: #3b82f6;
 }
 
@@ -60,7 +56,14 @@ input[type="text"]:focus {
     color: #ef4444;
     font-size: 0.875rem;
     margin-top: 0.3rem;
-    display: none;
+    display: block;
+    visibility: hidden;
+    height: 0;
+}
+
+.ng-invalid.ng-touched + .error-msg {
+    visibility: visible;
+    height: auto;
 }
 
 .form-actions {

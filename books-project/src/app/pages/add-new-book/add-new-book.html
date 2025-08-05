@@ -1,61 +1,119 @@
 <div class="form-container">
     <h1 class="form-title">Add New Book</h1>
 
-    <form class="book-form">
+    <form class="book-form" (ngSubmit)="onSubmit()" #bookForm="ngForm">
         <div class="form-grid">
             <label>
                 <span class="label-text">Title</span>
-                <input type="text" name="title" placeholder="Title*" />
-                <p class="error-msg">Title is required</p>
+                <input 
+                    type="text" 
+                    name="title" 
+                    placeholder="Title*" 
+                    [(ngModel)]="book.title" 
+                    required
+                    #title="ngModel"
+                />
+                <p class="error-msg" *ngIf="title.invalid && title.touched">Title is required</p>
             </label>
 
             <label>
                 <span class="label-text">Description</span>
-                <input type="text" name="description" placeholder="Description*" />
-                <p class="error-msg">Description is required</p>
+                <input 
+                    type="text" 
+                    name="description" 
+                    placeholder="Description*" 
+                    [(ngModel)]="book.description" 
+                    required
+                    #description="ngModel"
+                />
+                <p class="error-msg" *ngIf="description.invalid && description.touched">Description is required</p>
             </label>
 
             <label>
                 <span class="label-text">Author</span>
-                <input type="text" name="author" placeholder="Author*" />
-                <p class="error-msg">Author is required</p>
+                <input 
+                    type="text" 
+                    name="author" 
+                    placeholder="Author*" 
+                    [(ngModel)]="book.author" 
+                    required
+                    #author="ngModel"
+                />
+                <p class="error-msg" *ngIf="author.invalid && author.touched">Author is required</p>
             </label>
 
             <label>
                 <span class="label-text">Genre</span>
-                <input type="text" name="genre" placeholder="Genre*" />
-                <p class="error-msg">Genre is required</p>
+                <input 
+                    type="text" 
+                    name="genre" 
+                    placeholder="Genre*" 
+                    [(ngModel)]="book.genre" 
+                    required
+                    #genre="ngModel"
+                />
+                <p class="error-msg" *ngIf="genre.invalid && genre.touched">Genre is required</p>
             </label>
 
             <label>
                 <span class="label-text">Publication Year</span>
-                <input type="text" name="publicationYear" placeholder="Publication year*" />
-                <p class="error-msg">Year is required</p>
+                <input 
+                    type="number" 
+                    name="publicationYear" 
+                    placeholder="Publication year*" 
+                    [ngModel]="book.publicationYear" 
+                    (ngModelChange)="book.publicationYear = $event ? +$event : 0" 
+                    required
+                    #publicationYear="ngModel"
+                />
+                <p class="error-msg" *ngIf="publicationYear.invalid && publicationYear.touched">Year is required</p>
             </label>
 
             <label>
                 <span class="label-text">Number of Pages</span>
-                <input type="text" name="pages" placeholder="Number of pages*" />
-                <p class="error-msg">Pages are required</p>
+                <input 
+                    type="number" 
+                    name="pages" 
+                    placeholder="Number of pages*" 
+                    [ngModel]="book.pages" 
+                    (ngModelChange)="book.pages = $event ? +$event : 0" 
+                    required
+                    #pages="ngModel"
+                />
+                <p class="error-msg" *ngIf="pages.invalid && pages.touched">Pages are required</p>
             </label>
         </div>
 
         <div class="form-grid">
             <label>
                 <span class="label-text">ISBN</span>
-                <input type="text" name="isbn" placeholder="ISBN*" />
-                <p class="error-msg">ISBN is required</p>
+                <input 
+                    type="text" 
+                    name="isbn" 
+                    placeholder="ISBN*" 
+                    [(ngModel)]="book.isbn" 
+                    required
+                    #isbn="ngModel"
+                />
+                <p class="error-msg" *ngIf="isbn.invalid && isbn.touched">ISBN is required</p>
             </label>
 
             <label>
                 <span class="label-text">Image</span>
-                <input type="text" name="image" placeholder="http://..." />
-                <p class="error-msg">Image URL is required</p>
+                <input 
+                    type="text" 
+                    name="image" 
+                    placeholder="http://..." 
+                    [(ngModel)]="book.image" 
+                    required
+                    #image="ngModel"
+                />
+                <p class="error-msg" *ngIf="image.invalid && image.touched">Image URL is required</p>
             </label>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-add">Add</button>
+            <button type="submit" class="btn btn-add" [disabled]="bookForm.invalid">Add</button>
             <button type="button" class="btn btn-cancel">Cancel</button>
         </div>
     </form>
