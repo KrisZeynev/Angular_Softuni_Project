@@ -8,13 +8,24 @@
   <div class="book-card-actions">
     <hr />
     <div class="details-btn">
-      <!-- <a href="/{{ book._id }}/details" class="btn btn-indigo"> -->
-      <a href="#" class="btn btn-indigo">
+      <a [routerLink]="['/details', book._id]" class="btn btn-indigo">
         ℹ️ Details
       </a>
-      <button class="btn btn-favorite" (click)="addToFavorites()">
-        ❤️ Add to Favorites
-      </button>
+
+      <ng-container *ngIf="isOwner; else notOwner">
+        <button class="btn btn-edit" (click)="editBook()">
+          ✏️ Edit
+        </button>
+        <button class="btn btn-delete" (click)="deleteBook()">
+          🗑️ Delete
+        </button>
+      </ng-container>
+
+      <ng-template #notOwner>
+        <button class="btn btn-favorite" (click)="addToFavorites()">
+          ❤️ Add to Favorites
+        </button>
+      </ng-template>
     </div>
   </div>
 </div>
