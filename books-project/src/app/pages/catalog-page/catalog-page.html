@@ -33,8 +33,7 @@
   </form>
 
   <div class="book-grid" *ngIf="books && books.length > 0; else noBooks">
-    <!-- books -->
-    <span>test</span>
+    <app-book-details-card *ngFor="let book of books" [book]="book"></app-book-details-card>
   </div>
 
   <ng-template #noBooks>

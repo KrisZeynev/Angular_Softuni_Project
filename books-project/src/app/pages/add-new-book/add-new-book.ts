@@ -31,13 +31,14 @@ export class AddNewBook {
 
   constructor(private fb: FormBuilder, private bookService: CreateBookService) {
     this.bookForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
-      description: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
-      author: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z ]+')]],
-      publicationYear: [null, [Validators.required, Validators.min(0), Validators.max(this.currentYear)]],
+      title: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]+')]],
+      description: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]+')]],
+      author: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]+')]],
+      publicationYear: [null, [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
       pages: [null, [Validators.required, Validators.min(1)]],
-      isbn: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
-      image: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
+      isbn: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z0-9 ]+')]],
+      // image: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
+      image: ['', Validators.required],
       genre: ['', Validators.required],
     });
   }

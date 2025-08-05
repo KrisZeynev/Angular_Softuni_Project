@@ -42,12 +42,13 @@ export class GetAllBooksByCriteria {
 
   constructor(private http: HttpClient) {}
 
-  getAllBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.apiUrl);
-  }
+  // getAllBooks(): Observable<Book[]> {
+  //   return this.http.get<Book[]>(this.apiUrl);
+  // }
 
-  searchBooks(field: string, term: string): Observable<Book[]> {
-    const whereQuery = encodeURIComponent(`${field} LIKE "${term}"`);
+  searchBooks(field: string, term: any): Observable<Book[]> {
+    const termString = String(term ?? '');
+    const whereQuery = encodeURIComponent(`${field} LIKE "${termString}"`);
     const url = `${this.apiUrl}?where=${whereQuery}`;
     return this.http.get<Book[]>(url);
   }
