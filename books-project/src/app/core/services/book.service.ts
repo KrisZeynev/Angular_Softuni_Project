@@ -39,6 +39,7 @@ export class GetLatest5BooksService {
   }
 }
 
+// search for all books that match the criteria
 @Injectable({
   providedIn: 'root',
 })
@@ -55,6 +56,22 @@ export class GetAllBooksByCriteria {
     const termString = String(term ?? '');
     const whereQuery = encodeURIComponent(`${field} LIKE "${termString}"`);
     const url = `${this.apiUrl}?where=${whereQuery}`;
+    return this.http.get<Book[]>(url);
+  }
+}
+
+// check if book current user is owner of any book
+@Injectable({
+  providedIn: 'root',
+})
+export class CheckBookOwner {
+  private baseUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  getBookByOwnerAndId(currentUserId: string, bookId: string): Observable<Book[]> {
+    const whereQuery = `_ownerId="${currentUserId}" AND _id="${bookId}"`;
+    const url = `${this.baseUrl}?where=${encodeURIComponent(whereQuery)}`;
     return this.http.get<Book[]>(url);
   }
 }
