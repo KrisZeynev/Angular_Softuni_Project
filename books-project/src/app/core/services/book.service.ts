@@ -24,6 +24,19 @@ export class CreateBookService {
 @Injectable({
   providedIn: 'root',
 })
+export class GetBookService {
+  private apiUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  getBook(id: string): Observable<any> {
+    return this.http.get<Book[]>(`${this.apiUrl}/${id}`);
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
 export class GetLatest5BooksService {
   private apiUrl = 'http://localhost:3030/data/books';
 
