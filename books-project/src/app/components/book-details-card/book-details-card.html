@@ -5,20 +5,23 @@
     <p>by {{ book.author }}</p>
   </div>
 
+  <hr />
   <div class="book-card-actions">
-    <hr />
-    <div class="details-btn">
+    <div class="book-card-btns">
       <a [routerLink]="['/details', book._id]" class="btn btn-indigo">
         ℹ️ Details
       </a>
 
       <ng-container *ngIf="isOwner; else notOwner">
+      <div class="owner-buttons">
         <button class="btn btn-edit" (click)="editBook()">
           ✏️ Edit
         </button>
         <button class="btn btn-delete" (click)="deleteBook()">
           🗑️ Delete
         </button>
+      </div>
+
       </ng-container>
 
       <ng-template #notOwner>

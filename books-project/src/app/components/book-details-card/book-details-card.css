@@ -21,7 +21,6 @@
 .book-card-header img {
   width: 100%;
   height: 280px;
-  /* object-fit: contain; */
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 0.5rem;
@@ -39,32 +38,31 @@
   margin: 0;
 }
 
-.book-card-actions hr {
+hr {
   border: none;
   border-top: 1px solid #d1d5db;
   margin: 1rem auto;
   width: 75%;
 }
 
-.details-btn {
+.book-card-btns {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
-  border: 1px solid red;
   padding: 10px 0;
 }
 
-.btn-favorite {
-  background: #d97706;
-}
-
-.btn-favorite:hover {
-  background: #b45309;
+.owner-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .btn {
   display: inline-block;
+  width: 200px;
   padding: 0.6rem 1rem;
   border: none;
   border-radius: 6px;
@@ -74,6 +72,7 @@
   text-decoration: none;
   color: white;
   transition: transform 0.2s ease, background 0.2s ease;
+  text-align: center;
 }
 
 .btn:hover {
@@ -86,4 +85,28 @@
 
 .btn-indigo:hover {
   background: #394657;
+}
+
+.btn-favorite {
+  background: #f97316;
+}
+
+.btn-favorite:hover {
+  background: #ea580c;
+}
+
+.btn-edit {
+  background: #fbbf24;
+}
+
+.btn-edit:hover {
+  background: #f59e0b;
+}
+
+.btn-delete {
+  background: #ef4444;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
 }
