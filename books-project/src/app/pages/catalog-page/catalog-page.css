@@ -12,7 +12,7 @@
   color: #333;
 }
 
-.search-form {
+.books-search-form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -25,22 +25,22 @@
 }
 
 @media (min-width: 600px) {
-  .search-form {
+  .books-search-form {
     flex-direction: row;
     align-items: center;
   }
 }
 
-.search-form select,
-.search-form input,
-.search-form button {
+.books-search-form select,
+.books-search-form input,
+.books-search-form button {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 6px;
   border: 1px solid #ccc;
 }
 
-.search-form button {
+.books-search-form button {
   background-color: #2563eb;
   color: white;
   border: none;
@@ -48,7 +48,7 @@
   transition: background-color 0.2s ease;
 }
 
-.search-form button:hover {
+.books-search-form button:hover {
   background-color: #1d4ed8;
 }
 
@@ -82,4 +82,11 @@
   text-align: center;
   color: #6b7280;
   font-size: 1rem;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
 }

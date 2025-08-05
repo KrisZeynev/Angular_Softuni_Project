@@ -37,7 +37,7 @@ export class GetAllBooksService {
 @Injectable({
   providedIn: 'root',
 })
-export class getAllBooksByCriteria {
+export class GetAllBooksByCriteria {
   private apiUrl = 'http://localhost:3030/data/books';
 
   constructor(private http: HttpClient) {}
