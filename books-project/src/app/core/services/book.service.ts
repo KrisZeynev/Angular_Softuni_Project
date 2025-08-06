@@ -71,6 +71,13 @@ export class GetAllBooksByCriteria {
     const url = `${this.apiUrl}?where=${whereQuery}`;
     return this.http.get<Book[]>(url);
   }
+
+  searchBooksByNumber(field: string, term: any): Observable<Book[]> {
+    const termString = String(term ?? '');
+    const whereQuery = encodeURIComponent(`${field}="${termString}"`);
+    const url = `${this.apiUrl}?where=${whereQuery}`;
+    return this.http.get<Book[]>(url);
+}
 }
 
 // check if book current user is owner of any book
@@ -82,7 +89,10 @@ export class CheckBookOwner {
 
   constructor(private http: HttpClient) {}
 
-  getBookByOwnerAndId(currentUserId: string, bookId: string): Observable<Book[]> {
+  getBookByOwnerAndId(
+    currentUserId: string,
+    bookId: string
+  ): Observable<Book[]> {
     const whereQuery = `_ownerId="${currentUserId}" AND _id="${bookId}"`;
     const url = `${this.baseUrl}?where=${encodeURIComponent(whereQuery)}`;
     return this.http.get<Book[]>(url);
