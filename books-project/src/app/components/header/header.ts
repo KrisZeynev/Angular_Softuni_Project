@@ -23,8 +23,8 @@ export class Header implements OnInit, OnDestroy {
   private subscription!: Subscription;
 
   // loggedIn = true;
-  profileImg = '';
-  username = 'testKris';
+  profileImg: string = '';
+  // username = 'testKris';
 
   constructor(public authService: AuthService, private router: Router) {}
 
@@ -33,15 +33,36 @@ export class Header implements OnInit, OnDestroy {
   }
 
   getUserProfilePic() {
-    return this.authService.getUser('profileImg');
+    return this.authService.getUser('profileImg') || "https://i.pravatar.cc/40";
   }
+
+  // getUserProfilePic() {
+  //   // console.log(`here: ${typeof this.authService.getUser('profileImg')}`);
+
+  //   // if ((this.authService.getUser('profileImg')) !== null) {
+  //   //   console.log('ima snimka batio');
+  //   //   // return
+  //   // }
+
+  //   console.log(`'ima snimka batio': ${this.authService.getUser('profileImg')}`);
+  //   console.log(`'asdasd': ${this.authService.getUser('profileImg') !== null}`);
+
+  //   // return "https://i.pravatar.cc/40"
+  //   return this.authService.getUser('profileImg') !== null || this.authService.getUser('profileImg') !== undefined
+  //   || this.authService.getUser('profileImg') !== "undefined"
+  //   ? this.authService.getUser('profileImg') 
+  //   : 'https://i.pravatar.cc/40'
+  //   // return this.authService.getUser('profileImg') ?? "https://i.pravatar.cc/40";
+  // }
 
   ngOnInit(): void {
     this.subscription = this.authService.loggedIn$.subscribe((status) => {
       console.log('Logged in status changed:', status);
       this.loggedIn = status;
+      this.profileImg =
+        localStorage.getItem('profileImg') || 'https://i.pravatar.cc/40';
     });
-    this.loggedIn = true
+    this.loggedIn = true;
   }
 
   ngOnDestroy(): void {
@@ -51,5 +72,4 @@ export class Header implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
   }
-
 }

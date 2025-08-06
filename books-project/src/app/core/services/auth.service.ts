@@ -214,7 +214,7 @@ export class AuthService {
     localStorage.setItem('username', user.username);
     localStorage.setItem('accessToken', user.accessToken);
     localStorage.setItem('userId', user._id);
-    localStorage.setItem('profileImg', user.profileImg);
+    localStorage.setItem('profileImg', user.profileImg ?? "https://i.pravatar.cc/40");
     this.loggedIn.next(true);
   }
 
