@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CheckBookOwner } from '../../core/services/book.service';
 import { FavoritesService } from '../../core/services/favorites.service';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-book-details-card',
@@ -14,6 +15,7 @@ import { FavoritesService } from '../../core/services/favorites.service';
 })
 export class BookDetailsCard implements OnInit {
   @Input() book!: Book;
+  @Output() favoriteRemoved = new EventEmitter<string>();
 
   isOwner: boolean = false;
   currentUserId: string | null = null;
@@ -109,6 +111,7 @@ export class BookDetailsCard implements OnInit {
               `Book "${this.book.title}" removed from favorites.`,
               res
             );
+            this.favoriteRemoved.emit(this.book._id); 
             this.cd.detectChanges();
           },
           error: (err) => {

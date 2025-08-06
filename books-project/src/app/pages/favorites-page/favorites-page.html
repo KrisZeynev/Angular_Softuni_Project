@@ -4,3 +4,11 @@
 <span>test</span>
 <app-book-details-card *ngFor="let book of favoritesBooks" [book]="book"></app-book-details-card>
 </ng-container>
+
+<ng-container *ngIf="favoritesBooks.length > 0">
+  <app-book-details-card
+    *ngFor="let book of favoritesBooks"
+    [book]="book"
+    (favoriteRemoved)="onFavoriteRemoved($event)">
+  </app-book-details-card>
+</ng-container>

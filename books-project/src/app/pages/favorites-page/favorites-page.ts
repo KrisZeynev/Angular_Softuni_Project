@@ -97,4 +97,9 @@ export class FavoritesPage implements OnInit {
       });
     }
   }
+
+  onFavoriteRemoved(bookId: string): void {
+  this.favoritesBooks = this.favoritesBooks.filter(book => book._id !== bookId);
+}
+
 }
