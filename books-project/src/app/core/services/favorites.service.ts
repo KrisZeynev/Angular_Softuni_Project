@@ -22,7 +22,10 @@ export class FavoritesService {
     return this.http.post<Favorite>(this.apiUrl, body, { headers });
   }
 
-  getFavoriteByUserAndBook(userId: string, bookId: string): Observable<Favorite[]> {
+  getFavoriteByUserAndBook(
+    userId: string,
+    bookId: string
+  ): Observable<Favorite[]> {
     const query = encodeURIComponent(
       `_ownerId="${userId}" and bookId="${bookId}"`
     );
@@ -30,9 +33,22 @@ export class FavoritesService {
     return this.http.get<Favorite[]>(url);
   }
 
-    removeFromFavorites(favoriteId: string, accessToken: string): Observable<void> {
+  getFavoriteByUserOnly(
+    userId: string,
+  ): Observable<Favorite[]> {
+    const query = encodeURIComponent(
+      `_ownerId="${userId}"`
+    );
+    const url = `${this.apiUrl}?where=${query}`;
+    return this.http.get<Favorite[]>(url);
+  }
+
+  removeFromFavorites(
+    favoriteId: string,
+    accessToken: string
+  ): Observable<void> {
     const headers = new HttpHeaders({
-      'X-Authorization': accessToken
+      'X-Authorization': accessToken,
     });
 
     return this.http.delete<void>(`${this.apiUrl}/${favoriteId}`, { headers });

@@ -1,1 +1,6 @@
 <p>favorites-page works!</p>
+
+<ng-container *ngIf="favoritesBooks.length > 0">
+<span>test</span>
+<app-book-details-card *ngFor="let book of favoritesBooks" [book]="book"></app-book-details-card>
+</ng-container>
