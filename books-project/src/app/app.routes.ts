@@ -27,11 +27,11 @@ export const routes: Routes = [
       import('./pages/add-new-book/add-new-book').then((c) => c.AddNewBook),
   },
   {
-    path: 'preferences',
+    path: 'favorites',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./pages/preferences-page/preferences-page').then(
-        (c) => c.PreferencesPage
+      import('./pages/favorites-page/favorites-page').then(
+        (c) => c.FavoritesPage
       ),
   },
   {
