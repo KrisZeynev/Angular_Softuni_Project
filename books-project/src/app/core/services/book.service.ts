@@ -77,7 +77,7 @@ export class GetAllBooksByCriteria {
     const whereQuery = encodeURIComponent(`${field}="${termString}"`);
     const url = `${this.apiUrl}?where=${whereQuery}`;
     return this.http.get<Book[]>(url);
-}
+  }
 }
 
 // check if book current user is owner of any book
@@ -96,5 +96,23 @@ export class CheckBookOwner {
     const whereQuery = `_ownerId="${currentUserId}" AND _id="${bookId}"`;
     const url = `${this.baseUrl}?where=${encodeURIComponent(whereQuery)}`;
     return this.http.get<Book[]>(url);
+  }
+}
+
+// DeleteBookService
+@Injectable({
+  providedIn: 'root',
+})
+export class DeleteBookService {
+  private apiUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  deleteBook(id: string, accessToken: string): Observable<void> {
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 }
