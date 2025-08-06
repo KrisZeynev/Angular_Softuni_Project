@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { UpdateBookService } from '../../core/services/book.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -37,6 +38,7 @@ export class EditPage implements OnInit {
   currentYear = new Date().getFullYear();
 
   constructor(
+    private updateBookService: UpdateBookService,
     private location: Location,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -125,5 +127,22 @@ export class EditPage implements OnInit {
 
   onSubmit(): void {
     console.log('edit data');
+    const updatedData = this.bookForm.value;
+    const bookId = this.route.snapshot.paramMap.get('id') || '';
+    if (this.bookForm.invalid) {
+      return;
+    }
+    if (this.currAccessToken && bookId) {
+      //
+      this.updateBookService.updateBook(bookId, updatedData, this.currAccessToken).subscribe({
+      next: (res) => {
+        console.log('Book updated successfully', res);
+        this.location.back();
+      },
+      error: (err) => {
+        console.error('Error updating book', err);
+      },
+    });
+    }
   }
 }
