@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
-import { CreateBookService } from '../../core/services/book.service';
+import {
+  CreateBookService,
+  GetBookService,
+} from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -9,6 +12,7 @@ import {
   Validators,
   FormArray,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-page',
@@ -16,7 +20,7 @@ import {
   templateUrl: './edit-page.html',
   styleUrl: './edit-page.css',
 })
-export class EditPage {
+export class EditPage implements OnInit {
   bookForm: FormGroup;
   genresList: Genre[] = [
     'Action',
@@ -26,9 +30,18 @@ export class EditPage {
     'Biography',
   ];
 
+  currentUserId: string | null = null;
+  currAccessToken: string | null = null;
+
   currentYear = new Date().getFullYear();
 
-  constructor(private fb: FormBuilder, private bookService: CreateBookService) {
+  constructor(
+    private cd: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private getBookService: GetBookService,
+    private fb: FormBuilder,
+    private bookService: CreateBookService
+  ) {
     this.bookForm = this.fb.group({
       title: [
         '',
@@ -71,15 +84,41 @@ export class EditPage {
           Validators.pattern('[a-zA-Z0-9 ]+'),
         ],
       ],
-      // image: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
       image: ['', Validators.required],
       genre: ['', Validators.required],
     });
   }
 
+  ngOnInit(): void {
+    this.currentUserId = localStorage.getItem('userId');
+    this.currAccessToken = localStorage.getItem('accessToken');
+
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id') || '';
+      console.log('Book ID:', id);
+      this.getBookService.getBook(id).subscribe({
+        next: (book) => {
+          this.cd.detectChanges();
+          console.log('Book:', book);
+          this.bookForm.patchValue({
+            title: book.title,
+            description: book.description,
+            author: book.author,
+            publicationYear: book.publicationYear,
+            pages: book.pages,
+            isbn: book.isbn,
+            image: book.image,
+            genre: book.genre,
+          });
+        },
+        error: (err) => {
+          console.error('Error:', err);
+        },
+      });
+    });
+  }
 
   onSubmit(): void {
     console.log('edit data');
-    
   }
 }
