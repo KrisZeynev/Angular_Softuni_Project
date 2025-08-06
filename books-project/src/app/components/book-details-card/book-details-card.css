@@ -95,6 +95,20 @@ hr {
   background: #ea580c;
 }
 
+.btn-favorite-added {
+  background-color: #81b293;
+  background: #c6d2e3;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-favorite-added:hover {
+  background-color: #15803d;
+  cursor: pointer;
+}
+
 .btn-edit {
   background: #fbbf24;
 }
@@ -109,18 +123,4 @@ hr {
 
 .btn-delete:hover {
   background: #dc2626;
-}
-
-.btn-favorite-added {
-  background-color: #81b293;
-  background: #c6d2e3;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.btn-favorite-added:hover {
-  background-color: #15803d;
-  cursor: pointer;
 }

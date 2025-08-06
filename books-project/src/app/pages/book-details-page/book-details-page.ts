@@ -77,6 +77,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './book-details-page.html',
   styleUrl: './book-details-page.css',
+  standalone: true
 })
 export class BookDetailsPage implements OnInit {
   bookId!: string;
@@ -84,6 +85,7 @@ export class BookDetailsPage implements OnInit {
 
   isOwner: boolean = false;
   currentUserId: string | null = null;
+  isFavorite: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -125,5 +127,9 @@ export class BookDetailsPage implements OnInit {
         });
       }
     });
+  }
+
+  addToFavorites(): void {
+    console.log('add to favorites')
   }
 }

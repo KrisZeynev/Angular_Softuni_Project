@@ -4,16 +4,16 @@
   <div class="book-card">
     <div class="book-main">
       <div class="book-image">
-        <img [src]="currentBook.image" alt="Book Cover" />
+        <img [src]="currentBook?.image" alt="Book Cover" />
       </div>
 
       <div class="book-info">
-        <h2>{{currentBook.title}}</h2>
-        <span>Author: {{currentBook.author}}</span>
-        <span>Genre: {{currentBook.genre}}</span>
-        <span>Pages: {{currentBook.pages}}</span>
-        <span>Year: {{currentBook.publicationYear}}</span>
-        <span>ISBN: {{currentBook.isbn}}</span>
+        <h2>{{currentBook?.title}}</h2>
+        <span>Author: {{currentBook?.author}}</span>
+        <span>Genre: {{currentBook?.genre}}</span>
+        <span>Pages: {{currentBook?.pages}}</span>
+        <span>Year: {{currentBook?.publicationYear}}</span>
+        <span>ISBN: {{currentBook?.isbn}}</span>
 
         <div class="book-info-actions">
           <ng-container *ngIf="isOwner; else notOwner">
@@ -21,14 +21,18 @@
             <button class="btn btn-delete">🗑️ Delete</button>
           </ng-container>
           <ng-template #notOwner>
-            <button class="btn btn-red">❤️ Add to Favorites</button>
+            <!-- <button class="btn btn-favorite">❤️ Add to Favorites</button> -->
+            <button class="btn" [ngClass]="{ 'btn-favorite': !isFavorite, 'btn-favorite-added': isFavorite }"
+              (click)="addToFavorites()">
+              {{ isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
+            </button>
           </ng-template>
         </div>
       </div>
     </div>
 
     <div class="divider"><span>Description</span></div>
-    <p class="book-description">{{currentBook.description}}</p>
+    <p class="book-description">{{currentBook?.description}}</p>
 
     <ng-container *ngIf="!isOwner">
       <div class="comment-section">
