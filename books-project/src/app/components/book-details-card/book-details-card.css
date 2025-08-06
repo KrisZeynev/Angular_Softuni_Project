@@ -1,9 +1,12 @@
 .book-card {
+  display: flex;
+  flex-direction: column;
   background: #f9fafb;
   box-shadow: 0 4px 8px rgba(20, 32, 59, 0.3);
   border-radius: 10px;
   padding: 1rem;
   width: 330px;
+  min-height: 95%;
   margin: 1rem auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -43,6 +46,20 @@ hr {
   border-top: 1px solid #d1d5db;
   margin: 1rem auto;
   width: 75%;
+}
+
+.book-card-actions {
+  display: flex;
+  justify-content: center;
+  /* background: #15803d; */
+}
+
+.book-card-actions {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .book-card-btns {

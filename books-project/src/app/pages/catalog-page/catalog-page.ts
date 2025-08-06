@@ -67,14 +67,16 @@ export class CatalogPage implements OnInit {
     console.log('Searching books with', category, typeof searchTerm);
 
     if (category === 'publicationYear' || category === 'pages') {
-      this.getAllBooksByCriteria.searchBooksByNumber(category, searchTerm).subscribe({
-        next: (data) => {
-          console.log('Books found:', data);
-          this.books = data;
-          this.cdr.detectChanges();
-        },
-        error: (err) => console.error(err),
-      });
+      this.getAllBooksByCriteria
+        .searchBooksByNumber(category, searchTerm)
+        .subscribe({
+          next: (data) => {
+            console.log('Books found:', data);
+            this.books = data;
+            this.cdr.detectChanges();
+          },
+          error: (err) => console.error(err),
+        });
     } else {
       this.getAllBooksByCriteria.searchBooks(category, searchTerm).subscribe({
         next: (data) => {
@@ -85,5 +87,9 @@ export class CatalogPage implements OnInit {
         error: (err) => console.error(err),
       });
     }
+  }
+
+  onBookDeleted(deletedBookId: string) {
+    this.books = this.books.filter((book) => book._id !== deletedBookId);
   }
 }

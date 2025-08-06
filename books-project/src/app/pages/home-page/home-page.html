@@ -18,7 +18,7 @@
   <div *ngIf="books.length >= 1; else noBooks">
     <h3 class="home-sub-title">Check out the latest 5 books added to our collection.</h3>
     <div class="home-content">
-      <app-book-details-card *ngFor="let book of books" [book]="book"></app-book-details-card>
+      <app-book-details-card *ngFor="let book of books" [book]="book" (bookDeleted)="onBookDeleted($event)"></app-book-details-card>
     </div>
   </div>
   

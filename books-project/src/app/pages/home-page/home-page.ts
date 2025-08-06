@@ -13,7 +13,10 @@ import { CommonModule } from '@angular/common';
 export class HomePage implements OnInit {
   books: Book[] = [];
 
-  constructor(private getAllBooksService: GetLatest5BooksService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private getAllBooksService: GetLatest5BooksService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getAllBooksService.getLastFiveBooks().subscribe({
@@ -27,6 +30,10 @@ export class HomePage implements OnInit {
         console.error('Error loading books:', err);
       },
     });
+  }
+
+  onBookDeleted(deletedBookId: string) {
+    this.books = this.books.filter((book) => book._id !== deletedBookId);
   }
 
   // dummy books for test only
