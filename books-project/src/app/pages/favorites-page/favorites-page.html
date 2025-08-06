@@ -1,14 +1,21 @@
-<p>favorites-page works!</p>
+<h1 class="favorites-title">Favorites page</h1>
 
-<ng-container *ngIf="favoritesBooks.length > 0">
-<span>test</span>
-<app-book-details-card *ngFor="let book of favoritesBooks" [book]="book"></app-book-details-card>
-</ng-container>
+<div class="favorites-content-container">
+    <div *ngIf="favoritesBooks.length >= 1; else noBooks">
+        <h3 *ngIf="favoritesBooks.length > 1" class="favorites-sub-title">
+            Here are your favorite books:
+        </h3>
+        <h3 *ngIf="favoritesBooks.length === 1" class="favorites-sub-title">
+            Here is your favorite book:
+        </h3>
 
-<ng-container *ngIf="favoritesBooks.length > 0">
-  <app-book-details-card
-    *ngFor="let book of favoritesBooks"
-    [book]="book"
-    (favoriteRemoved)="onFavoriteRemoved($event)">
-  </app-book-details-card>
-</ng-container>
+        <div class="favorites-content">
+            <app-book-details-card *ngFor="let book of favoritesBooks" [book]="book"
+                (favoriteRemoved)="onFavoriteRemoved($event)"></app-book-details-card>
+        </div>
+    </div>
+
+    <ng-template #noBooks>
+        <p class="favorites-no-books-found">No books have been added to favorites yet.</p>
+    </ng-template>
+</div>
