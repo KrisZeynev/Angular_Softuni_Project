@@ -14,7 +14,7 @@
 
       <ng-container *ngIf="isOwner; else notOwner">
         <div class="owner-buttons">
-          <button class="btn btn-edit" (click)="editBook()">
+          <button [routerLink]="['/edit', book._id]" class="btn btn-edit" (click)="editBook()">
             ✏️ Edit
           </button>
           <button class="btn btn-delete" (click)="deleteBook()">

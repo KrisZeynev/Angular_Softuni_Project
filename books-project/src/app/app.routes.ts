@@ -21,6 +21,12 @@ export const routes: Routes = [
       import('./pages/book-details-page/book-details-page').then(c => c.BookDetailsPage)
   },
   {
+    path: 'edit/:id',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/edit-page/edit-page').then(c => c.EditPage)
+  },
+  {
     path: 'add-new-book',
     canActivate: [authGuard],
     loadComponent: () =>
