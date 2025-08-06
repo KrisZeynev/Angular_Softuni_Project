@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../../models/book.model';
 
+// Create Book Service
 @Injectable({
   providedIn: 'root',
 })
@@ -21,6 +22,26 @@ export class CreateBookService {
   }
 }
 
+// Edit Book Service
+@Injectable({
+  providedIn: 'root',
+})
+export class UpdateBookService {
+  private apiUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  updateBook(id: string, updatedData: Partial<Book>, accessToken: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.patch(`${this.apiUrl}/${id}`, updatedData, { headers });
+  }
+}
+
+// Get Book Data Service
 @Injectable({
   providedIn: 'root',
 })
@@ -34,6 +55,7 @@ export class GetBookService {
   }
 }
 
+// Get the latest 5 books
 @Injectable({
   providedIn: 'root',
 })
