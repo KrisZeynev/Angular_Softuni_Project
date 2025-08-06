@@ -13,6 +13,7 @@ import {
   FormArray,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-page',
@@ -36,11 +37,11 @@ export class EditPage implements OnInit {
   currentYear = new Date().getFullYear();
 
   constructor(
+    private location: Location,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private getBookService: GetBookService,
-    private fb: FormBuilder,
-    private bookService: CreateBookService
+    private fb: FormBuilder
   ) {
     this.bookForm = this.fb.group({
       title: [
@@ -87,6 +88,10 @@ export class EditPage implements OnInit {
       image: ['', Validators.required],
       genre: ['', Validators.required],
     });
+  }
+
+  cancelEdit(): void {
+    this.location.back();
   }
 
   ngOnInit(): void {
