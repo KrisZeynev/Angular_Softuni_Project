@@ -1,1 +1,84 @@
-<p>edit-page works!</p>
+<div class="form-container">
+    <h1 class="form-title">Edit Book</h1>
+
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="book-form">
+        <div class="form-grid">
+            <label>
+                <span class="label-text">Title</span>
+                <input type="text" formControlName="title" placeholder="Title*" />
+                <p class="error-msg" *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+                    Title is required
+                </p>
+            </label>
+
+            <label>
+                <span class="label-text">Description</span>
+                <input type="text" formControlName="description" placeholder="Description*" />
+                <p class="error-msg"
+                    *ngIf="bookForm.get('description')?.invalid && bookForm.get('description')?.touched">
+                    Description is required
+                </p>
+            </label>
+
+            <label>
+                <span class="label-text">Author</span>
+                <input type="text" formControlName="author" placeholder="Author*" />
+                <p class="error-msg" *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+                    Author is required
+                </p>
+            </label>
+
+            <label>
+                <span class="label-text">Genre</span>
+                <select formControlName="genre">
+                    <option value="">Select Genre</option>
+                    <option *ngFor="let g of genresList" [value]="g">{{ g }}</option>
+                </select>
+                <p class="error-msg"
+                    *ngIf="bookForm.get('genre')?.errors?.['required'] && bookForm.get('genre')?.touched">
+                    Genre is required
+                </p>
+            </label>
+
+            <label>
+                <span class="label-text">Publication Year</span>
+                <input type="number" formControlName="publicationYear" placeholder="Publication year*" />
+                <p class="error-msg"
+                    *ngIf="bookForm.get('publicationYear')?.invalid && bookForm.get('publicationYear')?.touched">
+                    Please provide publication year not bigger than {{ currentYear }}
+                </p>
+            </label>
+
+            <label>
+                <span class="label-text">Number of Pages</span>
+                <input type="number" formControlName="pages" placeholder="Number of pages*" />
+                <p class="error-msg" *ngIf="bookForm.get('pages')?.invalid && bookForm.get('pages')?.touched">
+                    Pages are required
+                </p>
+            </label>
+        </div>
+
+        <div class="form-grid">
+            <label>
+                <span class="label-text">ISBN</span>
+                <input type="text" formControlName="isbn" placeholder="ISBN*" />
+                <p class="error-msg" *ngIf="bookForm.get('isbn')?.invalid && bookForm.get('isbn')?.touched">
+                    ISBN is required
+                </p>
+            </label>
+
+            <label>
+                <span class="label-text">Image</span>
+                <input type="text" formControlName="image" placeholder="http://..." />
+                <p class="error-msg" *ngIf="bookForm.get('image')?.invalid && bookForm.get('image')?.touched">
+                    Image URL is required
+                </p>
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-add" [disabled]="bookForm.invalid">Edit</button>
+            <button type="button" class="btn btn-cancel" (click)="bookForm.reset()">Cancel</button>
+        </div>
+    </form>
+</div>
