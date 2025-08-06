@@ -20,8 +20,6 @@ export class BookDetailsCard implements OnInit {
   isFavorite: boolean = false;
   favoriteId: string = '';
 
-  private apiUrl = 'http://localhost:3030/data/favorites';
-
   constructor(
     private checkBookOwner: CheckBookOwner,
     private cd: ChangeDetectorRef,
