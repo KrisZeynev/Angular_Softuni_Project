@@ -13,21 +13,26 @@
       </a>
 
       <ng-container *ngIf="isOwner; else notOwner">
-      <div class="owner-buttons">
-        <button class="btn btn-edit" (click)="editBook()">
-          ✏️ Edit
-        </button>
-        <button class="btn btn-delete" (click)="deleteBook()">
-          🗑️ Delete
-        </button>
-      </div>
+        <div class="owner-buttons">
+          <button class="btn btn-edit" (click)="editBook()">
+            ✏️ Edit
+          </button>
+          <button class="btn btn-delete" (click)="deleteBook()">
+            🗑️ Delete
+          </button>
+        </div>
 
       </ng-container>
 
       <ng-template #notOwner>
-        <button class="btn btn-favorite" (click)="addToFavorites()">
+        <!-- <button class="btn btn-favorite" (click)="addToFavorites()">
           ❤️ Add to Favorites
+        </button> -->
+        <button class="btn" [ngClass]="{ 'btn-favorite': !isFavorite, 'btn-favorite-added': isFavorite }"
+          (click)="addToFavorites()">
+          {{ isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
         </button>
+
       </ng-template>
     </div>
   </div>
