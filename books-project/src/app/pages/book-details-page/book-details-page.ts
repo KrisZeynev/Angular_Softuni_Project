@@ -67,7 +67,7 @@
 // }
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import {
   CheckBookOwner,
   GetBookService,
@@ -75,10 +75,12 @@ import {
 import { Book } from '../../models/book.model';
 import { CommonModule } from '@angular/common';
 import { FavoritesService } from '../../core/services/favorites.service';
+import { DeleteBookService } from '../../core/services/book.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-book-details-page',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './book-details-page.html',
   styleUrl: './book-details-page.css',
   standalone: true,
@@ -91,17 +93,21 @@ export class BookDetailsPage implements OnInit {
   currentUserId: string | null = null;
   isFavorite: boolean = false;
   favoriteId: string = '';
+  currAccessToken: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private getBookServ: GetBookService,
     private checkBookOwner: CheckBookOwner,
     private cdr: ChangeDetectorRef,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private deleteBookServ: DeleteBookService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
     this.currentUserId = localStorage.getItem('userId');
+    this.currAccessToken = localStorage.getItem('accessToken');
 
     this.route.paramMap.subscribe((params) => {
       this.bookId = params.get('id')!;
@@ -204,11 +210,24 @@ export class BookDetailsPage implements OnInit {
         });
     }
   }
-  // addToFavorites(): void {
-  //   console.log('add to favorites ')
-  //   console.log(`isOwner: ${this.isOwner}`)
-  //   console.log(`currentUserId: ${this.currentUserId}`)
-  //   console.log(`isFavorite: ${this.isFavorite}`)
-  //   console.log(`favoriteId: ${this.favoriteId}`)
-  // }
+
+  deleteBook(): void {
+    console.log(`Delete book`);
+    console.log(`Delete book "${this.currentBook.title}"`);
+    console.log('isOwner:', this.isOwner);
+    if (this.currentBook._id && this.currAccessToken) {
+      this.deleteBookServ
+        .deleteBook(this.currentBook._id, this.currAccessToken)
+        .subscribe({
+          next: () => {
+            console.log('Book deleted successfully');
+            this.location.back();
+            // this.bookDeleted.emit(this.currentBook._id); // emit event to parent
+          },
+          error: (err) => {
+            console.error('Error deleting book', err);
+          },
+        });
+    }
+  }
 }

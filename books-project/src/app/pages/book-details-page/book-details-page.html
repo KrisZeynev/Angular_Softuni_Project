@@ -17,8 +17,8 @@
 
         <div class="book-info-actions">
           <ng-container *ngIf="isOwner; else notOwner">
-            <a href="#" class="btn btn-blue">✏️ Edit</a>
-            <button class="btn btn-delete">🗑️ Delete</button>
+            <a [routerLink]="['/edit', bookId]" class="btn btn-blue">✏️ Edit</a>
+            <button (click)="deleteBook()" class="btn btn-delete">🗑️ Delete</button>
           </ng-container>
           <ng-template #notOwner>
             <!-- <button class="btn btn-favorite">❤️ Add to Favorites</button> -->
