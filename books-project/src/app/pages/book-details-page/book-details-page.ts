@@ -77,6 +77,12 @@ import { CommonModule } from '@angular/common';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { DeleteBookService } from '../../core/services/book.service';
 import { Location } from '@angular/common';
+import {
+  trigger,
+  transition,
+  style,
+  animate
+} from '@angular/animations';
 
 @Component({
   selector: 'app-book-details-page',
@@ -84,6 +90,14 @@ import { Location } from '@angular/common';
   templateUrl: './book-details-page.html',
   styleUrl: './book-details-page.css',
   standalone: true,
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('800ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class BookDetailsPage implements OnInit {
   bookId!: string;
