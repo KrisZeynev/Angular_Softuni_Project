@@ -6,6 +6,12 @@ import { CheckBookOwner } from '../../core/services/book.service';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { Output, EventEmitter } from '@angular/core';
 import { DeleteBookService } from '../../core/services/book.service';
+import {
+  trigger,
+  transition,
+  style,
+  animate
+} from '@angular/animations';
 
 @Component({
   selector: 'app-book-details-card',
@@ -13,6 +19,14 @@ import { DeleteBookService } from '../../core/services/book.service';
   templateUrl: './book-details-card.html',
   styleUrls: ['./book-details-card.css'],
   standalone: true,
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('800ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class BookDetailsCard implements OnInit {
   @Input() book!: Book;
@@ -65,7 +79,11 @@ export class BookDetailsCard implements OnInit {
             this.cd.detectChanges();
           },
           error: (err) => {
-            console.error('Error fetching favorites:', err);
+            if (err.status !== 404) {
+              // not added to favorites yet
+              console.error('Error fetching favorites:', err);
+            }
+            // console.error('Error fetching favorites:', err);
           },
         });
     } else {

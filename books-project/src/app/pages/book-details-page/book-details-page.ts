@@ -154,7 +154,9 @@ export class BookDetailsPage implements OnInit {
               this.cdr.detectChanges();
             },
             error: (err) => {
-              console.error('Error checking favorites:', err);
+              if (err.status !== 404) {
+                console.error('Error checking favorites:', err);
+              }
             },
           });
       }

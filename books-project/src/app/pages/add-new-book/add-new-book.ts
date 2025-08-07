@@ -71,7 +71,7 @@ export class AddNewBook {
         console.log('Book created successfully', response);
         this.bookForm.reset();
 
-        (this.bookForm.get('genre') as FormArray).clear();
+        // (this.bookForm.get('genre') as FormArray).clear();
       },
       error: (err) => {
         console.error('Error creating book', err);

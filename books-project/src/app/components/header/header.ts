@@ -62,7 +62,7 @@ export class Header implements OnInit, OnDestroy {
       this.profileImg =
         localStorage.getItem('profileImg') || 'https://i.pravatar.cc/40';
     });
-    this.loggedIn = true;
+    // this.loggedIn = true;
   }
 
   ngOnDestroy(): void {

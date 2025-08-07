@@ -22,8 +22,8 @@ export class HomePage implements OnInit {
     this.getAllBooksService.getLastFiveBooks().subscribe({
       next: (data) => {
         this.books = data;
-        console.log(`all available books: ${JSON.stringify(this.books)}`);
-        console.log(`count: ${this.books.length}`);
+        // console.log(`all available books: ${JSON.stringify(this.books)}`);
+        // console.log(`count: ${this.books.length}`);
         this.cdr.detectChanges();
       },
       error: (err) => {
