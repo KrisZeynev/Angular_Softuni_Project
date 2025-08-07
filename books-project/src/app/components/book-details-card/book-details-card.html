@@ -4,7 +4,6 @@
     <h3>{{ book.title }}</h3>
     <p>by {{ book.author }}</p>
   </div>
-
   <hr />
   <div class="book-card-actions">
     <div class="book-card-btns">
@@ -12,28 +11,22 @@
         ℹ️ Details
       </a>
 
-      <ng-container *ngIf="isOwner; else notOwner">
-        <div class="owner-buttons">
-          <button [routerLink]="['/edit', book._id]" class="btn btn-edit" (click)="editBook()">
-            ✏️ Edit
-          </button>
-          <button class="btn btn-delete" (click)="deleteBook()">
-            🗑️ Delete
-          </button>
-        </div>
-
+      <ng-container *ngIf="isOwner">
+        <button [routerLink]="['/edit', book._id]" class="btn btn-edit">
+          ✏️ Edit
+        </button>
+        <button class="btn btn-delete" (click)="deleteBook()">
+          🗑️ Delete
+        </button>
       </ng-container>
 
-      <ng-template #notOwner>
-        <!-- <button class="btn btn-favorite" (click)="addToFavorites()">
-          ❤️ Add to Favorites
-        </button> -->
+      <ng-container *ngIf="!isOwner && currentUserId">
         <button class="btn" [ngClass]="{ 'btn-favorite': !isFavorite, 'btn-favorite-added': isFavorite }"
           (click)="addToFavorites()">
           {{ isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
         </button>
-
-      </ng-template>
+      </ng-container>
     </div>
   </div>
+
 </div>

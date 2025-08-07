@@ -142,10 +142,10 @@ export class BookDetailsCard implements OnInit {
     }
   }
 
-  editBook(): void {
-    console.log(`Edit book "${this.book.title}"`);
-    console.log('isOwner:', this.isOwner);
-  }
+  // editBook(): void {
+  //   console.log(`Edit book "${this.book.title}"`);
+  //   console.log('isOwner:', this.isOwner);
+  // }
 
   deleteBook(): void {
     console.log(`Delete book "${this.book.title}"`);
