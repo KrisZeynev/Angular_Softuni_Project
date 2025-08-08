@@ -1,22 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { CommentService } from '../../../core/services/comment.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-comment-create-form',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './comment-create-form.html',
   styleUrl: './comment-create-form.css',
-  standalone: true
+  standalone: true,
 })
-export class CommentCreateForm {
-  @Output() commentCreated = new EventEmitter<string>();
-
+export class CommentCreateForm implements OnInit {
   commentForm: FormGroup;
+  bookId!: string;
+  currAccessToken: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private commentService: CommentService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {
     this.commentForm = this.fb.group({
-      text: ['', [Validators.required, Validators.minLength(3)]],
+      text: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern(/\S+/),
+        ],
+      ],
+    });
+  }
+
+  ngOnInit(): void {
+    this.currAccessToken = localStorage.getItem('accessToken');
+
+    this.route.paramMap.subscribe((params) => {
+      this.bookId = params.get('id')!;
     });
   }
 
@@ -24,9 +53,23 @@ export class CommentCreateForm {
     if (this.commentForm.invalid) {
       return;
     }
-    
-    // Emit the text of the new comment into the parent component
-    this.commentCreated.emit(this.commentForm.value.text);
-    this.commentForm.reset();
+
+    if (this.currAccessToken) {
+      this.commentService
+        .postComment(
+          this.currAccessToken,
+          this.bookId,
+          this.commentForm.value.text
+        )
+        .subscribe({
+          next: () => {
+            this.commentForm.reset();
+            this.location.back();
+          },
+          error: (err) => {
+            console.error('Error posting a new comment:', err);
+          },
+        });
+    }
   }
 }

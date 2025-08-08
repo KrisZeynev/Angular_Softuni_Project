@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comment } from '../../models/comment.model';
@@ -11,20 +11,48 @@ const baseUrl = 'http://localhost:3030/data/book-comments';
 export class CommentService {
   constructor(private http: HttpClient) {}
 
-  getCommentsByBookId(bookId: string): Observable<Comment[]> {
+  getCommentsByBookId(
+    accessToken: string,
+    bookId: string
+  ): Observable<Comment[]> {
     const query = encodeURIComponent(`bookId="${bookId}"`);
-    return this.http.get<Comment[]>(`${baseUrl}?where=${query}`);
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.get<Comment[]>(`${baseUrl}?where=${query}`, { headers });
   }
 
-  postComment(bookId: string, text: string): Observable<Comment> {
-    return this.http.post<Comment>(baseUrl, { bookId, text });
+  postComment(
+    accessToken: string,
+    bookId: string,
+    text: string
+  ): Observable<Comment> {
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+    return this.http.post<Comment>(baseUrl, { bookId, text }, { headers });
   }
 
-  editComment(commentId: string, newText: string): Observable<Comment> {
-    return this.http.patch<Comment>(`${baseUrl}/${commentId}`, { text: newText });
+  editComment(
+    accessToken: string,
+    commentId: string,
+    newText: string
+  ): Observable<Comment> {
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+    return this.http.patch<Comment>(
+      `${baseUrl}/${commentId}`,
+      { text: newText },
+      { headers }
+    );
   }
 
-  deleteComment(commentId: string): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/${commentId}`);
+  deleteComment(accessToken: string, commentId: string): Observable<void> {
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+    return this.http.delete<void>(`${baseUrl}/${commentId}`, { headers });
   }
 }
