@@ -9,46 +9,32 @@
 
       <div class="book-info">
         <h2>{{currentBook.title}}</h2>
-        <span>Author: {{currentBook.author}}</span>
-        <span>Genre: {{currentBook.genre}}</span>
-        <span>Pages: {{currentBook.pages}}</span>
-        <span>Year: {{currentBook.publicationYear}}</span>
-        <span>ISBN: {{currentBook.isbn}}</span>
+            <span>Author: {{currentBook.author}}</span>
+            <span>Genre: {{currentBook.genre}}</span>
+            <span>Pages: {{currentBook.pages}}</span>
 
-        <div class="book-info-actions">
-          <ng-container *ngIf="isOwner; else notOwner">
-            <a [routerLink]="['/edit', bookId]" class="btn btn-blue">✏️ Edit</a>
-            <button (click)="deleteBook()" class="btn btn-delete">🗑️ Delete</button>
-          </ng-container>
-          <ng-template #notOwner>
-            <ng-container *ngIf="currentUserId">
+            <span>Year: {{currentBook.publicationYear}}</span>
+            <span>ISBN: {{currentBook.isbn}}</span>
+            <span>Description: {{currentBook.description}}</span>
+      </div>
+
+      <div class="book-info-actions">
+        <ng-container *ngIf="isOwner; else notOwner">
+          <a [routerLink]="['/edit', bookId]" class="btn btn-blue">✏️ Edit</a>
+          <button (click)="deleteBook()" class="btn btn-delete">🗑️ Delete</button>
+        </ng-container>
+        <ng-template #notOwner>
+          <ng-container *ngIf="currentUserId">
             <!-- <button class="btn btn-favorite">❤️ Add to Favorites</button> -->
             <button class="btn" [ngClass]="{ 'btn-favorite': !isFavorite, 'btn-favorite-added': isFavorite }"
               (click)="addToFavorites()">
               {{ isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
             </button>
             <button class="btn">Add a new comment</button>
-            </ng-container>
-          </ng-template>
-        </div>
+          </ng-container>
+        </ng-template>
       </div>
     </div>
-
-    <div class="divider"><span>Description</span></div>
-    <p class="book-description">{{currentBook.description}}</p>
-
-    <ng-container *ngIf="!isOwner">
-      <div class="comment-section">
-        <!-- banner for succesfully created message -->
-        <!-- <div class="success-banner">Comment submitted successfully!</div> -->
-
-        <!-- comment form -->
-        <div class="comment-form">
-          <textarea placeholder="Write your comment..."></textarea>
-          <button class="btn btn-blue">Submit</button>
-        </div>
-      </div>
-    </ng-container>
   </div>
 
   <div class="divider"><span>Comments</span></div>
