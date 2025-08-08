@@ -30,7 +30,7 @@
               (click)="addToFavorites()">
               {{ isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
             </button>
-            <button class="btn">Add a new comment</button>
+            <button [routerLink]="['/create-comment', bookId]" class="btn new-comment">Add a new comment</button>
           </ng-container>
         </ng-template>
       </div>

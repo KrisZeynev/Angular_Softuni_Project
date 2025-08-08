@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-comment-create-form',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './comment-create-form.html',
   styleUrl: './comment-create-form.css',
 })

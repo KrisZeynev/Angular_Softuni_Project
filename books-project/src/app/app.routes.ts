@@ -21,6 +21,12 @@ export const routes: Routes = [
       import('./pages/book-details-page/book-details-page').then(c => c.BookDetailsPage)
   },
   {
+    path: 'create-comment/:id',
+    // canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/comments/comment-create-form/comment-create-form').then(c => c.CommentCreateForm)
+  },
+  {
     path: 'edit/:id',
     canActivate: [authGuard],
     loadComponent: () =>
