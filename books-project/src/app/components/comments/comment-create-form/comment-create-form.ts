@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
 
 @Component({
   selector: 'app-comment-create-form',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './comment-create-form.html',
   styleUrl: './comment-create-form.css',
+  standalone: true
 })
 export class CommentCreateForm {
   @Output() commentCreated = new EventEmitter<string>();
