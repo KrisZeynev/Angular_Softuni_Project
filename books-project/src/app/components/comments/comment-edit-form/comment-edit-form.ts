@@ -46,6 +46,7 @@ export class CommentEditForm implements OnInit {
     console.log(id);
 
     if (this.currAccessToken && id) {
+      this.bookId = id;
       this.commentService
         .getCommentById(this.currAccessToken, id)
         .subscribe((comment) => {
@@ -55,6 +56,25 @@ export class CommentEditForm implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('on submit');
+    if (this.commentForm.invalid || !this.currAccessToken) {
+      return;
+    }
+
+    const updatedText = this.commentForm.value.text;
+    const commentId = this.route.snapshot.paramMap.get('id');
+
+    if (commentId) {
+      this.commentService
+        .editComment(this.currAccessToken, commentId, updatedText)
+        .subscribe({
+          next: () => {
+            console.log('Comment updated successfully');
+            this.location.back();
+          },
+          error: (err) => {
+            console.error('Error updating comment:', err);
+          },
+        });
+    }
   }
 }
