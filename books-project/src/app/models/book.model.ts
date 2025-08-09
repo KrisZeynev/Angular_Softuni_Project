@@ -9,6 +9,5 @@ export interface Book {
   publicationYear: number;
   pages: number;
   isbn: string;
-  // image: string;
-  profileImg: string;
+  image: string;
 }

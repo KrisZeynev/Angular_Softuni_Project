@@ -38,7 +38,7 @@ export class AddNewBook {
       pages: [null, [Validators.required, Validators.min(1)]],
       isbn: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z0-9 ]+')]],
       // image: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
-      profileImg: ['', Validators.required],
+      image: ['', Validators.required],
       genre: ['', Validators.required],
     });
   }
