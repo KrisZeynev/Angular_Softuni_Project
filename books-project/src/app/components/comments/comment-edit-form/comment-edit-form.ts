@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './comment-edit-form.html',
   styleUrl: './comment-edit-form.css',
+  standalone: true,
 })
 export class CommentEditForm implements OnInit {
   commentForm: FormGroup;
@@ -40,17 +41,20 @@ export class CommentEditForm implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currAccessToken = localStorage.getItem('accessToken');
     const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
-    
-    // if (id) {
-    //   this.commentService.(id).subscribe(comment => {
-    //     this.commentText = comment.text;
-    //   });
-    // }
+
+    if (this.currAccessToken && id) {
+      this.commentService
+        .getCommentById(this.currAccessToken, id)
+        .subscribe((comment) => {
+          this.commentForm.patchValue({ text: comment.text });
+        });
+    }
   }
 
   onSubmit(): void {
-    console.log('on submit')
+    console.log('on submit');
   }
 }

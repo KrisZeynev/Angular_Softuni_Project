@@ -11,16 +11,12 @@ const baseUrl = 'http://localhost:3030/data/book-comments';
 export class CommentService {
   constructor(private http: HttpClient) {}
 
-  getCommentById(
-    accessToken: string,
-    commentId: string
-  ): Observable<Comment[]> {
-    const query = encodeURIComponent(`_id="${commentId}"`);
+  getCommentById(accessToken: string, commentId: string): Observable<Comment> {
     const headers = new HttpHeaders({
       'X-Authorization': accessToken,
     });
 
-    return this.http.get<Comment[]>(`${baseUrl}?where=${query}`, { headers });
+    return this.http.get<Comment>(`${baseUrl}/${commentId}`, { headers });
   }
 
   getCommentsByBookId(
