@@ -9,13 +9,13 @@
 
       <div class="book-info">
         <h2>{{currentBook.title}}</h2>
-            <span>Author: {{currentBook.author}}</span>
-            <span>Genre: {{currentBook.genre}}</span>
-            <span>Pages: {{currentBook.pages}}</span>
+        <span>Author: {{currentBook.author}}</span>
+        <span>Genre: {{currentBook.genre}}</span>
+        <span>Pages: {{currentBook.pages}}</span>
 
-            <span>Year: {{currentBook.publicationYear}}</span>
-            <span>ISBN: {{currentBook.isbn}}</span>
-            <span>Description: {{currentBook.description}}</span>
+        <span>Year: {{currentBook.publicationYear}}</span>
+        <span>ISBN: {{currentBook.isbn}}</span>
+        <span>Description: {{currentBook.description}}</span>
       </div>
 
       <div class="book-info-actions">
@@ -40,9 +40,20 @@
   <div class="divider"><span>Comments</span></div>
 
   <div class="comments-grid">
-    <!-- if some comments -->
-    <div class="comment">This is a comment.</div>
-    <div class="comment">Another comment.</div>
+    <ng-container *ngIf="comments.length > 0; else noComments">
+
+      <!-- if some comments -->
+      <div *ngFor="let comment of comments">
+        <app-comment-item [comment]="comment"></app-comment-item>
+      </div>
+    </ng-container>
+
+    <ng-template #noComments>
+      <div class="no-comments">No comments have been added yet!</div>
+    </ng-template>
+
+
+
 
     <!-- if no comments -->
     <!--

@@ -83,10 +83,13 @@ import {
   style,
   animate
 } from '@angular/animations';
+import { CommentService } from '../../core/services/comment.service';
+import { Comment } from '../../models/comment.model';
+import { CommentItem } from '../../components/comments/comment-item/comment-item';
 
 @Component({
   selector: 'app-book-details-page',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, CommentItem],
   templateUrl: './book-details-page.html',
   styleUrl: './book-details-page.css',
   standalone: true,
@@ -102,6 +105,7 @@ import {
 export class BookDetailsPage implements OnInit {
   bookId!: string;
   currentBook!: Book;
+  comments: Comment[] = [];
 
   isOwner: boolean = false;
   currentUserId: string | null = null;
@@ -116,7 +120,8 @@ export class BookDetailsPage implements OnInit {
     private cdr: ChangeDetectorRef,
     private favoritesService: FavoritesService,
     private deleteBookServ: DeleteBookService,
-    private location: Location
+    private location: Location,
+    private commentService: CommentService,
   ) {}
 
   ngOnInit(): void {
@@ -174,6 +179,21 @@ export class BookDetailsPage implements OnInit {
             },
           });
       }
+
+      if (this.currAccessToken) {
+      this.commentService
+        .getCommentsByBookId(this.currAccessToken, this.bookId)
+        .subscribe({
+          next: (res) => {
+            this.comments = res;
+            this.cdr.detectChanges(); 
+            console.log(`all comments: ${this.comments}`)
+          },
+          error: (err) => {
+            console.error('Error posting a new comment:', err);
+          },
+        });
+    }
     });
   }
 
