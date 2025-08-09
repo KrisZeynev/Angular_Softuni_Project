@@ -44,7 +44,7 @@
 
       <!-- if some comments -->
       <div *ngFor="let comment of comments">
-        <app-comment-item [comment]="comment"></app-comment-item>
+        <app-comment-item [comment]="comment" (deleted)="onCommentDeleted($event)"></app-comment-item>
       </div>
     </ng-container>
 

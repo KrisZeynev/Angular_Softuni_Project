@@ -5,6 +5,6 @@
     </div>
     <div class="comment-item-buttons" *ngIf="isOwner">
         <button [routerLink]="['/edit-comment', comment._id]" class="comment-edit">Edit</button>
-        <button class="comment-delete">Delete</button>
+        <button (click)="onDelete()" class="comment-delete">Delete</button>
     </div>
 </div>

@@ -77,12 +77,7 @@ import { CommonModule } from '@angular/common';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { DeleteBookService } from '../../core/services/book.service';
 import { Location } from '@angular/common';
-import {
-  trigger,
-  transition,
-  style,
-  animate
-} from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { CommentService } from '../../core/services/comment.service';
 import { Comment } from '../../models/comment.model';
 import { CommentItem } from '../../components/comments/comment-item/comment-item';
@@ -97,7 +92,10 @@ import { CommentItem } from '../../components/comments/comment-item/comment-item
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('800ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        animate(
+          '800ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
       ]),
     ]),
   ],
@@ -121,7 +119,7 @@ export class BookDetailsPage implements OnInit {
     private favoritesService: FavoritesService,
     private deleteBookServ: DeleteBookService,
     private location: Location,
-    private commentService: CommentService,
+    private commentService: CommentService
   ) {}
 
   ngOnInit(): void {
@@ -181,19 +179,19 @@ export class BookDetailsPage implements OnInit {
       }
 
       if (this.currAccessToken) {
-      this.commentService
-        .getCommentsByBookId(this.currAccessToken, this.bookId)
-        .subscribe({
-          next: (res) => {
-            this.comments = res;
-            this.cdr.detectChanges(); 
-            console.log(`all comments: ${this.comments}`)
-          },
-          error: (err) => {
-            console.error('Error posting a new comment:', err);
-          },
-        });
-    }
+        this.commentService
+          .getCommentsByBookId(this.currAccessToken, this.bookId)
+          .subscribe({
+            next: (res) => {
+              this.comments = res;
+              this.cdr.detectChanges();
+              console.log(`all comments: ${this.comments}`);
+            },
+            error: (err) => {
+              console.error('Error posting a new comment:', err);
+            },
+          });
+      }
     });
   }
 
@@ -265,5 +263,9 @@ export class BookDetailsPage implements OnInit {
           },
         });
     }
+  }
+
+  onCommentDeleted(commentId: string): void {
+    this.comments = this.comments.filter((c) => c._id !== commentId);
   }
 }
