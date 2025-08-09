@@ -15,7 +15,7 @@ export const routes: Routes = [
       import('./pages/catalog-page/catalog-page').then((c) => c.CatalogPage),
   },
   {
-    path: 'details/:id',
+    path: 'book-details/:id',
     // canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/book-details-page/book-details-page').then(c => c.BookDetailsPage)

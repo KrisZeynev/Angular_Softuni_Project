@@ -87,7 +87,8 @@ export class EditPage implements OnInit {
           Validators.pattern('[a-zA-Z0-9 ]+'),
         ],
       ],
-      image: ['', Validators.required],
+      // image: ['', Validators.required],
+      profileImg: ['', Validators.required],
       genre: ['', Validators.required],
     });
   }
@@ -114,7 +115,8 @@ export class EditPage implements OnInit {
             publicationYear: book.publicationYear,
             pages: book.pages,
             isbn: book.isbn,
-            image: book.image,
+            // image: book.image,
+            profileImg: book.profileImg,
             genre: book.genre,
           });
         },

@@ -1,13 +1,13 @@
 <div class="book-card" @fadeIn>
   <div class="book-card-header">
-    <img [src]="book.image" alt="Book title" />
+    <img [src]="book.profileImg" alt="Book title" />
     <h3>{{ book.title }}</h3>
     <p>by {{ book.author }}</p>
   </div>
   <hr />
   <div class="book-card-actions">
     <div class="book-card-btns">
-      <a [routerLink]="['/details', book._id]" class="btn btn-indigo">
+      <a [routerLink]="['/book-details', book._id]" class="btn btn-indigo">
         ℹ️ Details
       </a>
 
