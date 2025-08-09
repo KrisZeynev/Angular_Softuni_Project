@@ -4,7 +4,7 @@
         <small>Posted on: {{ comment._createdOn | date:'medium' }}</small>
     </div>
     <div class="comment-item-buttons" *ngIf="isOwner">
-        <button class="comment-edit">Edit</button>
+        <button [routerLink]="['/edit-comment', comment._id]" class="comment-edit">Edit</button>
         <button class="comment-delete">Delete</button>
     </div>
 </div>

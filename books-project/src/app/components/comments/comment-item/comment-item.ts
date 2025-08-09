@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from '../../../models/comment.model';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-comment-item',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './comment-item.html',
   styleUrl: './comment-item.css',
   standalone: true

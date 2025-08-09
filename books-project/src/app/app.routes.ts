@@ -27,6 +27,12 @@ export const routes: Routes = [
       import('./components/comments/comment-create-form/comment-create-form').then(c => c.CommentCreateForm)
   },
   {
+    path: 'edit-comment/:id',
+    // canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/comments/comment-edit-form/comment-edit-form').then(c => c.CommentEditForm)
+  },
+  {
     path: 'edit/:id',
     canActivate: [authGuard],
     loadComponent: () =>
