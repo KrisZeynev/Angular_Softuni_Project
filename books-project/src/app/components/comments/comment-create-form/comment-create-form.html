@@ -8,7 +8,7 @@
             class="error">
             <small *ngIf="commentForm.controls['text'].errors?.['required']">Comment text is required.</small>
             <small *ngIf="commentForm.controls['text'].errors?.['minlength']">Comment must be at least 3 characters.</small>
-            <small *ngIf="commentForm.controls['text'].errors?.['maxlength']">Comment must be up to 20 characters.</small>
+            <small *ngIf="commentForm.controls['text'].errors?.['maxlength']">Comment must be up to 50 characters.</small>
         </div>
 
         <button type="submit" [disabled]="commentForm.invalid" class="btn btn-blue">
