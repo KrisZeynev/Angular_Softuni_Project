@@ -9,6 +9,7 @@ import {
 import { CommentService } from '../../../core/services/comment.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Comment } from '../../../models/comment.model';
 
 @Component({
   selector: 'app-comment-create-form',
@@ -34,7 +35,7 @@ export class CommentCreateForm implements OnInit {
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(20),
+          Validators.maxLength(40),
           Validators.pattern(/\S+/),
         ],
       ],
