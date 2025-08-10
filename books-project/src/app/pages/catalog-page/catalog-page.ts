@@ -34,28 +34,6 @@ export class CatalogPage implements OnInit {
     });
   }
 
-  // onSubmit(): void {
-  //   console.log('search')
-  //   if (this.searchForm.invalid) {
-  //     return;
-  //   }
-  //   const { category, searchTerm } = this.searchForm.value;
-
-  //   this.getAllBooksByCriteria
-  //     .searchBooks(category, searchTerm)
-  //     .subscribe({
-  //       next: (data) => {
-  //         this.books = data
-  //         this.cdr.detectChanges();
-  //       }
-  //       error: (err) => console.error(err),
-  //     });
-  // }
-
-  // onSubmit(): void {
-  //   console.log('submit')
-  // }
-
   onSubmit(): void {
     if (this.searchForm.invalid) {
       console.log('Form invalid');
