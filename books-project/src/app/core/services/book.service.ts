@@ -12,13 +12,15 @@ export class CreateBookService {
 
   constructor(private http: HttpClient) {}
 
-  createBook(book: Book, accessToken: string): Observable<any> {
+  // createBook(book: Book, accessToken: string): Observable<any> {
+  createBook(book: Book, accessToken: string): Observable<Book> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Authorization': accessToken,
     });
 
-    return this.http.post(this.apiUrl, book, { headers });
+    return this.http.post<Book>(this.apiUrl, book, { headers });
+    // return this.http.post(this.apiUrl, book, { headers });
   }
 }
 
@@ -31,13 +33,15 @@ export class UpdateBookService {
 
   constructor(private http: HttpClient) {}
 
-  updateBook(id: string, updatedData: Partial<Book>, accessToken: string): Observable<any> {
+  // updateBook(id: string, updatedData: Partial<Book>, accessToken: string): Observable<any> {
+  updateBook(id: string, updatedData: Partial<Book>, accessToken: string): Observable<Book> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Authorization': accessToken,
     });
 
-    return this.http.patch(`${this.apiUrl}/${id}`, updatedData, { headers });
+    return this.http.patch<Book>(`${this.apiUrl}/${id}`, updatedData, { headers });
+    // return this.http.patch(`${this.apiUrl}/${id}`, updatedData, { headers });
   }
 }
 
@@ -50,8 +54,10 @@ export class GetBookService {
 
   constructor(private http: HttpClient) {}
 
-  getBook(id: string): Observable<any> {
-    return this.http.get<Book[]>(`${this.apiUrl}/${id}`);
+  // getBook(id: string): Observable<any> {
+  getBook(id: string): Observable<Book> {
+    return this.http.get<Book>(`${this.apiUrl}/${id}`);
+    // return this.http.get<Book[]>(`${this.apiUrl}/${id}`);
   }
 }
 
@@ -64,13 +70,11 @@ export class GetLatest5BooksService {
 
   constructor(private http: HttpClient) {}
 
-  // getAllBooks(): Observable<any> {
-  //   return this.http.get(this.apiUrl);
-  // }
-
-  getLastFiveBooks(): Observable<any> {
+  // getLastFiveBooks(): Observable<any> {
+  getLastFiveBooks(): Observable<Book[]> {
     const url = `${this.apiUrl}?sortBy=_createdOn%20desc&pageSize=5`;
-    return this.http.get(url);
+    return this.http.get<Book[]>(url);
+    // return this.http.get(url);
   }
 }
 
