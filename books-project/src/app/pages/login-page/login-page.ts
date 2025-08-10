@@ -48,6 +48,8 @@ export class LoginPage {
         this.router.navigate(['/home']);
       },
       error: (error) => {
+        this.errorMessage = error.error.message;
+        this.cdr.detectChanges();
         console.log('Not logged', error);
       },
     });
