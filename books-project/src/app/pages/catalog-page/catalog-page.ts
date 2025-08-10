@@ -24,7 +24,7 @@ export class CatalogPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private getAllBooksByCriteria: BookService,
+    private bookService: BookService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -32,6 +32,14 @@ export class CatalogPage implements OnInit {
     this.searchForm = this.fb.group({
       category: ['title', Validators.required],
       searchTerm: ['', Validators.required],
+    });
+
+    this.bookService.getAllBooks().subscribe({
+      next: (data) => {
+        this.books = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err),
     });
   }
 
@@ -46,18 +54,16 @@ export class CatalogPage implements OnInit {
     console.log('Searching books with', category, typeof searchTerm);
 
     if (category === 'publicationYear' || category === 'pages') {
-      this.getAllBooksByCriteria
-        .searchBooksByNumber(category, searchTerm)
-        .subscribe({
-          next: (data) => {
-            console.log('Books found:', data);
-            this.books = data;
-            this.cdr.detectChanges();
-          },
-          error: (err) => console.error(err),
-        });
+      this.bookService.searchBooksByNumber(category, searchTerm).subscribe({
+        next: (data) => {
+          console.log('Books found:', data);
+          this.books = data;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error(err),
+      });
     } else {
-      this.getAllBooksByCriteria.searchBooks(category, searchTerm).subscribe({
+      this.bookService.searchBooks(category, searchTerm).subscribe({
         next: (data) => {
           console.log('Books found:', data);
           this.books = data;
