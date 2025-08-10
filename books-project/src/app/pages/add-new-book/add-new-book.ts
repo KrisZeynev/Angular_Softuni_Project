@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
-import { CreateBookService } from '../../core/services/book.service';
+// import { CreateBookService } from '../../core/services/book.service';
+import { BookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -33,7 +34,7 @@ export class AddNewBook {
 
   constructor(
     private fb: FormBuilder,
-    private bookService: CreateBookService,
+    private bookService: BookService,
     private cdr: ChangeDetectorRef
   ) {
     this.bookForm = this.fb.group({

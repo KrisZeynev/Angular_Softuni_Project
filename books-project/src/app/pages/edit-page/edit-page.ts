@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
-import {
-  CreateBookService,
-  GetBookService,
-} from '../../core/services/book.service';
+// import {
+//   CreateBookService,
+//   GetBookService,
+// } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -14,7 +14,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { UpdateBookService } from '../../core/services/book.service';
+// import { UpdateBookService } from '../../core/services/book.service';
+import { BookService } from '../../core/services/book.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -38,11 +39,12 @@ export class EditPage implements OnInit {
   currentYear = new Date().getFullYear();
 
   constructor(
-    private updateBookService: UpdateBookService,
+    // private updateBookService: BookService,
     private location: Location,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private getBookService: GetBookService,
+    // private getBookService: BookService,
+    private bookService: BookService,
     private fb: FormBuilder
   ) {
     this.bookForm = this.fb.group({
@@ -103,7 +105,7 @@ export class EditPage implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id') || '';
       console.log('Book ID:', id);
-      this.getBookService.getBook(id).subscribe({
+      this.bookService.getBook(id).subscribe({
         next: (book) => {
           this.cd.detectChanges();
           console.log('Book:', book);
@@ -134,7 +136,7 @@ export class EditPage implements OnInit {
     }
     if (this.currAccessToken && bookId) {
       //
-      this.updateBookService.updateBook(bookId, updatedData, this.currAccessToken).subscribe({
+      this.bookService.updateBook(bookId, updatedData, this.currAccessToken).subscribe({
       next: (res) => {
         console.log('Book updated successfully', res);
         this.location.back();

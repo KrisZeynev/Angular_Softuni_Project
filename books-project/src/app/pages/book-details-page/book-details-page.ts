@@ -68,14 +68,15 @@
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import {
-  CheckBookOwner,
-  GetBookService,
-} from '../../core/services/book.service';
+// import {
+//   CheckBookOwner,
+//   GetBookService,
+// } from '../../core/services/book.service';
 import { Book } from '../../models/book.model';
 import { CommonModule } from '@angular/common';
 import { FavoritesService } from '../../core/services/favorites.service';
-import { DeleteBookService } from '../../core/services/book.service';
+// import { DeleteBookService } from '../../core/services/book.service';
+import { BookService } from '../../core/services/book.service';
 import { Location } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommentService } from '../../core/services/comment.service';
@@ -113,11 +114,11 @@ export class BookDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private getBookServ: GetBookService,
-    private checkBookOwner: CheckBookOwner,
+    // private getBookServ: BookService,
+    // private checkBookOwner: BookService,
     private cdr: ChangeDetectorRef,
     private favoritesService: FavoritesService,
-    private deleteBookServ: DeleteBookService,
+    private bookService: BookService,
     private location: Location,
     private commentService: CommentService
   ) {}
@@ -130,7 +131,7 @@ export class BookDetailsPage implements OnInit {
       this.bookId = params.get('id')!;
 
       // get current book data
-      this.getBookServ.getBook(this.bookId).subscribe({
+      this.bookService.getBook(this.bookId).subscribe({
         next: (book) => {
           console.log('Book data:', book);
           this.currentBook = book;
@@ -143,7 +144,7 @@ export class BookDetailsPage implements OnInit {
 
       // check if is owner
       if (this.currentUserId && this.bookId) {
-        this.checkBookOwner
+        this.bookService
           .getBookByOwnerAndId(this.currentUserId, this.bookId)
           .subscribe({
             next: (books) => {
@@ -250,7 +251,7 @@ export class BookDetailsPage implements OnInit {
     console.log(`Delete book "${this.currentBook.title}"`);
     console.log('isOwner:', this.isOwner);
     if (this.currentBook._id && this.currAccessToken) {
-      this.deleteBookServ
+      this.bookService
         .deleteBook(this.currentBook._id, this.currAccessToken)
         .subscribe({
           next: () => {

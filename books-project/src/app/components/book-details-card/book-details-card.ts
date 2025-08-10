@@ -2,10 +2,11 @@ import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Book } from '../../models/book.model';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CheckBookOwner } from '../../core/services/book.service';
+// import { CheckBookOwner } from '../../core/services/book.service';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { Output, EventEmitter } from '@angular/core';
-import { DeleteBookService } from '../../core/services/book.service';
+// import { DeleteBookService } from '../../core/services/book.service';
+import { BookService } from '../../core/services/book.service';
 import {
   trigger,
   transition,
@@ -40,10 +41,11 @@ export class BookDetailsCard implements OnInit {
   currAccessToken: string | null = null;
 
   constructor(
-    private checkBookOwner: CheckBookOwner,
+    // private checkBookOwner: BookService,
     private cd: ChangeDetectorRef,
     private favoritesService: FavoritesService,
-    private deleteService: DeleteBookService
+    // private deleteService: BookService,
+    private bookService: BookService,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class BookDetailsCard implements OnInit {
     this.currAccessToken = localStorage.getItem('accessToken');
 
     if (this.currentUserId && this.book && this.book._id) {
-      this.checkBookOwner
+      this.bookService
         .getBookByOwnerAndId(this.currentUserId, this.book._id)
         .subscribe({
           next: (books) => {
@@ -152,7 +154,7 @@ export class BookDetailsCard implements OnInit {
     console.log('isOwner:', this.isOwner);
 
     if (this.book._id && this.currAccessToken) {
-      this.deleteService
+      this.bookService
         .deleteBook(this.book._id, this.currAccessToken)
         .subscribe({
           next: () => {
