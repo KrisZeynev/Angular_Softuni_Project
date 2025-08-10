@@ -1,5 +1,5 @@
 // import { Component, inject, ChangeDetectorRef } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
@@ -30,7 +30,7 @@ export class RegisterPage {
   constructor(
     private authService: AuthService,
     private router: Router,
-    // private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     private http: HttpClient
   ) {}
 
@@ -66,6 +66,8 @@ export class RegisterPage {
           this.router.navigate(['/home']);
         },
         error: (error) => {
+          this.errorMessage = error.error.message;
+          this.cdr.detectChanges();
           console.log('Not registered', error);
         },
       });
