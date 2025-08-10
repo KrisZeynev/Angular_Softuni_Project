@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Book } from '../../models/book.model';
-import { GetAllBooksByCriteria } from '../../core/services/book.service';
+// import { GetAllBooksByCriteria } from '../../core/services/book.service';
+import { BookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -23,7 +24,7 @@ export class CatalogPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private getAllBooksByCriteria: GetAllBooksByCriteria,
+    private getAllBooksByCriteria: BookService,
     private cdr: ChangeDetectorRef
   ) {}
 

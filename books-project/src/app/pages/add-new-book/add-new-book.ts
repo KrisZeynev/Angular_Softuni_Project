@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef  } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
 import { CreateBookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
@@ -29,8 +29,13 @@ export class AddNewBook {
 
   currentYear = new Date().getFullYear();
   successMessage = false;
+  isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private bookService: CreateBookService, private cdr: ChangeDetectorRef) {
+  constructor(
+    private fb: FormBuilder,
+    private bookService: CreateBookService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.bookForm = this.fb.group({
       title: [
         '',
@@ -99,6 +104,8 @@ export class AddNewBook {
       return;
     }
 
+    this.isSubmitting = true;
+
     const accessToken = localStorage.getItem('accessToken') || '';
     const book: Book = this.bookForm.value;
 
@@ -106,6 +113,7 @@ export class AddNewBook {
       next: (response) => {
         console.log('Book created successfully', response);
         this.successMessage = true;
+        this.isSubmitting = false;
         this.cdr.detectChanges();
 
         setTimeout(() => {
@@ -115,6 +123,7 @@ export class AddNewBook {
       },
       error: (err) => {
         console.error('Error creating book', err);
+        this.isSubmitting = false;
       },
     });
   }
