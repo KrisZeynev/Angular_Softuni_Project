@@ -189,7 +189,9 @@ export class BookDetailsPage implements OnInit {
               console.log(`all comments: ${this.comments}`);
             },
             error: (err) => {
-              console.error('Error posting a new comment:', err);
+              if (err.status !== 404) {
+                console.error('Error posting a new comment:', err);
+              }
             },
           });
       }
