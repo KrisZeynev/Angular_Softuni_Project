@@ -119,3 +119,12 @@ select {
 select:focus {
     border-color: #3b82f6;
 }
+
+.success-message {
+    display: flex;
+    justify-content: center;
+    background: #42556e;
+    color: white;
+    padding: 10px 0;
+    border-radius: 0.5rem;
+}

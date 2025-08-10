@@ -155,5 +155,6 @@
             <button type="submit" class="btn btn-add" [disabled]="bookForm.invalid">Add</button>
             <button type="button" class="btn btn-cancel" (click)="bookForm.reset()">Cancel</button>
         </div>
+        <span class="success-message" *ngIf="successMessage">The book has been created</span>
     </form>
 </div>

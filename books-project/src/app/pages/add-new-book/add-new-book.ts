@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef  } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
 import { CreateBookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
@@ -28,15 +28,51 @@ export class AddNewBook {
   ];
 
   currentYear = new Date().getFullYear();
+  successMessage = false;
 
-  constructor(private fb: FormBuilder, private bookService: CreateBookService) {
+  constructor(private fb: FormBuilder, private bookService: CreateBookService, private cdr: ChangeDetectorRef) {
     this.bookForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]+')]],
-      description: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]+')]],
-      author: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]+')]],
-      publicationYear: [null, [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern('[a-zA-Z ]+'),
+        ],
+      ],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern('[a-zA-Z ]+'),
+        ],
+      ],
+      author: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern('[a-zA-Z ]+'),
+        ],
+      ],
+      publicationYear: [
+        null,
+        [
+          Validators.required,
+          Validators.min(1900),
+          Validators.max(this.currentYear),
+        ],
+      ],
       pages: [null, [Validators.required, Validators.min(1)]],
-      isbn: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z0-9 ]+')]],
+      isbn: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern('[a-zA-Z0-9 ]+'),
+        ],
+      ],
       // image: ['', [Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]+')]],
       image: ['', Validators.required],
       genre: ['', Validators.required],
@@ -69,9 +105,13 @@ export class AddNewBook {
     this.bookService.createBook(book, accessToken).subscribe({
       next: (response) => {
         console.log('Book created successfully', response);
-        this.bookForm.reset();
+        this.successMessage = true;
+        this.cdr.detectChanges();
 
-        // (this.bookForm.get('genre') as FormArray).clear();
+        setTimeout(() => {
+          this.successMessage = false;
+          this.bookForm.reset();
+        }, 1500);
       },
       error: (err) => {
         console.error('Error creating book', err);
