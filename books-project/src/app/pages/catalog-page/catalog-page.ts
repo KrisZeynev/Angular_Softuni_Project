@@ -49,7 +49,6 @@ export class CatalogPage implements OnInit {
       return;
     }
     const { category, searchTerm } = this.searchForm.value;
-    // const { category, searchTerm } = this.searchForm.value as { category: string; searchTerm: string };
 
     console.log('Searching books with', category, typeof searchTerm);
 
