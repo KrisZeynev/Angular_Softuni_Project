@@ -45,6 +45,11 @@ export class BookService {
     return this.http.get<Book[]>(url);
   }
 
+  getAllBooks(): Observable<Book[]> {
+    const url = `${this.apiUrl}?sortBy=_createdOn%20desc`;
+    return this.http.get<Book[]>(url);
+  }
+
   searchBooks(field: string, term: any): Observable<Book[]> {
     const termString = String(term ?? '');
     const whereQuery = encodeURIComponent(`${field} LIKE "${termString}"`);
