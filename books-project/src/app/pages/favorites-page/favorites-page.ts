@@ -4,7 +4,6 @@
 // import { CommonModule } from '@angular/common';
 // import { BookDetailsCard } from '../../components/book-details-card/book-details-card';
 
-
 // @Component({
 //   selector: 'app-favorites-page',
 //   imports: [CommonModule, BookDetailsCard],
@@ -16,7 +15,7 @@
 //   favoritesBooks: Favorite[] = []
 
 //   constructor (private favoritesService: FavoritesService, private cd: ChangeDetectorRef,) {}
-  
+
 //   ngOnInit(): void {
 //     console.log('favorite books');
 //     this.currentUserId = localStorage.getItem('userId');
@@ -37,7 +36,8 @@
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FavoritesService } from '../../core/services/favorites.service';
-import { GetBookService } from '../../core/services/book.service';
+// import { GetBookService } from '../../core/services/book.service';
+import { BookService } from '../../core/services/book.service';
 import { Favorite } from '../../models/favorite.model';
 import { Book } from '../../models/book.model';
 import { CommonModule } from '@angular/common';
@@ -57,7 +57,7 @@ export class FavoritesPage implements OnInit {
 
   constructor(
     private favoritesService: FavoritesService,
-    private bookService: GetBookService,
+    private bookService: BookService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -66,40 +66,43 @@ export class FavoritesPage implements OnInit {
     this.currentUserId = localStorage.getItem('userId');
 
     if (this.currentUserId) {
-      this.favoritesService.getFavoriteByUserOnly(this.currentUserId).subscribe({
-        next: (favorites) => {
-          console.log('Favorites:', favorites);
+      this.favoritesService
+        .getFavoriteByUserOnly(this.currentUserId)
+        .subscribe({
+          next: (favorites) => {
+            console.log('Favorites:', favorites);
 
-          if (favorites.length === 0) {
-            this.favoritesBooks = [];
-            this.cd.detectChanges();
-            return;
-          }
-
-          const bookObservables = favorites.map(fav => 
-            this.bookService.getBook(fav.bookId)
-          );
-
-          forkJoin(bookObservables).subscribe({
-            next: (books) => {
-              console.log('Fetched Books:', books);
-              this.favoritesBooks = books;
+            if (favorites.length === 0) {
+              this.favoritesBooks = [];
               this.cd.detectChanges();
-            },
-            error: (err) => {
-              console.error('Error fetching books:', err);
+              return;
             }
-          });
-        },
-        error: (err) => {
-          console.error('Error fetching favorites:', err);
-        }
-      });
+
+            const bookObservables = favorites.map((fav) =>
+              this.bookService.getBook(fav.bookId)
+            );
+
+            forkJoin(bookObservables).subscribe({
+              next: (books) => {
+                console.log('Fetched Books:', books);
+                this.favoritesBooks = books;
+                this.cd.detectChanges();
+              },
+              error: (err) => {
+                console.error('Error fetching books:', err);
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Error fetching favorites:', err);
+          },
+        });
     }
   }
 
   onFavoriteRemoved(bookId: string): void {
-  this.favoritesBooks = this.favoritesBooks.filter(book => book._id !== bookId);
-}
-
+    this.favoritesBooks = this.favoritesBooks.filter(
+      (book) => book._id !== bookId
+    );
+  }
 }
