@@ -28,18 +28,30 @@ export class CatalogPage implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
-    this.searchForm = this.fb.group({
-      category: ['title', Validators.required],
-      searchTerm: ['', Validators.required],
-    });
-
+  private loadAllBooks() {
     this.bookService.getAllBooks().subscribe({
       next: (data) => {
         this.books = data;
         this.cdr.detectChanges();
       },
       error: (err) => console.error(err),
+    });
+  }
+
+  ngOnInit() {
+    this.searchForm = this.fb.group({
+      category: ['title', Validators.required],
+      searchTerm: ['', Validators.required],
+    });
+
+    this.loadAllBooks();
+
+    // load all
+    this.searchForm.get('searchTerm')?.valueChanges.subscribe((value) => {
+      if (!value.trim()) {
+        this.loadAllBooks();
+        this.cdr.detectChanges();
+      }
     });
   }
 
