@@ -142,3 +142,80 @@ export class DeleteBookService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 }
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class BookService {
+  private apiUrl = 'http://localhost:3030/data/books';
+
+  constructor(private http: HttpClient) {}
+
+  // Create Book Service
+  // createBook(book: Book, accessToken: string): Observable<any> {
+  createBook(book: Book, accessToken: string): Observable<Book> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.post<Book>(this.apiUrl, book, { headers });
+    // return this.http.post(this.apiUrl, book, { headers });
+  }
+
+  // updateBook(id: string, updatedData: Partial<Book>, accessToken: string): Observable<any> {
+  updateBook(id: string, updatedData: Partial<Book>, accessToken: string): Observable<Book> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.patch<Book>(`${this.apiUrl}/${id}`, updatedData, { headers });
+    // return this.http.patch(`${this.apiUrl}/${id}`, updatedData, { headers });
+  }
+
+  // getBook(id: string): Observable<any> {
+  getBook(id: string): Observable<Book> {
+    return this.http.get<Book>(`${this.apiUrl}/${id}`);
+    // return this.http.get<Book[]>(`${this.apiUrl}/${id}`);
+  }
+
+   // getLastFiveBooks(): Observable<any> {
+  getLastFiveBooks(): Observable<Book[]> {
+    const url = `${this.apiUrl}?sortBy=_createdOn%20desc&pageSize=5`;
+    return this.http.get<Book[]>(url);
+    // return this.http.get(url);
+  }
+
+  searchBooks(field: string, term: any): Observable<Book[]> {
+    const termString = String(term ?? '');
+    const whereQuery = encodeURIComponent(`${field} LIKE "${termString}"`);
+    const url = `${this.apiUrl}?where=${whereQuery}`;
+    return this.http.get<Book[]>(url);
+  }
+
+  searchBooksByNumber(field: string, term: any): Observable<Book[]> {
+    const termString = String(term ?? '');
+    const whereQuery = encodeURIComponent(`${field}="${termString}"`);
+    const url = `${this.apiUrl}?where=${whereQuery}`;
+    return this.http.get<Book[]>(url);
+  }
+
+  getBookByOwnerAndId(
+    currentUserId: string,
+    bookId: string
+  ): Observable<Book[]> {
+    const whereQuery = `_ownerId="${currentUserId}" AND _id="${bookId}"`;
+    const url = `${this.apiUrl}?where=${encodeURIComponent(whereQuery)}`;
+    return this.http.get<Book[]>(url);
+  }
+
+  deleteBook(id: string, accessToken: string): Observable<void> {
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
+
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
+  }
+}
