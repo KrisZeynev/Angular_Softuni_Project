@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BookDetailsCard } from '../../components/book-details-card/book-details-card';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-catalog-page',
@@ -38,29 +39,12 @@ export class CatalogPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.searchForm = this.fb.group({
-      category: ['title', Validators.required],
-      searchTerm: ['', Validators.required],
-    });
-
-    this.loadAllBooks();
-
-    // load all
-    this.searchForm.get('searchTerm')?.valueChanges.subscribe((value) => {
-      if (!value.trim()) {
-        this.loadAllBooks();
-        this.cdr.detectChanges();
-      }
-    });
-  }
-
-  onSubmit(): void {
+  private searchBooks(category: string, searchTerm: string) {
     if (this.searchForm.invalid) {
       console.log('Form invalid');
       return;
     }
-    const { category, searchTerm } = this.searchForm.value;
+    // const { category, searchTerm } = this.searchForm.value;
 
     console.log('Searching books with', category, typeof searchTerm);
 
@@ -84,6 +68,38 @@ export class CatalogPage implements OnInit {
       });
     }
   }
+
+  ngOnInit() {
+    this.searchForm = this.fb.group({
+      category: ['title', Validators.required],
+      // searchTerm: ['', Validators.required],
+      searchTerm: [''],
+    });
+
+    this.loadAllBooks();
+
+    // // load all
+    // this.searchForm.get('searchTerm')?.valueChanges.subscribe((value) => {
+    //   if (!value.trim()) {
+    //     this.loadAllBooks();
+    //     this.cdr.detectChanges();
+    //   }
+    // });
+
+    this.searchForm.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged())
+    .subscribe(({ category, searchTerm }) => {
+      if (!searchTerm.trim()) {
+        this.loadAllBooks();
+      } else {
+        this.searchBooks(category, searchTerm);
+      }
+    });
+  }
+
+  // onSubmit(): void {
+    
+  // }
 
   onBookDeleted(deletedBookId: string) {
     this.books = this.books.filter((book) => book._id !== deletedBookId);

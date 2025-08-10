@@ -1,39 +1,36 @@
 <section class="catalog-page">
   <h1>Catalog</h1>
 
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="books-search-form">
+  <form [formGroup]="searchForm" class="books-search-form">
     <div class="main-content">
+
       <div class="field-group">
-      <select formControlName="category" required>
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-        <option value="genre">Genre</option>
-        <option value="publicationYear">Publication Year</option>
-        <option value="pages">Number of Pages</option>
-      </select>
-      <div
-        *ngIf="searchForm.get('category')?.invalid && (searchForm.get('category')?.touched || searchForm.get('category')?.dirty)"
-        class="error">
-        Please select a category.
+        <select formControlName="category">
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="genre">Genre</option>
+          <option value="publicationYear">Publication Year</option>
+          <option value="pages">Number of Pages</option>
+        </select>
       </div>
-    </div>
 
+      <div class="field-group">
+        <input
+          type="search"
+          formControlName="searchTerm"
+          placeholder="Search..."
+        />
+      </div>
 
-    <div class="field-group">
-      <input type="search" formControlName="searchTerm" placeholder="Search" required />
-      <!-- <div
-        *ngIf="searchForm.get('searchTerm')?.invalid && (searchForm.get('searchTerm')?.touched || searchForm.get('searchTerm')?.dirty)"
-        class="error">
-        Search term is required.
-      </div> -->
     </div>
-    </div>
-
-    <button type="submit" [disabled]="searchForm.invalid">Search</button>
   </form>
 
   <div class="book-grid" *ngIf="books && books.length > 0; else noBooks">
-    <app-book-details-card *ngFor="let book of books" [book]="book" (bookDeleted)="onBookDeleted($event)"></app-book-details-card>
+    <app-book-details-card
+      *ngFor="let book of books"
+      [book]="book"
+      (bookDeleted)="onBookDeleted($event)">
+    </app-book-details-card>
   </div>
 
   <ng-template #noBooks>
