@@ -47,52 +47,47 @@ export class RegisterPage {
       return;
     }
 
-    // this.http
-
-    const currUserData = {
-      username: this.formData.username,
-      email: this.formData.email,
-      password: this.formData.password,
-      profileImg: this.formData.profileImg,
-    };
-    console.log(currUserData);
-
-    this.http
-      .post('http://localhost:3030/users/register', currUserData)
+    this.authService
+      .register(
+        this.formData.username,
+        this.formData.email,
+        this.formData.password,
+        this.formData.profileImg
+      )
       .subscribe({
-        next: (response) => {
-          console.log('succesfully registered', response);
-          this.authService.saveUser(response);
+        next: (user) => {
+          console.log('Successfully registered', user);
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.errorMessage = error.error.message;
+          this.errorMessage = error.error?.message || 'Registration failed';
           this.cdr.detectChanges();
-          console.log('Not registered', error);
         },
       });
 
-    // this.authService
-    //   .register(
-    //     this.formData.username,
-    //     this.formData.email,
-    //     this.formData.password,
-    //     this.formData.confirmPassword,
-    //     this.formData.profileImg,
-    //   )
+    // this.http
+
+    // const currUserData = {
+    //   username: this.formData.username,
+    //   email: this.formData.email,
+    //   password: this.formData.password,
+    //   profileImg: this.formData.profileImg,
+    // };
+
+    // console.log(currUserData);
+
+    // this.http
+    //   .post('http://localhost:3030/users/register', currUserData)
     //   .subscribe({
     //     next: (response) => {
-    //       console.log('Registration successful', response);
-
-    //       form.resetForm();
-
+    //       console.log('succesfully registered', response);
+    //       this.authService.saveUser(response);
     //       this.router.navigate(['/home']);
     //     },
-    //     error: (err) => {
-    //       console.error('Registration failed', err);
-    //       this.errorMessage =
-    //         err.error?.message || 'Registration failed. Please try again.';
+    //     error: (error) => {
+    //       this.errorMessage = error.error.message;
     //       this.cdr.detectChanges();
+    //       console.log('Not registered', error);
     //     },
     //   });
   }

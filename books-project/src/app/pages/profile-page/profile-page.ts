@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage  {
   private authService = inject(AuthService);
   private userService = inject(UserService);
 
@@ -28,7 +28,7 @@ export class ProfilePage implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
   
 
-  errorMessage: string = '';
+  // errorMessage: string = '';
 
   ngOnInit(): void {
     this.authService.currentUser().subscribe({
@@ -47,76 +47,62 @@ export class ProfilePage implements OnInit {
         console.error('Failed to fetch user:', err);
       },
     });
-
-    // this.authService.loadCurrentUserFromAPI();
-
-    // this.authService.currentUser$.subscribe((user) => {
-    //   if (user) {
-    //     console.log('Got user in ProfilePage:', user);
-    //     this.formData.email = user.email;
-    //     this.formData.profileImg = user.profileImg || '';
-    //     this.formData.username = user.username || '';
-    //   }
-    // });
   }
 
+  // onSubmit(form: NgForm): void {
+  //   this.errorMessage = '';
+  //   if (form.invalid) {
+  //     this.errorMessage = 'Please fill all required fields correctly.';
+  //     return;
+  //   }
+
+  //   const userId = this.authService.getUser('userId');
+  //   console.log(`userId on profile page: ${userId}`);
+
+  //   const updatedUserData = {
+  //     email: this.formData.email,
+  //     username: this.formData.username,
+  //     profileImg: this.formData.profileImg,
+  //   };
+
+  //   const token = this.authService.getUser('accessToken') || '';
+  //   console.log(`tokena: ${token}`);
     
+  //   const headers = new HttpHeaders({
+  //     'X-Authorization': token,
+  //     // 'Content-Type': 'application/json',
+  //   });
+
+  //   this.http
+  //     // .patch(`http://localhost:3030/users/me`, {updatedUserData}, {
+  //     .patch(`http://localhost:3030/users/${userId}`, {updatedUserData}, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: (response) => {
+  //         console.log('User updated successfully', response);
+  //         localStorage.setItem('email', this.formData.email)
+  //         localStorage.setItem('username', this.formData.username)
+  //         localStorage.setItem('profileImg', this.formData.profileImg)
+  //         this.router.navigate(['/home']);
+  //       },
+  //       error: (error) => {
+  //         console.error('Update failed', error);
+  //       },
+  //     });
+
+  //   // Content-Type: application/json
+  //   // this.http
+  //   //   .patch(`http://localhost:3030/users/${userId}`, updatedUserData)
+  //   //   .subscribe({
+  //   //     next: (response) => {
+  //   //       console.log('User updated successfully', response);
+  //   //       this.authService.saveUser(response);
+  //   //       this.router.navigate(['/home']);
+  //   //     },
+  //   //     error: (error) => {
+  //   //       console.error('Update failed', error);
+  //   //     },
+  //   //   });
   // }
-
-  onSubmit(form: NgForm): void {
-    this.errorMessage = '';
-    if (form.invalid) {
-      this.errorMessage = 'Please fill all required fields correctly.';
-      return;
-    }
-
-    const userId = this.authService.getUser('userId');
-    console.log(`userId on profile page: ${userId}`);
-
-    const updatedUserData = {
-      email: this.formData.email,
-      username: this.formData.username,
-      profileImg: this.formData.profileImg,
-    };
-
-    const token = this.authService.getUser('accessToken') || '';
-    console.log(`tokena: ${token}`);
-    
-    const headers = new HttpHeaders({
-      'X-Authorization': token,
-      // 'Content-Type': 'application/json',
-    });
-
-    this.http
-      // .patch(`http://localhost:3030/users/me`, {updatedUserData}, {
-      .patch(`http://localhost:3030/users/${userId}`, {updatedUserData}, {
-        headers,
-      })
-      .subscribe({
-        next: (response) => {
-          console.log('User updated successfully', response);
-          localStorage.setItem('email', this.formData.email)
-          localStorage.setItem('username', this.formData.username)
-          localStorage.setItem('profileImg', this.formData.profileImg)
-          this.router.navigate(['/home']);
-        },
-        error: (error) => {
-          console.error('Update failed', error);
-        },
-      });
-
-    // Content-Type: application/json
-    // this.http
-    //   .patch(`http://localhost:3030/users/${userId}`, updatedUserData)
-    //   .subscribe({
-    //     next: (response) => {
-    //       console.log('User updated successfully', response);
-    //       this.authService.saveUser(response);
-    //       this.router.navigate(['/home']);
-    //     },
-    //     error: (error) => {
-    //       console.error('Update failed', error);
-    //     },
-    //   });
-  }
 }

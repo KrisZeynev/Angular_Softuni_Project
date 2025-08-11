@@ -78,14 +78,6 @@ export class CatalogPage implements OnInit {
 
     this.loadAllBooks();
 
-    // // load all
-    // this.searchForm.get('searchTerm')?.valueChanges.subscribe((value) => {
-    //   if (!value.trim()) {
-    //     this.loadAllBooks();
-    //     this.cdr.detectChanges();
-    //   }
-    // });
-
     this.searchForm.valueChanges
     .pipe(debounceTime(300), distinctUntilChanged())
     .subscribe(({ category, searchTerm }) => {
@@ -96,10 +88,6 @@ export class CatalogPage implements OnInit {
       }
     });
   }
-
-  // onSubmit(): void {
-    
-  // }
 
   onBookDeleted(deletedBookId: string) {
     this.books = this.books.filter((book) => book._id !== deletedBookId);

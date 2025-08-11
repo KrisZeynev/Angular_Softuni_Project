@@ -56,12 +56,6 @@ button:hover {
   background-color: #1d4ed8;
 }
 
-#profile-error {
-  color: red;
-  margin-top: 1rem;
-  text-align: center;
-}
-
 /* */
 .profile-row {
   display: flex;

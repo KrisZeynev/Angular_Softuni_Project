@@ -194,7 +194,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../../models/user.model';
 
 @Injectable({
@@ -214,7 +214,10 @@ export class AuthService {
     localStorage.setItem('username', user.username);
     localStorage.setItem('accessToken', user.accessToken);
     localStorage.setItem('userId', user._id);
-    localStorage.setItem('profileImg', user.profileImg ?? "https://i.pravatar.cc/40");
+    localStorage.setItem(
+      'profileImg',
+      user.profileImg ?? 'https://i.pravatar.cc/40'
+    );
     this.loggedIn.next(true);
   }
 
@@ -230,29 +233,6 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('accessToken');
   }
-
-  // currentUser() {
-  //   const accessToken = this.getUser('accessToken');
-  //   const currId = this.getUser('userId');
-  //   const headers = new HttpHeaders({
-  //     'X-Authorization': accessToken || '',
-  //   });
-
-  //   this.http
-  //     .get(`http://localhost:3030/users/${currId}`, {
-  //       headers,
-  //       observe: 'response',
-  //     })
-  //     .subscribe({
-  //       next: (response) => {
-  //         console.log(response.status)
-  //       },
-  //       error: (error) => {
-  //         console.error('Logout failed:', error);
-  //       },
-  //     });
-
-  // }
 
   currentUser(): Observable<User> {
     const accessToken = this.getUser('accessToken');
@@ -274,30 +254,17 @@ export class AuthService {
     });
   }
 
-  //
-  //
-
-  //   private currentUserSubject = new BehaviorSubject<User | null>(null);
-  // public currentUser$ = this.currentUserSubject.asObservable();
-
-  loadCurrentUserFromAPI(): void {
-  const accessToken = this.getUser('accessToken');
-  const headers = new HttpHeaders({
-    'X-Authorization': accessToken || '',
-  });
-
-  this.http
-    .get<User>('http://localhost:3030/users/me', { headers })
-    .subscribe({
-      next: (user) => {
-        this.currentUserSubject.next(user);
-      },
-      error: (err) => {
-        console.error('Failed to load user:', err);
-      },
-    });
-}
-
+  register(
+    username: string,
+    email: string,
+    password: string,
+    profileImg: string
+  ): Observable<User> {
+    const body = { username, email, password, profileImg };
+    return this.http
+      .post<User>('http://localhost:3030/users/register', body)
+      .pipe(tap((user) => this.saveUser(user)));
+  }
 
   logout(): void {
     const accessToken = this.getUser('accessToken');
@@ -323,4 +290,22 @@ export class AuthService {
         },
       });
   }
+
+  //   loadCurrentUserFromAPI(): void {
+  //   const accessToken = this.getUser('accessToken');
+  //   const headers = new HttpHeaders({
+  //     'X-Authorization': accessToken || '',
+  //   });
+
+  //   this.http
+  //     .get<User>('http://localhost:3030/users/me', { headers })
+  //     .subscribe({
+  //       next: (user) => {
+  //         this.currentUserSubject.next(user);
+  //       },
+  //       error: (err) => {
+  //         console.error('Failed to load user:', err);
+  //       },
+  //     });
+  // }
 }
