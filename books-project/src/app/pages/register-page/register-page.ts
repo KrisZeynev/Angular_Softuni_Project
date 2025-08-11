@@ -64,31 +64,31 @@ export class RegisterPage {
           this.cdr.detectChanges();
         },
       });
-
-    // this.http
-
-    // const currUserData = {
-    //   username: this.formData.username,
-    //   email: this.formData.email,
-    //   password: this.formData.password,
-    //   profileImg: this.formData.profileImg,
-    // };
-
-    // console.log(currUserData);
-
-    // this.http
-    //   .post('http://localhost:3030/users/register', currUserData)
-    //   .subscribe({
-    //     next: (response) => {
-    //       console.log('succesfully registered', response);
-    //       this.authService.saveUser(response);
-    //       this.router.navigate(['/home']);
-    //     },
-    //     error: (error) => {
-    //       this.errorMessage = error.error.message;
-    //       this.cdr.detectChanges();
-    //       console.log('Not registered', error);
-    //     },
-    //   });
   }
 }
+
+// this.http
+
+// const currUserData = {
+//   username: this.formData.username,
+//   email: this.formData.email,
+//   password: this.formData.password,
+//   profileImg: this.formData.profileImg,
+// };
+
+// console.log(currUserData);
+
+// this.http
+//   .post('http://localhost:3030/users/register', currUserData)
+//   .subscribe({
+//     next: (response) => {
+//       console.log('succesfully registered', response);
+//       this.authService.saveUser(response);
+//       this.router.navigate(['/home']);
+//     },
+//     error: (error) => {
+//       this.errorMessage = error.error.message;
+//       this.cdr.detectChanges();
+//       console.log('Not registered', error);
+//     },
+//   });

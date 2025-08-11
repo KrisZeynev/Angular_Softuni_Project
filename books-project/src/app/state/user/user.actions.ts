@@ -1,34 +1,21 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '../../models/user.model';
 
-export const login = createAction(
-  '[User] Login',
-  props<{ email: string; password: string }>()
-);
-
-export const loginSuccess = createAction(
-  '[User] Login Success',
+export const loginUser = createAction(
+  '[Auth] Login User',
   props<{ user: User }>()
 );
 
-export const loginFailure = createAction(
-  '[User] Login Failure',
-  props<{ error: any }>()
-);
+export const logoutUser = createAction('[Auth] Logout User');
 
-export const register = createAction(
-  '[User] Register',
-  props<{ email: string; password: string; username: string }>()
-);
+export const loadUser = createAction('[Auth] Load User');
 
-export const registerSuccess = createAction(
-  '[User] Register Success',
+export const loadUserSuccess = createAction(
+  '[Auth] Load User Success',
   props<{ user: User }>()
 );
 
-export const registerFailure = createAction(
-  '[User] Register Failure',
+export const loadUserFailure = createAction(
+  '[Auth] Load User Failure',
   props<{ error: any }>()
 );
-
-export const logout = createAction('[User] Logout');

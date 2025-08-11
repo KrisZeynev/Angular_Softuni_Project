@@ -1,7 +1,7 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { UserState } from './user.reducer';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { UserState } from './user.state';
 
-export const selectUserState = createFeatureSelector<UserState>('user');
+export const selectUserState = createFeatureSelector<UserState>('userState');
 
 export const selectCurrentUser = createSelector(
   selectUserState,
@@ -12,5 +12,3 @@ export const selectIsLoggedIn = createSelector(
   selectUserState,
   (state) => !!state.user
 );
-
-console.log(`here batio: ${selectUserState}`)
