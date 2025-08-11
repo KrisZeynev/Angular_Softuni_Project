@@ -114,13 +114,13 @@ export class AddNewBook {
       next: (response) => {
         console.log('Book created successfully', response);
         this.successMessage = true;
-        this.isSubmitting = false;
         this.cdr.detectChanges();
 
         setTimeout(() => {
           this.successMessage = false;
+          this.isSubmitting = false;
           this.bookForm.reset();
-        }, 1500);
+        }, 1000);
       },
       error: (err) => {
         console.error('Error creating book', err);
