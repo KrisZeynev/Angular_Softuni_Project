@@ -19,3 +19,20 @@ export const loadUserFailure = createAction(
   '[Auth] Load User Failure',
   props<{ error: any }>()
 );
+
+// regiser action
+
+export const registerUser = createAction(
+  '[Auth] Register User',
+  props<{ username: string; email: string; password: string; profileImg: string }>()
+);
+
+export const registerUserSuccess = createAction(
+  '[Auth] Register User Success',
+  props<{ user: User }>()
+);
+
+export const registerUserFailure = createAction(
+  '[Auth] Register User Failure',
+  props<{ error: any }>()
+);
