@@ -266,6 +266,12 @@ export class AuthService {
       .pipe(tap((user) => this.saveUser(user)));
   }
 
+  login(email: string, password: string): Observable<User> {
+    return this.http
+      .post<User>('http://localhost:3030/users/login', { email, password })
+      .pipe(tap((user) => this.saveUser(user)));
+  }
+
   logout(): void {
     const accessToken = this.getUser('accessToken');
     this.clearUser();

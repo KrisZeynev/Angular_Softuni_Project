@@ -25,7 +25,7 @@ export class LoginPage {
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private http: HttpClient,
+    private http: HttpClient
   ) {}
 
   onSubmit(form: NgForm) {
@@ -36,23 +36,37 @@ export class LoginPage {
       return;
     }
 
-    const currUserData = {
-      email: this.formData.email,
-      password: this.formData.password,
-    };
+    this.authService
+      .login(this.formData.email, this.formData.password)
+      .subscribe({
+        next: (response) => {
+          console.log('logged in', response);
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          this.errorMessage = error.error.message;
+          this.cdr.detectChanges();
+          console.log('Not logged', error);
+        },
+      });
 
-    this.http.post('http://localhost:3030/users/login', currUserData).subscribe({
-      next: (response: any) => {
-        console.log('logged in', response);
-        this.authService.saveUser(response);
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        this.errorMessage = error.error.message;
-        this.cdr.detectChanges();
-        console.log('Not logged', error);
-      },
-    });
+    // const currUserData = {
+    //   email: this.formData.email,
+    //   password: this.formData.password,
+    // };
+
+    // this.http.post('http://localhost:3030/users/login', currUserData).subscribe({
+    //   next: (response: any) => {
+    //     console.log('logged in', response);
+    //     this.authService.saveUser(response);
+    //     this.router.navigate(['/home']);
+    //   },
+    //   error: (error) => {
+    //     this.errorMessage = error.error.message;
+    //     this.cdr.detectChanges();
+    //     console.log('Not logged', error);
+    //   },
+    // });
 
     // this.authService.login(this.formData.email, this.formData.password).subscribe({
     //   next: (user) => {
