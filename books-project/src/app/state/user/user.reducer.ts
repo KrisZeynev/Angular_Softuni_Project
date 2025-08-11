@@ -1,5 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
-import { loginUser, logoutUser, loadUser, loadUserSuccess, loadUserFailure } from './user.actions';
+import {
+  loginUser,
+  logoutUser,
+  loadUser,
+  loadUserSuccess,
+  loadUserFailure,
+  registerUser,
+  registerUserSuccess,
+  registerUserFailure,
+} from './user.actions';
 import { initialUserState } from './user.state';
 
 export const userReducer = createReducer(
@@ -28,6 +37,24 @@ export const userReducer = createReducer(
     error: null,
   })),
   on(loadUserFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
+
+  // Registration actions handling
+  on(registerUser, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(registerUserSuccess, (state, { user }) => ({
+    ...state,
+    user,
+    loading: false,
+    error: null,
+  })),
+  on(registerUserFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
