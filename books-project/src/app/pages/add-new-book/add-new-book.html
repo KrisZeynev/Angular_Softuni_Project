@@ -155,6 +155,7 @@
             <button type="submit" class="btn btn-add" [disabled]="bookForm.invalid || isSubmitting">Add</button>
             <button type="button" class="btn btn-cancel" (click)="bookForm.reset()">Cancel</button>
         </div>
-        <span class="success-message" *ngIf="successMessage">The book has been created</span>
+        <span class="success-message" *ngIf="successMessage">The book has been created successfully!</span>
+        <span class="error-message" *ngIf="errorMessage">A book with this ISBN already exists!</span>
     </form>
 </div>

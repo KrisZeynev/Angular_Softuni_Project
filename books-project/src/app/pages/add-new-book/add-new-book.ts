@@ -30,6 +30,7 @@ export class AddNewBook {
 
   currentYear = new Date().getFullYear();
   successMessage = false;
+  errorMessage = false;
   isSubmitting = false;
 
   constructor(
@@ -106,24 +107,45 @@ export class AddNewBook {
     }
 
     this.isSubmitting = true;
-
     const accessToken = localStorage.getItem('accessToken') || '';
-    const book: Book = this.bookForm.value;
+    const isbn = this.bookForm.get('isbn')?.value;
 
-    this.bookService.createBook(book, accessToken).subscribe({
-      next: (response) => {
-        console.log('Book created successfully', response);
-        this.successMessage = true;
-        this.cdr.detectChanges();
-
-        setTimeout(() => {
-          this.successMessage = false;
+    this.bookService.checkIfBookExists(isbn).subscribe({
+      next: (exists) => {
+        if (exists) {
+          this.errorMessage = true;
           this.isSubmitting = false;
-          this.bookForm.reset();
-        }, 1000);
+          this.cdr.detectChanges();
+
+          setTimeout(() => {
+            this.errorMessage = false;
+            this.cdr.detectChanges();
+          }, 1500);
+
+        } else {
+          const book: Book = this.bookForm.value;
+
+          this.bookService.createBook(book, accessToken).subscribe({
+            next: (response) => {
+              console.log('Book created successfully', response);
+              this.successMessage = true;
+              this.cdr.detectChanges();
+
+              setTimeout(() => {
+                this.successMessage = false;
+                this.isSubmitting = false;
+                this.bookForm.reset();
+              }, 1000);
+            },
+            error: (err) => {
+              console.error('Error creating book', err);
+              this.isSubmitting = false;
+            },
+          });
+        }
       },
       error: (err) => {
-        console.error('Error creating book', err);
+        console.error('Error checking book existence', err);
         this.isSubmitting = false;
       },
     });

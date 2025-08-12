@@ -66,8 +66,8 @@ export class BookService {
     return this.http.get<Book[]>(url);
   }
 
-  checkIfBookExists(title: string): Observable<boolean> {
-    const whereQuery = encodeURIComponent(`title="${title}"`);
+  checkIfBookExists(isbn: string): Observable<boolean> {
+    const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
     const url = `${this.apiUrl}?where=${whereQuery}`;
 
     return this.http.get<Book[]>(url).pipe(map((books) => books.length > 0));
