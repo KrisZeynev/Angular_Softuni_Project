@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Book } from '../../models/book.model';
-// import { GetAllBooksByCriteria } from '../../core/services/book.service';
 import { BookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -41,17 +40,12 @@ export class CatalogPage implements OnInit {
 
   private searchBooks(category: string, searchTerm: string) {
     if (this.searchForm.invalid) {
-      console.log('Form invalid');
       return;
     }
-    // const { category, searchTerm } = this.searchForm.value;
-
-    console.log('Searching books with', category, typeof searchTerm);
 
     if (category === 'publicationYear' || category === 'pages') {
       this.bookService.searchBooksByNumber(category, searchTerm).subscribe({
         next: (data) => {
-          console.log('Books found:', data);
           this.books = data;
           this.cdr.detectChanges();
         },
@@ -60,7 +54,6 @@ export class CatalogPage implements OnInit {
     } else {
       this.bookService.searchBooks(category, searchTerm).subscribe({
         next: (data) => {
-          console.log('Books found:', data);
           this.books = data;
           this.cdr.detectChanges();
         },
@@ -72,21 +65,20 @@ export class CatalogPage implements OnInit {
   ngOnInit() {
     this.searchForm = this.fb.group({
       category: ['title', Validators.required],
-      // searchTerm: ['', Validators.required],
       searchTerm: [''],
     });
 
     this.loadAllBooks();
 
     this.searchForm.valueChanges
-    .pipe(debounceTime(300), distinctUntilChanged())
-    .subscribe(({ category, searchTerm }) => {
-      if (!searchTerm.trim()) {
-        this.loadAllBooks();
-      } else {
-        this.searchBooks(category, searchTerm);
-      }
-    });
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe(({ category, searchTerm }) => {
+        if (!searchTerm.trim()) {
+          this.loadAllBooks();
+        } else {
+          this.searchBooks(category, searchTerm);
+        }
+      });
   }
 
   onBookDeleted(deletedBookId: string) {

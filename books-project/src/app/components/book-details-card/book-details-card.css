@@ -51,7 +51,6 @@ hr {
 .book-card-actions {
   display: flex;
   justify-content: center;
-  /* background: #15803d; */
 }
 
 .book-card-actions {
@@ -59,7 +58,6 @@ hr {
   width: 100%;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
 }
 
 .book-card-btns {

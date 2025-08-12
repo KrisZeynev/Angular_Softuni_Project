@@ -43,7 +43,6 @@ export class CommentEditForm implements OnInit {
   ngOnInit(): void {
     this.currAccessToken = localStorage.getItem('accessToken');
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
 
     if (this.currAccessToken && id) {
       this.bookId = id;
@@ -68,7 +67,6 @@ export class CommentEditForm implements OnInit {
         .editComment(this.currAccessToken, commentId, updatedText)
         .subscribe({
           next: () => {
-            console.log('Comment updated successfully');
             this.location.back();
           },
           error: (err) => {

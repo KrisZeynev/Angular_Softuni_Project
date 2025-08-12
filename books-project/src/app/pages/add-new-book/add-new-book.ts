@@ -1,6 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Book, Genre } from '../../models/book.model';
-// import { CreateBookService } from '../../core/services/book.service';
 import { BookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -10,7 +9,6 @@ import {
   Validators,
   FormArray,
 } from '@angular/forms';
-// import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-new-book',
@@ -121,13 +119,11 @@ export class AddNewBook {
             this.errorMessage = false;
             this.cdr.detectChanges();
           }, 1500);
-
         } else {
           const book: Book = this.bookForm.value;
 
           this.bookService.createBook(book, accessToken).subscribe({
             next: (response) => {
-              console.log('Book created successfully', response);
               this.successMessage = true;
               this.cdr.detectChanges();
 
@@ -138,14 +134,14 @@ export class AddNewBook {
               }, 1000);
             },
             error: (err) => {
-              console.error('Error creating book', err);
+              console.log('Error creating book', err);
               this.isSubmitting = false;
             },
           });
         }
       },
       error: (err) => {
-        console.error('Error checking book existence', err);
+        console.log('Error checking book existence', err);
         this.isSubmitting = false;
       },
     });

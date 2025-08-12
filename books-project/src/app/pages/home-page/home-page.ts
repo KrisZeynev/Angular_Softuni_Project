@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BookDetailsCard } from '../../components/book-details-card/book-details-card';
-import { Book, Genre } from '../../models/book.model';
-// import { GetLatest5BooksService } from '../../core/services/book.service';
+import { Book } from '../../models/book.model';
 import { BookService } from '../../core/services/book.service';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +14,6 @@ export class HomePage implements OnInit {
   books: Book[] = [];
 
   constructor(
-    // private getAllBooksService: GetLatest5BooksService,
     private bookService: BookService,
     private cdr: ChangeDetectorRef
   ) {}

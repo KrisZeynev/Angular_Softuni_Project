@@ -8,27 +8,25 @@
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/catalog">Catalog</a></li>
       @if (loggedIn) {
-        <li><a routerLink="/add-new-book">Add new book</a></li>
-        <li><a routerLink="/favorites">Favorites</a></li>
+      <li><a routerLink="/add-new-book">Add new book</a></li>
+      <li><a routerLink="/favorites">Favorites</a></li>
       }
       <li><a routerLink="/about-us">About Us</a></li>
     </ul>
   </nav>
 
   @if (loggedIn) {
-    <div class="auth">
-      <div class="profile-container">
-        <a routerLink="/profile"><img [src]="getUserProfilePic()" alt="User Avatar" class="profile-img" /></a>
-        <!-- <a routerLink="/profile"><img [src]="this.profileImg" alt="User Avatar" class="profile-img" /></a> -->
-        <!-- <a routerLink="/profile"><img src="https://i.pravatar.cc/40" alt="User Avatar" class="profile-img" /></a> -->
-        <span><a routerLink="/profile">{{ getUserName() }}</a></span>
-      </div>
-      <a routerLink="/logout" (click)="logout()">Logout</a>
+  <div class="auth">
+    <div class="profile-container">
+      <a routerLink="/profile"><img [src]="getUserProfilePic()" alt="User Avatar" class="profile-img" /></a>
+      <span><a routerLink="/profile">{{ getUserName() }}</a></span>
     </div>
+    <a routerLink="/logout" (click)="logout()">Logout</a>
+  </div>
   } @else {
-    <div class="auth">
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-    </div>
+  <div class="auth">
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+  </div>
   }
 </header>

@@ -1,5 +1,4 @@
 #profile-page {
-  /* max-width: 400px; */
   max-width: 600px;
   margin: 7rem auto;
   padding: 2rem;
@@ -56,7 +55,6 @@ button:hover {
   background-color: #1d4ed8;
 }
 
-/* */
 .profile-row {
   display: flex;
   justify-content: space-between;

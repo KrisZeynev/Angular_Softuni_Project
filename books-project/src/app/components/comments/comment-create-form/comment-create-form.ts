@@ -9,7 +9,6 @@ import {
 import { CommentService } from '../../../core/services/comment.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Comment } from '../../../models/comment.model';
 
 @Component({
   selector: 'app-comment-create-form',

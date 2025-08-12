@@ -6,7 +6,6 @@
     <div class="home-content">
       <app-book-details-card *ngFor="let book of books" [book]="book"
         (bookDeleted)="onBookDeleted()"></app-book-details-card>
-        <!-- (bookDeleted)="onBookDeleted($event)"></app-book-details-card> -->
     </div>
   </div>
 

@@ -25,7 +25,6 @@
         </ng-container>
         <ng-template #notOwner>
           <ng-container *ngIf="currentUserId">
-            <!-- <button class="btn btn-favorite">❤️ Add to Favorites</button> -->
             <button class="btn" [ngClass]="{ 'btn-favorite': !isFavorite, 'btn-favorite-added': isFavorite }"
               (click)="addToFavorites()">
               {{ isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
@@ -42,7 +41,6 @@
   <div class="comments-grid">
     <ng-container *ngIf="comments.length > 0; else noComments">
 
-      <!-- if some comments -->
       <div *ngFor="let comment of comments">
         <app-comment-item [comment]="comment" (deleted)="onCommentDeleted($event)"></app-comment-item>
       </div>
@@ -51,13 +49,5 @@
     <ng-template #noComments>
       <div class="no-comments">No comments have been added yet!</div>
     </ng-template>
-
-
-
-
-    <!-- if no comments -->
-    <!--
-    <div class="no-comments">No comments have been added yet!</div>
-    -->
   </div>
 </section>

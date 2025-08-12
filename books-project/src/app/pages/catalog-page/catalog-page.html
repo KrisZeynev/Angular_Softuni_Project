@@ -15,21 +15,14 @@
       </div>
 
       <div class="field-group">
-        <input
-          type="search"
-          formControlName="searchTerm"
-          placeholder="Search..."
-        />
+        <input type="search" formControlName="searchTerm" placeholder="Search..." />
       </div>
 
     </div>
   </form>
 
   <div class="book-grid" *ngIf="books && books.length > 0; else noBooks">
-    <app-book-details-card
-      *ngFor="let book of books"
-      [book]="book"
-      (bookDeleted)="onBookDeleted($event)">
+    <app-book-details-card *ngFor="let book of books" [book]="book" (bookDeleted)="onBookDeleted($event)">
     </app-book-details-card>
   </div>
 

@@ -1,6 +1,5 @@
 <section id="login-page">
   <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
-    <!-- Email -->
     <div>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         aria-hidden="true" width="64" height="64">
@@ -15,7 +14,6 @@
       <small *ngIf="email.errors?.['required']">Email is required.</small>
     </div>
 
-    <!-- Password -->
     <label for="login-password">Password:</label>
     <input type="password" id="login-password" name="password" [(ngModel)]="formData.password" required
       #password="ngModel" />
@@ -30,7 +28,6 @@
       <a routerLink="/register">here</a>.
     </p>
 
-    <!-- Backend error -->
     <div id="login-error" *ngIf="errorMessage" role="alert" aria-live="polite">
       {{ errorMessage }}
     </div>

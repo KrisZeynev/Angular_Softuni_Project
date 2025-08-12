@@ -4,7 +4,6 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',
@@ -24,8 +23,7 @@ export class LoginPage {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef,
-    private http: HttpClient
+    private cdr: ChangeDetectorRef
   ) {}
 
   onSubmit(form: NgForm) {
@@ -40,7 +38,6 @@ export class LoginPage {
       .login(this.formData.email, this.formData.password)
       .subscribe({
         next: (response) => {
-          console.log('logged in', response);
           this.router.navigate(['/home']);
         },
         error: (error) => {
@@ -49,35 +46,5 @@ export class LoginPage {
           console.log('Not logged', error);
         },
       });
-
-    // const currUserData = {
-    //   email: this.formData.email,
-    //   password: this.formData.password,
-    // };
-
-    // this.http.post('http://localhost:3030/users/login', currUserData).subscribe({
-    //   next: (response: any) => {
-    //     console.log('logged in', response);
-    //     this.authService.saveUser(response);
-    //     this.router.navigate(['/home']);
-    //   },
-    //   error: (error) => {
-    //     this.errorMessage = error.error.message;
-    //     this.cdr.detectChanges();
-    //     console.log('Not logged', error);
-    //   },
-    // });
-
-    // this.authService.login(this.formData.email, this.formData.password).subscribe({
-    //   next: (user) => {
-    //     console.log('Logged in', user);
-    //     form.resetForm();
-    //     this.router.navigate(['/home']);
-    //   },
-    //   error: (err) => {
-    //     this.errorMessage = err.error?.message || 'Login failed. Please try again.';
-    //     this.cdr.detectChanges();
-    //   },
-    // });
   }
 }

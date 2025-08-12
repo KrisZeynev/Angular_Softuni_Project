@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Comment } from '../../../models/comment.model';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommentService } from '../../../core/services/comment.service';
 
 @Component({
@@ -27,15 +27,12 @@ export class CommentItem implements OnInit {
   }
 
   onDelete(): void {
-    console.log('delete book', this.comment._id);
-
     if (this.currAccessToken && this.comment._id) {
       this.commentService
         .deleteComment(this.currAccessToken, this.comment._id)
         .subscribe({
           next: () => {
             this.deleted.emit(this.comment._id); // say to parent
-            console.log('Comment deleted successfully');
           },
           error: (err) => {
             console.error('Error deleting comment:', err);
