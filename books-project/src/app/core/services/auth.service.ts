@@ -216,7 +216,8 @@ export class AuthService {
     localStorage.setItem('userId', user._id);
     localStorage.setItem(
       'profileImg',
-      user.profileImg ?? 'https://i.pravatar.cc/40'
+      // user.profileImg ?? 'https://i.pravatar.cc/40'
+      user.profileImg ?? 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png'
     );
     this.loggedIn.next(true);
   }
@@ -253,6 +254,18 @@ export class AuthService {
       headers,
     });
   }
+
+  logoutHttpCall() {
+  const accessToken = localStorage.getItem('accessToken') || '';
+  const headers = new HttpHeaders({
+    'X-Authorization': accessToken,
+  });
+
+  return this.http.get('http://localhost:3030/users/logout', {
+    headers,
+    observe: 'response',
+  });
+}
 
   register(
     username: string,
@@ -296,22 +309,4 @@ export class AuthService {
         },
       });
   }
-
-  //   loadCurrentUserFromAPI(): void {
-  //   const accessToken = this.getUser('accessToken');
-  //   const headers = new HttpHeaders({
-  //     'X-Authorization': accessToken || '',
-  //   });
-
-  //   this.http
-  //     .get<User>('http://localhost:3030/users/me', { headers })
-  //     .subscribe({
-  //       next: (user) => {
-  //         this.currentUserSubject.next(user);
-  //       },
-  //       error: (err) => {
-  //         console.error('Failed to load user:', err);
-  //       },
-  //     });
-  // }
 }

@@ -14,9 +14,7 @@ export class Header implements OnInit, OnDestroy {
   loggedIn = false;
   private subscription!: Subscription;
 
-  // loggedIn = true;
-  profileImg: string = '';
-  // username = 'testKris';
+  // profileImg: string = '';
 
   constructor(public authService: AuthService, private router: Router) {}
 
@@ -25,15 +23,17 @@ export class Header implements OnInit, OnDestroy {
   }
 
   getUserProfilePic() {
-    return this.authService.getUser('profileImg') || "https://i.pravatar.cc/40";
+    // return this.authService.getUser('profileImg') || "https://i.pravatar.cc/40";
+    return this.authService.getUser('profileImg');
   }
 
   ngOnInit(): void {
     this.subscription = this.authService.loggedIn$.subscribe((status) => {
       console.log('Logged in status changed:', status);
       this.loggedIn = status;
-      this.profileImg =
-        localStorage.getItem('profileImg') || 'https://i.pravatar.cc/40';
+      // this.profileImg =
+      //   // localStorage.getItem('profileImg') || 'https://i.pravatar.cc/40';
+      //   localStorage.getItem('profileImg') || 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png';
     });
   }
 

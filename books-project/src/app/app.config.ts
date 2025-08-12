@@ -2,13 +2,9 @@ import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListen
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-
 import { routes } from './app.routes';
 
 import { provideHttpClient } from '@angular/common/http';
-
-import { StoreModule } from '@ngrx/store';
-import { userReducer } from './state/user/user.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +13,5 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideAnimations(),
-    importProvidersFrom(StoreModule.forRoot({user: userReducer}))
   ]
 };

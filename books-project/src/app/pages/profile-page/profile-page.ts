@@ -22,7 +22,7 @@ export class ProfilePage  {
   formData = {
     username: localStorage.getItem('username') || '',
     email: localStorage.getItem('email') || '',
-    profileImg: localStorage.getItem('profileImg') || '',
+    profileImg: localStorage.getItem('profileImg') || 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png',
   };
 
   constructor(private router: Router, private http: HttpClient) {}
@@ -39,7 +39,8 @@ export class ProfilePage  {
         if (user) {
           console.log('ajde');
           this.formData.email = user.email || '';
-          this.formData.profileImg = user.profileImg || '';
+          // this.formData.profileImg = user.profileImg || 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png';
+          this.formData.profileImg = user.profileImg || 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png';
           this.formData.username = user.username || '';
         }
       },

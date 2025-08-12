@@ -57,7 +57,8 @@ export class BookService {
     return this.http.get<Book[]>(url);
   }
 
-  searchBooksByNumber(field: string, term: any): Observable<Book[]> {
+  // searchBooksByNumber(field: string, term: any): Observable<Book[]> {
+  searchBooksByNumber(field: string, term: string): Observable<Book[]> {
     const termString = String(term ?? '');
     const whereQuery = encodeURIComponent(`${field}="${termString}"`);
     const url = `${this.apiUrl}?where=${whereQuery}`;
