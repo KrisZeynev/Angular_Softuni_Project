@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../../models/book.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +64,13 @@ export class BookService {
     const whereQuery = encodeURIComponent(`${field}="${termString}"`);
     const url = `${this.apiUrl}?where=${whereQuery}`;
     return this.http.get<Book[]>(url);
+  }
+
+  checkIfBookExists(title: string): Observable<boolean> {
+    const whereQuery = encodeURIComponent(`title="${title}"`);
+    const url = `${this.apiUrl}?where=${whereQuery}`;
+
+    return this.http.get<Book[]>(url).pipe(map((books) => books.length > 0));
   }
 
   getBookByOwnerAndId(
