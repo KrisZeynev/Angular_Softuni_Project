@@ -84,11 +84,10 @@ src/
 
 ## ⚙️ How the Application Works
 
-The Angular client sends requests to the server to fetch, add, update, or delete books.
+The Angular client sends requests to the server (SoftUni Practice Server) to fetch, add, update, or delete books.
 User interactions, such as adding or deleting comments on books, are handled through these requests.
 The server responds with data in JSON format, which is displayed dynamically on the client side.
 
-· Use Angular Animations somewhere in your application.
 
 ## 🚀 Bonuses:
 
