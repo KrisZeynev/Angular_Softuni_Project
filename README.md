@@ -1,9 +1,11 @@
 # Angular_Softuni_Project
+
 SoftUni - Angular project 2025
 
 ## 📥 Installation
 
 ### 1️⃣ Clone or Download the Project
+
 Download the project files or clone the repository to your local machine.
 
 ### 2️⃣ Set up the Server
@@ -21,6 +23,7 @@ npm install
 ```
 
 Start the server:
+
 ```bash
 npm start
 ```
@@ -34,6 +37,7 @@ cd books-project
 ```
 
 Run the Angular development server:
+
 ```bash
 ng serve
 ```
@@ -56,18 +60,30 @@ Non-authenticated users can only view the already added books and see their deta
 src/
  ├── app/
  │   ├── components/      # Reusable UI elements such as header, footer, and book card
- │   ├── guards/          # AuthGuard for route protection
- │   ├── services/        # Angular services for handling users, books, and comments
- │   ├── pages/           # Main pages (Home, Catalog, Book Details, Favorites)
+ │   ├── core/            # Core features: guards and services
+ │   │   ├── guards/      # AuthGuard for route protection
+ │   │   └── services/    # Angular services for handling users, books, comments
  │   ├── models/          # Interfaces and types (Book, User, Comment)
- │   ├── app-routing.module.ts
- │   └── app.module.ts
- ├── assets/              # Static resources (images, icons, styles)
- ├── environments/        # Environment settings for development and production
+ │   ├── pages/           # Main pages (Home, Catalog, Book Details, Favorites, Login, Register, Profile)
+ │   ├── app.config.ts    # App configuration
+ │   ├── app.routes.ts    # App routes
+ │   ├── app.ts           # Main AppComponent
+ │   ├── app.html         # Root template
+ │   ├── app.css          # Global styles
+ │   └── app.spec.ts      # Unit tests for AppComponent
+ ├── index.html
+ └── main.ts
 ```
 
 ## ⚙️ How the Application Works
 
-The Angular client sends requests to the server to fetch, add, update, or delete books.  
-User interactions, such as adding or deleting comments on books, are handled through these requests.  
+The Angular client sends requests to the server to fetch, add, update, or delete books.
+User interactions, such as adding or deleting comments on books, are handled through these requests.
 The server responds with data in JSON format, which is displayed dynamically on the client side.
+
+· Use Angular Animations somewhere in your application.
+
+## 🚀 Bonuses:
+
+Angular animations are used in the `BookDetailsPage` component. The `fadeIn` animation triggers when the page loads, making the book details smoothly appear.
+```
