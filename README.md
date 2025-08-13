@@ -32,6 +32,13 @@ npm start
 
 Open another terminal window and navigate to the client folder:
 
+> **Note:** If you haven't installed Angular CLI globally yet, run:
+
+```bash
+npm install -g @angular/cli 
+```
+Then, navigate to the project directory:
+
 ```bash
 cd books-project
 ```
@@ -86,4 +93,3 @@ The server responds with data in JSON format, which is displayed dynamically on 
 ## 🚀 Bonuses:
 
 Angular animations are used in the `BookDetailsPage` component. The `fadeIn` animation triggers when the page loads, making the book details smoothly appear.
-```

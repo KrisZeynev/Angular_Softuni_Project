@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './components/not-found/not-found';
 import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,11 +22,13 @@ export const routes: Routes = [
   },
   {
     path: 'create-comment/:id',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/comments/comment-create-form/comment-create-form').then(c => c.CommentCreateForm)
   },
   {
     path: 'edit-comment/:id',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/comments/comment-edit-form/comment-edit-form').then(c => c.CommentEditForm)
   },
@@ -56,11 +59,13 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [guestGuard],
     loadComponent: () =>
       import('./pages/login-page/login-page').then((c) => c.LoginPage),
   },
   {
     path: 'register',
+    canActivate: [guestGuard],
     loadComponent: () =>
       import('./pages/register-page/register-page').then((c) => c.RegisterPage),
   },
