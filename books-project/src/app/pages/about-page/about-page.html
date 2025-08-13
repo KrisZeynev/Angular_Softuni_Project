@@ -1,30 +1,51 @@
 <div class="about-container">
   <h1 class="about-title">About page</h1>
-
+<!-- 
   <p class="about-subtitle">
     Welcome to my Angular Books Project!
-  </p>
+  </p> -->
 
   <div class="about-card">
     <h2 class="about-section-title">Overview</h2>
 
     <p class="about-text">
-      The main purpose of this project is to showcase all the skills
-      acquired during the Angular course at SoftUni.
-    </p>
+      This is my Angular app that allows authenticated users to create new books. If the currently authenticated user is
+      the owner of a book, they have the ability to edit or delete the book. Every authenticated user can add comments,
+      and only the owner of a comment can edit or delete it.<br/><br/>
 
-    <p class="about-text">
-      The main functionalities of the platform include adding books and if the user is the creator of the
-      book, they can edit it. Additionally, users can add comments.
+      Non-authenticated users can only view the already added books and see their details, but they cannot interact with
+      them.
     </p>
 
     <h3 class="about-section-subtitle">Technologies Used</h3>
 
     <ul class="about-list">
       <li><strong>Angular</strong> – for speed and modularity</li>
-      <li><strong>Custom CSS</strong> – for styling</li>
       <li><strong>SoftUni practice server</strong> – for backend</li>
-      <li><strong>Angular Router</strong> – for client-side navigation</li>
     </ul>
+
+    <div class="about-author-container">
+      <h2 class="about-section-title">About the Author</h2>
+
+      <div class="about-author-card">
+        <svg class="author-icon" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#10b981"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4" />
+          <path d="M5.5 21a6.5 6.5 0 0 1 13 0" />
+        </svg>
+
+        <p class="about-text">
+          This project was created by <strong>Kris Zeynev</strong> as part of the Angular course at SoftUni.
+        </p>
+
+        <div class="about-github">
+          <p>Check out the project on GitHub:</p>
+          <a href="https://github.com/KrisZeynev/Angular_Softuni_Project" target="_blank" class="github-link">
+            https://github.com/KrisZeynev/Angular_Softuni_Project
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

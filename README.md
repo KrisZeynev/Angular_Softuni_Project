@@ -92,3 +92,5 @@ The server responds with data in JSON format, which is displayed dynamically on 
 ## 🚀 Bonuses:
 
 Angular animations are used in the `BookDetailsPage` component. The `fadeIn` animation triggers when the page loads, making the book details smoothly appear.
+
+Use an SVG icon to represent the author in the About page section.

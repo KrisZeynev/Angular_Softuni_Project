@@ -50,3 +50,50 @@
 .about-list li {
   margin-bottom: 0.5rem;
 }
+
+.about-author-container {
+  margin-top: 2rem;
+}
+
+.about-author-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e5e7eb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.author-icon {
+  width: 120px;
+  height: 120px;
+  stroke: #1f2937;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, stroke 0.3s ease;
+}
+
+.author-icon:hover {
+  transform: scale(1.1);
+  stroke: #111827;
+}
+
+.about-github {
+  margin-top: 1rem;
+}
+
+.github-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
