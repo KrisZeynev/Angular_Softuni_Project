@@ -38,7 +38,6 @@ export class BookService {
 
   getBook(id: string): Observable<Book> {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
-    // return this.http.get<Book[]>(`${this.apiUrl}/${id}`);
   }
 
   getLastFiveBooks(): Observable<Book[]> {
@@ -58,7 +57,6 @@ export class BookService {
     return this.http.get<Book[]>(url);
   }
 
-  // searchBooksByNumber(field: string, term: any): Observable<Book[]> {
   searchBooksByNumber(field: string, term: string): Observable<Book[]> {
     const termString = String(term ?? '');
     const whereQuery = encodeURIComponent(`${field}="${termString}"`);
@@ -66,41 +64,22 @@ export class BookService {
     return this.http.get<Book[]>(url);
   }
 
-  // checkIfBookExists(isbn: string): Observable<boolean> {
-  //   const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
-  //   const url = `${this.apiUrl}?where=${whereQuery}`;
-
-  //   return this.http.get<Book[]>(url).pipe(map((books) => books.length > 0));
-  // }
-
-  // checkIfBookExists(isbn: string, accessToken: string): Observable<boolean> {
-  //   const headers = new HttpHeaders({
-  //     'X-Authorization': accessToken,
-  //   });
-
-  //   const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
-  //   const url = `${this.apiUrl}?where=${whereQuery}`;
-
-  //   return this.http
-  //     .get<Book[]>(url, { headers })
-  //     .pipe(map((books) => books.length > 0));
-  // }
   checkIfBookExists(isbn: string, accessToken: string): Observable<boolean> {
-  const headers = new HttpHeaders({
-    'X-Authorization': accessToken,
-  });
+    const headers = new HttpHeaders({
+      'X-Authorization': accessToken,
+    });
 
-  const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
-  const url = `${this.apiUrl}?where=${whereQuery}`;
+    const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
+    const url = `${this.apiUrl}?where=${whereQuery}`;
 
-  return this.http.get<Book[]>(url, { headers }).pipe(
-    map((books) => books.length > 0),
-    catchError((err) => {
-      console.warn('Check book existence failed, ISBN does not exist.', err);
-      return of(false);
-    })
-  );
-}
+    return this.http.get<Book[]>(url, { headers }).pipe(
+      map((books) => books.length > 0),
+      catchError((err) => {
+        console.warn('Check book existence failed, ISBN does not exist.', err);
+        return of(false);
+      })
+    );
+  }
 
   getBookByOwnerAndId(
     currentUserId: string,

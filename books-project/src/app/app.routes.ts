@@ -16,19 +16,16 @@ export const routes: Routes = [
   },
   {
     path: 'book-details/:id',
-    // canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/book-details-page/book-details-page').then(c => c.BookDetailsPage)
   },
   {
     path: 'create-comment/:id',
-    // canActivate: [authGuard],
     loadComponent: () =>
       import('./components/comments/comment-create-form/comment-create-form').then(c => c.CommentCreateForm)
   },
   {
     path: 'edit-comment/:id',
-    // canActivate: [authGuard],
     loadComponent: () =>
       import('./components/comments/comment-edit-form/comment-edit-form').then(c => c.CommentEditForm)
   },
@@ -75,7 +72,6 @@ export const routes: Routes = [
   },
   {
     path: 'logout',
-    // canActivate: [authGuard],
     redirectTo: '/home',
     pathMatch: 'full',
   },

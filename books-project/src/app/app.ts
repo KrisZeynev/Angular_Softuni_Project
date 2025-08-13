@@ -11,12 +11,23 @@ import { CatalogPage } from './pages/catalog-page/catalog-page';
 import { AddNewBook } from './pages/add-new-book/add-new-book';
 import { FavoritesPage } from './pages/favorites-page/favorites-page';
 
-
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomePage, CatalogPage, Header, Footer, AboutPage, RegisterPage, LoginPage, BookDetailsCard, AddNewBook, FavoritesPage],
+  imports: [
+    RouterOutlet,
+    HomePage,
+    CatalogPage,
+    Header,
+    Footer,
+    AboutPage,
+    RegisterPage,
+    LoginPage,
+    BookDetailsCard,
+    AddNewBook,
+    FavoritesPage,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('books-project');

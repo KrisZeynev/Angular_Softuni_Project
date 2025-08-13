@@ -55,7 +55,7 @@ Non-authenticated users can only view the already added books and see their deta
 ```plaintext
 src/
  ├── app/
- │   ├── components/      # Reusable UI elements such as headers, footers, and book cards
+ │   ├── components/      # Reusable UI elements such as header, footer, and book card
  │   ├── guards/          # AuthGuard for route protection
  │   ├── services/        # Angular services for handling users, books, and comments
  │   ├── pages/           # Main pages (Home, Catalog, Book Details, Favorites)
