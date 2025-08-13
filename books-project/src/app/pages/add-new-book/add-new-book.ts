@@ -99,51 +99,102 @@ export class AddNewBook {
   }
 
   onSubmit() {
-    if (this.bookForm.invalid) {
-      this.bookForm.markAllAsTouched();
-      return;
-    }
-
-    this.isSubmitting = true;
-    const accessToken = localStorage.getItem('accessToken') || '';
-    const isbn = this.bookForm.get('isbn')?.value;
-
-    this.bookService.checkIfBookExists(isbn).subscribe({
-      next: (exists) => {
-        if (exists) {
-          this.errorMessage = true;
-          this.isSubmitting = false;
-          this.cdr.detectChanges();
-
-          setTimeout(() => {
-            this.errorMessage = false;
-            this.cdr.detectChanges();
-          }, 1500);
-        } else {
-          const book: Book = this.bookForm.value;
-
-          this.bookService.createBook(book, accessToken).subscribe({
-            next: (response) => {
-              this.successMessage = true;
-              this.cdr.detectChanges();
-
-              setTimeout(() => {
-                this.successMessage = false;
-                this.isSubmitting = false;
-                this.bookForm.reset();
-              }, 1000);
-            },
-            error: (err) => {
-              console.log('Error creating book', err);
-              this.isSubmitting = false;
-            },
-          });
-        }
-      },
-      error: (err) => {
-        console.log('Error checking book existence', err);
-        this.isSubmitting = false;
-      },
-    });
+  if (this.bookForm.invalid) {
+    this.bookForm.markAllAsTouched();
+    return;
   }
+
+  this.isSubmitting = true;
+  const accessToken = localStorage.getItem('accessToken') || '';
+  const isbn = this.bookForm.get('isbn')?.value;
+
+  this.bookService.checkIfBookExists(isbn, accessToken).subscribe({
+    next: (exists) => {
+      if (exists) {
+        this.errorMessage = true;
+        this.isSubmitting = false;
+        this.cdr.detectChanges();
+
+        setTimeout(() => {
+          this.errorMessage = false;
+          this.cdr.detectChanges();
+        }, 1500);
+      } else {
+        const book: Book = this.bookForm.value;
+
+        this.bookService.createBook(book, accessToken).subscribe({
+          next: () => {
+            this.successMessage = true;
+            this.cdr.detectChanges();
+
+            setTimeout(() => {
+              this.successMessage = false;
+              this.isSubmitting = false;
+              this.bookForm.reset();
+            }, 1000);
+          },
+          error: (err) => {
+            console.log('Error creating book', err);
+            this.isSubmitting = false;
+          },
+        });
+      }
+    },
+    error: (err) => {
+      console.log('Error checking book existence', err);
+      this.isSubmitting = false;
+    },
+  });
+}
+
+
+  // onSubmit() {
+  //   if (this.bookForm.invalid) {
+  //     this.bookForm.markAllAsTouched();
+  //     return;
+  //   }
+
+  //   this.isSubmitting = true;
+  //   const accessToken = localStorage.getItem('accessToken') || '';
+  //   const isbn = this.bookForm.get('isbn')?.value;
+
+  //   const book: Book = this.bookForm.value;
+
+  //   this.bookService.createBook(book, accessToken).subscribe({
+  //     next: () => {
+  //       this.successMessage = true;
+  //       this.cdr.detectChanges();
+
+  //       setTimeout(() => {
+  //         this.successMessage = false;
+  //         this.isSubmitting = false;
+  //         this.bookForm.reset();
+  //       }, 1000);
+  //     },
+  //     error: (err) => {
+  //       console.log('Error creating book', err);
+  //       this.isSubmitting = false;
+  //     },
+  //   });
+
+  //   // this.bookService.checkIfBookExists(isbn, accessToken).subscribe({
+  //   //   next: (exists) => {
+  //   //     if (exists) {
+  //   //       this.errorMessage = true;
+  //   //       this.isSubmitting = false;
+  //   //       this.cdr.detectChanges();
+
+  //   //       setTimeout(() => {
+  //   //         this.errorMessage = false;
+  //   //         this.cdr.detectChanges();
+  //   //       }, 1500);
+  //   //     } else {
+  //   //     }
+  //   //   },
+  //   //   error: (err) => {
+  //   //     console.log('Error checking book existence', err);
+  //   //     this.isSubmitting = false;
+  //   //   },
+  //   // });
+  // }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../../models/book.model';
-import { map } from 'rxjs/operators';
+import { of, catchError, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -66,12 +66,41 @@ export class BookService {
     return this.http.get<Book[]>(url);
   }
 
-  checkIfBookExists(isbn: string): Observable<boolean> {
-    const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
-    const url = `${this.apiUrl}?where=${whereQuery}`;
+  // checkIfBookExists(isbn: string): Observable<boolean> {
+  //   const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
+  //   const url = `${this.apiUrl}?where=${whereQuery}`;
 
-    return this.http.get<Book[]>(url).pipe(map((books) => books.length > 0));
-  }
+  //   return this.http.get<Book[]>(url).pipe(map((books) => books.length > 0));
+  // }
+
+  // checkIfBookExists(isbn: string, accessToken: string): Observable<boolean> {
+  //   const headers = new HttpHeaders({
+  //     'X-Authorization': accessToken,
+  //   });
+
+  //   const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
+  //   const url = `${this.apiUrl}?where=${whereQuery}`;
+
+  //   return this.http
+  //     .get<Book[]>(url, { headers })
+  //     .pipe(map((books) => books.length > 0));
+  // }
+  checkIfBookExists(isbn: string, accessToken: string): Observable<boolean> {
+  const headers = new HttpHeaders({
+    'X-Authorization': accessToken,
+  });
+
+  const whereQuery = encodeURIComponent(`isbn="${isbn}"`);
+  const url = `${this.apiUrl}?where=${whereQuery}`;
+
+  return this.http.get<Book[]>(url, { headers }).pipe(
+    map((books) => books.length > 0),
+    catchError((err) => {
+      console.warn('Check book existence failed, ISBN does not exist.', err);
+      return of(false);
+    })
+  );
+}
 
   getBookByOwnerAndId(
     currentUserId: string,
