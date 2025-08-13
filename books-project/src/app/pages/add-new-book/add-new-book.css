@@ -92,6 +92,7 @@ input:focus {
 }
 
 .btn-cancel {
+    border: none;
     background-color: #dc2626;
 }
 

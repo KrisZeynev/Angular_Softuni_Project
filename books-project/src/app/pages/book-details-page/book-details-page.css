@@ -66,6 +66,7 @@
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.2s ease;
+  border: none;
 }
 
 .btn-blue {
@@ -77,6 +78,7 @@
 }
 
 .btn-delete {
+  border: none;
   background-color: #ef4444;
 }
 
